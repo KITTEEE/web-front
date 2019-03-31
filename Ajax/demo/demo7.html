@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo7 json格式数据</title>
+    <script>
+        /* 
+            json格式与js对象的区别
+            1. json数据没有变量
+            2. json形式的数据结尾没有分号
+            3. json数据中的键必须用双引号包住
+         */
+        /* 
+            //js对象
+            var obj = {
+                name:'zhangsan',
+                age:12,
+                lover:['coding','swimming','dacing'],
+                friend:{
+                    high:'180cm',
+                    weight:'80kg'
+                }
+            };//这里有分号
+            //json数据格式
+            {
+                "name":"zhangsan",
+                "age":12,
+                "lover":["coding","swimming","sining"],
+                "friend":{
+                    "high":"180cm",
+                    "weight":"80kg",
+                    "lover":["coding","swimming","sining"],
+                    "friend":{}
+                }
+            }
+          */
+        var str = '{"name":"zhangsan","age":"12"}';
+        var obj = JSON.parse(str); //把json形式的字符串转换成对象
+        console.log(obj);
+        var str1 = JSON.stringify(obj); //把对象转换成字符串
+        console.log(str1);
+
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                // 1、创建XMLHttpRequest对象
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                console.log(xhr.readyState + '-----------1-----------');
+                //2、准备发送
+                var param = 'username=' + username + '&password=' + password;
+                // xhr.open('post', './demo6data.xml', true);
+                // xhr.open('post', './demo7data.json', true);
+                xhr.open('post', './demo7.php', true);
+                // 3、执行发送动作
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); //post需设置请求头，否则接收不到参数
+                xhr.send(param); //post请求在这里传递，并且不需要转码
+                // 4、指定回掉函数
+                console.log(xhr.readyState + '-----------2-----------');
+                xhr.onreadystatechange = function () {
+                    console.log(xhr.readyState + '-----------3-----------');
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var data = xhr.responseText;
+                            // console.log(data);
+                            var data = JSON.parse(data);//把json形式的字符串转换成对象
+                            // console.log(data[0],data[1],data[2]);
+                            console.log(data);
+                            console.log(data.name1);
+                            console.log(data.name2);
+                            console.log(data.name3);
+                            // var d = eval("("+ data + ")");//早期用的比较多，把字符串解析成js代码并执行
+                            // var d = JSON.parse(data);
+                            // console.log(d.name);
+                            // console.log(d.age);
+                            // console.log(d.friend.high);
+                            // console.log(d.friend.weight);
+                            // var d = JSON.parse(data);
+                            // console.log(d);
+                            // var tag = '<div>' +
+                            //     '<span>' + d.name + '</span>' +
+                            //     '<span>' + d.age + '</span>' +
+                            //     '<span>' + d.lover + '</span>' +
+                            //     '</div>';
+                            // document.getElementById("showInfo").innerHTML = tag;
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <form>
+            用户名：
+            <input type="text" name="username" id="username" /><span id="info"></span><br>
+            密码：
+            <input type="text" name="password" id="password" /><br>
+            <input type="button" value="登录" id='btn'>
+        </form>
+    </div>
+    <div id="showInfo"></div>
+</body>
+
+</html>

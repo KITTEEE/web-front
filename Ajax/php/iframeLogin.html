@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>iframeLogin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css">
+    <script src="main.js"></script>
+    <script>
+        /* 
+            隐藏帧实现局部更新
+
+         */
+    </script>
+</head>
+<body>
+    <div>
+        <form action="./iframe.php" method="post" target="myframe">
+            用户名：<input type="text" name="username" /><span id="info"></span><br>
+            密码：<input type="text" name="password" /><br>
+            <input type="submit" value="登录">
+        </form>
+    </div>
+    <iframe width="0" height="0" frameborder="0" name="myframe"></iframe>
+</body>
+</html>

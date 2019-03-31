@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo3</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                /* 使用 Ajax 请求分为以下几步 */
+                // 1、创建XMLHttpRequest对象
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+
+                //2、准备发送
+                /* 
+                    参数一：请求方式 （get 获取数据，post提交数据）
+                    参数二：请求地址 如果是 get 请求那么请求参数必须在 url 中传递
+                    参数三：同步或异步标志位，默认是 true，flase表示同步
+                 */
+                 //encodeURI()用来对中文参数进行编码，防止乱码
+                 var param = 'username=' + username + '&password=' + password
+                 xhr.open('get','./demo3get.php?' + encodeURI(param),true);//get方式
+                 // 3、执行发送动作
+                 xhr.send(null)//get请求这里需要添加 null 参数
+                 // 4、指定回掉函数
+                 xhr.onreadystatechange = function(){
+                     if(xhr.readyState == 4){
+                         if(xhr.status == 200) {
+                             alert(xhr.responseText);
+                         }
+                     }
+                 }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <form>
+            用户名：
+            <input type="text" name="username" id="username" /><span id="info"></span><br>
+            密码：
+            <input type="text" name="password" id="password" /><br>
+            <input type="button" value="登录" id='btn'>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+{
+    "name":"zhangsan",
+    "age":12,
+    "lover":["coding","swimming","sining"],
+    "friend":{
+        "high":"180cm",
+        "weight":"80kg",
+        "lover":["coding","swimming","sining"],
+        "friend":{}
+    }
+}

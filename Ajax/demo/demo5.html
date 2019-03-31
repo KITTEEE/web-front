@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>demo5</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                /* 使用 Ajax 请求分为以下几步 */
+                // 1、创建XMLHttpRequest对象
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                //readyState=0表示xhr对象初始化完成
+                console.log(xhr.readyState + '-----------1-----------');
+                //2、准备发送
+                /* 
+                    参数一：请求方式 （get 获取数据，post提交数据）
+                    参数二：请求地址 如果是 get 请求那么请求参数必须在 url 中传递
+                    参数三：同步或异步标志位，默认是 true，flase表示同步
+                    post和get的区别：post请求参数通过send()传递，不需要通过encodeURI转码
+                    必须设置请求头
+                 */
+                 //encodeURI()用来对中文参数进行编码，防止乱码
+                 var param = 'username=' + username + '&password=' + password;
+                 xhr.open('post','./demo4post.php',true);
+                 // 3、执行发送动作
+                 xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");//post需设置请求头，否则接收不到参数
+                 xhr.send(param);//post请求在这里传递，并且不需要转码
+                 // 4、指定回掉函数
+                 // readyState=1表示已经发送了请求
+                 console.log(xhr.readyState + '-----------2-----------');
+                 //onreadystatechange函数调用的条件就是readystate的状态是否发生变化(不包括从0变到1)
+                 xhr.onreadystatechange = function(){
+                     /* 
+                        readyState=2 浏览器收到服务器响应的数据
+                        readyState=3 正在解析数据
+                        readyState=4 数据已经解析完成，可以使用
+                      */
+                    console.log(xhr.readyState + '-----------3-----------');
+                    // readState=4表示数据可以使用，但不代表数据是正常的，所以还要判断status
+                    if(xhr.readyState == 4){
+                         /* 
+                            http的常见状态码
+                            200 响应成功
+                            404 没有找到请求的资源
+                            500 服务器端错误
+                          */
+                         if(xhr.status == 200) {
+                             //200表示数据正常
+                             alert(xhr.responseText);
+                         }
+                     }
+                 }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <form>
+            用户名：
+            <input type="text" name="username" id="username" /><span id="info"></span><br>
+            密码：
+            <input type="text" name="password" id="password" /><br>
+            <input type="button" value="登录" id='btn'>
+        </form>
+    </div>
+</body>
+
+</html>

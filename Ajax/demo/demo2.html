@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>初识Ajax</title>
+    <script>
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                /* 使用 Ajax 请求分为以下几步 */
+                // 1、创建XMLHttpRequest对象
+                // var xhr = new XMLHttpRequest();//标准浏览器
+                // var xhr = new ActiveXObject("Microsoft.XMLHTTP");//IE6
+                // console.log(xhr);
+                // alert(xhr);
+                var xhr = null;
+                if (window.XMLHttpRequest) {
+                    xhr = new XMLHttpRequest();
+                } else {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                // try {
+                //     xhr = new XMLHttpRequest();
+                // } catch (e) {
+                //     xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                // }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <form>
+            用户名：
+            <input type="text" name="username" id="username" /><span id="info"></span><br>
+            密码：
+            <input type="text" name="password" id="password" /><br>
+            <input type="button" value="登录" id='btn'>
+        </form>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<booklist>
+    <book>
+        <name>三国演义</name>
+        <author>罗贯中</author>
+        <desc>一个杀伐纷争的年代</desc>
+    </book>
+    <book>
+        <name>水浒传</name>
+        <author>施耐庵</author>
+        <desc>108条好汉的故事</desc>
+    </book>
+</booklist>

@@ -3,12 +3,18 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Page Title</title>
+    <title>查询成绩</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css">
     <script src="main.js"></script>
+    <script>
+        
+    </script>
 </head>
 <body>
-    <h1>欢迎</h1>
+    <form action="./getScore_post.php" method="POST">
+        考号：<input type="text" name="code"/>
+        <input type="submit" value="查询">
+    </form>
 </body>
 </html>

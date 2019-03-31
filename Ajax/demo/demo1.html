@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>初识Ajax</title>
+    <script>
+        window.onload = function(){
+            var btn = document.getElementById('btn');
+            btn.onclick = function(){
+                var username = document.getElementById('username').value;
+                var password = document.getElementById('password').value;
+                /* 使用 Ajax 请求分为以下几步 */
+                // 1、创建 XMLHttpRequest 对象
+                var xhr = new XMLHttpRequest();
+                // 2、准备发送 open(请求方式，请求的页面，是否异步)
+                xhr.open('get','./demo1check.php?username=' + username + '&password=' + password,true);
+                // 3、执行发送动作
+                xhr.send(null);
+                // 4、指定回掉函数 
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            var data = xhr.responseText;
+                            var info = document.getElementById('info');
+                            console.log(data);
+                            if (data == '1') {
+                                info.innerHTML = '登录成功';
+                            }else if(data == '2'){
+                                info.innerHTML = '用户名或密码错误';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div>
+        <form>
+            用户名：
+            <input type="text" name="username" id="username"/><span id="info"></span><br>
+            密码：
+            <input type="text" name="password" id="password" /><br>
+            <input type="button" value="登录" id='btn'>
+        </form>
+    </div>
+</body>
+
+</html>
