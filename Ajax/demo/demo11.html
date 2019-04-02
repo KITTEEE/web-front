@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax图书查询</title>
+    <style type="text/css">
+        #container {
+            width: 360px;
+            min-height: 100px;
+            background-color: lightgreen;
+            position: absolute;
+            left: 50%;
+            top: 10px;
+            margin-left: -180px;
+        }
+    </style>
+    <script src="./jquery.js"></script>
+    <script>
+        /*
+        jQuery-ajax相关API基本使用
+        */
+        window.onload = function () {
+            var btn = document.getElementById('btn');
+            btn.onclick = function () {
+                var code = document.getElementById('code').value;
+                var info = document.getElementById('info');
+                $.ajax({
+                    type: 'post',
+                    // url:'.demo10.php?code=' + code,
+                    url: './demo10.php',
+                    data: {
+                        code: code
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var info = document.getElementById('info');
+                        if (data.flag == 0) {
+                            info.innerHTML = '没有这本书';
+                        } else {
+                            var tag = '<ul><li>书名：' + data.bookname + '</li><li>作者：' + data.author +
+                                '</li><li>描述：' + data.desc + '</li></ul>';
+                            info.innerHTML = tag;
+                        }
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="container">
+        <div>
+            图书编码：<input type="text" name="code" id="code">
+            <input type="button" value="查询" id="btn">
+        </div>
+        <div id="info"></div>
+</body>
+
+</html>
