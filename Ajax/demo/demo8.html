@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Ajax的同步异步</title>
+    <script>
+        /* 
+            同步和异步相对来说：同步 阻塞；异步 不阻塞
+            领导-秘书-小李  =   浏览器-XHR-服务器
+            领导叫秘书叫小李汇报工作，并不会让领导的工作停止
+         */
+        window.onload = function(){
+            var btn = document.getElementById('btn');
+            console.log(btn);
+            btn.onclick = function () { 
+                //创建 xhr对象
+                var xhr = null;
+                if(window.XMLHttpRequest){
+                    xhr = new XMLHttpRequest();
+                }else{
+                    xhr = new ActiveXObject("MirsoftXMLHTTP");
+                }
+                //准备发送
+                xhr.open('get','demo8.php');
+                //执行发送动作
+                xhr.send(null);
+                //执行回调函数
+                console.log(1);
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState == 4){
+                        if(xhr.status == 200){
+                            var data = xhr.responseText;
+                            var obj = JSON.parse(data);
+                            console.log(obj);
+                            var tag = '<div>'+
+                                            '<span>' + obj.info + '</span>'+
+                                            '<span>' + obj.message + '</span>'+
+                                        '</div>';
+                            var info = document.getElementById('info');
+                            info.innerHTML = tag;
+                            console.log(2);
+                        }
+                    }
+                }
+                console.log(3);
+                //log顺序为 1 3 2
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="info"></div>
+    <input id="btn" type="button" value="点击">
+</body>
+</html>

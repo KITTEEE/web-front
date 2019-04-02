@@ -29,7 +29,6 @@
                     post和get的区别：post请求参数通过send()传递，不需要通过encodeURI转码
                     必须设置请求头
                  */
-                 //encodeURI()用来对中文参数进行编码，防止乱码
                  var param = 'username=' + username + '&password=' + password;
                  xhr.open('post','./demo4post.php',true);
                  // 3、执行发送动作
