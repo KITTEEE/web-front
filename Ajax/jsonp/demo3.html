@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery中的跨域请求</title>
+    <script src="./jquery.js">
+        $(function(){
+            $('#btn').click(function(){
+                $.ajax({
+                    type:'get',
+                    url:'http://tom.com/jsonp.php',
+                    dataType:'jsonp',
+                    jsonp:'cb',//jsonp属性的作用就是自定义参数名字（callback=abc 这里的名字指的是等号前面的键，后端根据这个键获取方法名，jquery的默认参数名称是callback）
+                    jsonpCallback:'abc',//这个属性的作用就是自定义回调函数的名字（callback=abc ，这里的名字指的是等号后面的值）
+                    data:{},
+                    success:function(){
+                        console.log(data.username,data.password);
+                    },
+                    error:function(){
+                        console.dir(data);
+                        console.log('error');
+                    },
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <input type="button" value="点击" id="btn">
+</body>
+</html>
