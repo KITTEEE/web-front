@@ -1,3 +1,4 @@
+/* container容器 */
 .jd_layout{
     width: 100%;
     max-width: 640px;
@@ -6,8 +7,10 @@
     margin: 0 auto;
     background-color: #ccc;
 }
+
 /* 顶部搜索块 */
 .jd_search {
+    z-index: 19;
     /* 固定在顶部 position:fixed会导致宽度以视口为主
     所以要添加max-width */
     position: fixed;
@@ -64,3 +67,44 @@
     left: 0;
     top: 0;
 } */
+
+/* 轮播图样式 */
+.jd_banner{
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+.jd_bannerImg{
+    width:800%;
+
+}
+.jd_bannerImg li {
+    width: 12.5%;
+    float: left;
+}
+.jd_bannerImg li img{
+    width: 100%;    
+}
+
+.jd_bannerIndicator {
+    height: 10px;
+    width: 140px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.jd_bannerIndicator li{
+    width: 6px;
+    height: 6px;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    float: left;
+    margin-left: 10px;
+}
+.jd_bannerIndicator li:first-of-type{
+    margin-left: 0;
+}
+.jd_bannerIndicator li.active{
+    background-color: #fff;
+}
