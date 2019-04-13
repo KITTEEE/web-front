@@ -20,8 +20,47 @@
     width: 56px;
     height: 30px;
     position: absolute;
-    left: 0;
-    top:0;
+    left: 10px;
+    top:10px;
     background-color: blue;
-    background: url("./images/big.png");
+    background: url("../images/small.png");
+    background-repeat: no-repeat;
 }
+.jd_login {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #fff;
+
+}
+.jd_searchbox{
+    /* position: relative; */
+    width: 100%;
+    height: 100%;
+    padding-left: 76px;
+    padding-right: 50px;
+}
+.jd_searchbox input {
+    width: 100%;
+    /* max-width: 500px; */
+    height: 30px;
+    margin-top: 5px;
+    border-radius: 15px;
+    padding-left: 30px;
+    color: #666;
+}
+/* 使用伪元素添加放大镜 */
+/* .jd_searchbox::before {
+    content: "";
+    height: 23px;
+    width: 27px;
+    position: absolute;
+    background: url("../images/jd_sprites.png");
+    background-size: 200px 200px;
+    background-position: -56px -108px;
+    left: 0;
+    top: 0;
+} */
