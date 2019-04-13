@@ -1,0 +1,41 @@
+/* 公共样式 */
+
+/* 1. 样式重置 */
+html,body,ul,li,img,a,p,div{
+    padding: 0;
+    margin: 0;
+    /* 设置盒子模型 */
+    box-sizing: border-box;
+    /* 去除移动端特有的单击高亮效果 */
+    -webkit-tap-highlight-color: transparent;
+}
+body {
+    font-family: "微软雅黑",sans-serif;
+    font-size: 13px;
+    overflow: scroll;
+}
+a,a:hover {
+    text-decoration: none;
+    color: #666;
+}
+ul {
+    list-style: none;
+}
+input {
+    /* 清除获取焦点时默认的边框阴影 */
+    outline: none;
+    /* 去除边框 */
+    border: none;
+    /* 添加边框 */
+    border:1px solid #ccc;
+}
+
+/* 2. 添加新的样式 */
+.clearfix::before,
+.clearfix::after {
+    content: "";
+    height: 0;
+    line-height: 0px;
+    clear: both;
+    visibility: hidden;
+}
