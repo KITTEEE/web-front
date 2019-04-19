@@ -13,7 +13,8 @@
                 display: block;
                 > img{
                     display: none;
-                    /* 为防止父元素被撑大，子元素需要绝对定位，父元素需要相对定位 */
+                    /* 为防止父元素被撑大
+                    子元素需要绝对定位，父元素需要相对定位 */
                     position: absolute;
                     top: 49px;
                     left: 50%;
@@ -28,5 +29,57 @@
                 }
             }
         }
+        > div:nth-last-of-type(1){
+            > .btn-danger{
+                background-color: @baseColor;
+                border-color: @baseColor;
+            }
+            > .btn {
+                padding: 4px 15px;
+            }
+            .btn-link{
+                color: #333;
+                &:hover{
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+}
+.wjs_nav {
+    /* 不要给导航条直接加高度,否则屏幕缩小后手风琴会溢出 */
+    font-size: 16px;
+    .navbar-brand{
+        height: 80px;
+        padding: 30px 30px;
+        > .wjs_icon {
+            font-size: 40px;
+        }
+        > span:first-of-type{
+            color: @baseColor;
+        }
+        > span:last-of-type{
+            color: #333;
+        }
+    }
+    .navbar-nav {
+        > li {
+            > a{
+                line-height: 50px;
+            }
+            > a:hover,a:focus{
+                color: #777;
+                border-bottom: 3px solid @baseColor;
+            }
+        }
+        .active {
+            > a,a:hover,a:focus{
+                background-color: transparent;
+                border-bottom: 3px solid @baseColor;
+            }
+        }
+    }
+    .navbar-toggle {
+        margin-top: 23px;
     }
 }
