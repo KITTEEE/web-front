@@ -318,6 +318,15 @@
             right: -8px;
         }
     }
+    .wjs_news_line {
+        width: 1px;
+        height: 100%;
+        content: "";
+        border-left: 1px dashed @baseColor;
+        position: absolute;
+        top: 0;
+        left: 45px;
+    }
     .nav-tabs {
         border-bottom: none;
         > li {
@@ -343,6 +352,9 @@
                 color: #fff;
                 font-size: 30px;
             }
+        }
+        > li:last-of-type {
+            margin-bottom: 0px;
         }
         
     }

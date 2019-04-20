@@ -271,6 +271,15 @@
   bottom: -4px;
   right: -8px;
 }
+.wjs_news .wjs_news_line {
+  width: 1px;
+  height: 100%;
+  content: "";
+  border-left: 1px dashed #e92322;
+  position: absolute;
+  top: 0;
+  left: 45px;
+}
 .wjs_news .nav-tabs {
   border-bottom: none;
 }
@@ -295,4 +304,7 @@
 .wjs_news .nav-tabs > li .wjs_icon {
   color: #fff;
   font-size: 30px;
+}
+.wjs_news .nav-tabs > li:last-of-type {
+  margin-bottom: 0px;
 }
