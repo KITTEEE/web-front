@@ -24,6 +24,7 @@
   transform: translateX(-50%);
   border: 1px solid #ccc;
   border-top: none;
+  z-index: 999;
 }
 .wjs_header .row > div:nth-of-type(-n+3) > .wjs_code:hover > img {
   display: block;
@@ -93,4 +94,138 @@
   background-position: center;
   /* 设置背景图大小 */
   background-size: cover;
+}
+.wjs_info {
+  padding-top: 40px;
+  padding-bottom: 30px;
+}
+.wjs_info .media {
+  padding-left: 50px;
+  margin-bottom: 20px;
+}
+.wjs_info .media:hover {
+  cursor: pointer;
+  color: #e92322;
+}
+.wjs_info .media .wjs_icon {
+  font-size: 30px;
+}
+.wjs_reverse {
+  height: 60px;
+  line-height: 60px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.wjs_reverse .wjs_icon {
+  font-size: 17px;
+}
+.wjs_reverse .reverse_now {
+  color: #e92322;
+  border-bottom: 1px dashed #e92322;
+}
+.wjs_reverse a:hover {
+  color: #e92322;
+}
+.wjs_product {
+  clear: both;
+  background-color: #eee;
+  padding: 30px;
+}
+.wjs_product .nav-tabs > li {
+  padding: 0 15px;
+}
+.wjs_product .nav-tabs > li > a {
+  border: none;
+  border-radius: 0px;
+  line-height: 50px;
+  background-color: transparent;
+}
+.wjs_product .nav-tabs > li > a:hover {
+  border-bottom: 3px solid #e92322;
+}
+.wjs_product .nav-tabs > li.active > a,
+.wjs_product .nav-tabs > li.active a:hover,
+.wjs_product .nav-tabs > li.active a:focus {
+  border: none;
+  border-radius: 0;
+  background-color: #eee;
+  border-bottom: 3px solid #e92322;
+}
+.wjs_product .wjs_pBox {
+  height: 150px;
+  margin-top: 20px;
+  background-color: #fff;
+}
+.wjs_product .wjs_pBox .wjs_pLeft {
+  margin-right: 100px;
+  height: 150px;
+  padding-top: 10px;
+  font-size: 12px;
+}
+.wjs_product .wjs_pBox .wjs_pLeft > p {
+  text-align: center;
+  font-size: 16px;
+}
+.wjs_product .wjs_pBox .wjs_pLeft .row {
+  margin-left: -10px;
+  margin-right: -10px;
+}
+.wjs_product .wjs_pBox .wjs_pLeft .row > div:nth-of-type(even) {
+  text-align: right;
+}
+.wjs_product .wjs_pBox .wjs_pRight {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  height: 150px;
+  width: 100px;
+  border-left: 1px dashed #ccc;
+  text-align: center;
+  padding-top: 30px;
+}
+.wjs_product .wjs_pBox .wjs_pRight .wjs_tip {
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%);
+}
+.wjs_product .wjs_pBox .wjs_pRight .wjs_tip > span {
+  cursor: pointer;
+}
+.wjs_product .wjs_pBox .wjs_pRight .wjs_tip > span:first-of-type {
+  color: red;
+  border: 1px solid red;
+}
+.wjs_product .wjs_pBox .wjs_pRight .wjs_tip > span:last-of-type {
+  color: blue;
+  border: 1px solid blue;
+}
+.wjs_product .wjs_pBox .wjs_pRight > b {
+  font-size: 40px;
+  color: #e92322;
+}
+.wjs_product .wjs_pBox .wjs_pRight > sub {
+  color: #e92322;
+  bottom: 0;
+}
+.wjs_product .wjs_pBox .wjs_pRight::before,
+.wjs_product .wjs_pBox .wjs_pRight::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #eee;
+  position: absolute;
+  left: 0;
+}
+.wjs_product .wjs_pBox .wjs_pRight::before {
+  top: -5px;
+  left: -5px;
+  box-shadow: 0px -1px 1px #ddd inset;
+}
+.wjs_product .wjs_pBox .wjs_pRight::after {
+  bottom: -5px;
+  left: -5px;
+  box-shadow: 0px 1px 1px #ddd inset;
 }

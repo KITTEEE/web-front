@@ -1,4 +1,5 @@
 $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
     /*  监听屏幕大小改变 */
     //获取所有 item 元素
     var items = $(".carousel-inner .item");
