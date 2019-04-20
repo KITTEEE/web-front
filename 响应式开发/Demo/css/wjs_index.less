@@ -171,6 +171,10 @@
     clear: both;
     background-color: #eee;
     padding: 30px;
+    .tabs-parent {
+        width: 100%;
+        overflow: hidden;
+    }
     .nav-tabs {
         > li {
             padding: 0 15px;
@@ -200,6 +204,26 @@
         height: 150px;
         margin-top: 20px;
         background-color: #fff;
+        &.active {
+            background-color: @baseColor;
+            color: #fff;
+            > .wjs_pRight {
+                b {
+                    color: #fff;
+                }
+            }
+            > .wjs_pLeft{
+                position: relative;
+                &::before {
+                    font-family: "wjs";
+                    content: "\e915";
+                    font-size: 25px;
+                    position: absolute;
+                    top: -6px;
+                    left: 0;
+                }
+            }
+        }
         .wjs_pLeft {
             margin-right: 100px;
             height: 150px;
@@ -273,5 +297,53 @@
                 box-shadow: 0px 1px 1px #ddd inset;
             }
         }
+    }
+}
+.wjs_news {
+    padding: 20px;
+    .wjs_news_title {
+        position: relative;
+        font-size: 25px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        &::before {
+            content: "";
+            height: 8px;
+            width: 8px;
+            border: 1px solid #ccc;
+            border-radius: 50%;
+            position: absolute;
+            bottom: -4px;
+            right: -8px;
+        }
+    }
+    .nav-tabs {
+        border-bottom: none;
+        > li {
+            margin-bottom: 60px;
+            > a {
+                background-color: #ccc;
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                border: none;
+            }
+            > a:hover{
+                border: none;
+                background-color: @baseColor;
+            }
+            &.active {
+                > a {
+                    border: none;
+                    background-color: @baseColor;
+                }
+            }
+            .wjs_icon {
+                color: #fff;
+                font-size: 30px;
+            }
+        }
+        
     }
 }
