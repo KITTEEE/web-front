@@ -308,3 +308,37 @@
 .wjs_news .nav-tabs > li:last-of-type {
   margin-bottom: 0px;
 }
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .wjs_news .nav-tabs > li {
+    margin: 20px 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .wjs_news .nav-tabs > li {
+    margin: 20px 0px;
+    width: 25%;
+  }
+}
+.wjs_newslist {
+  list-style: none;
+  line-height: 60px;
+}
+.wjs_partner {
+  background-color: #eee;
+  padding: 20px 0;
+  text-align: center;
+}
+.wjs_partner h3 {
+  width: 100%;
+  text-align: center;
+}
+.wjs_partner ul {
+  list-style: none;
+}
+.wjs_partner ul > li {
+  display: inline-block;
+  margin-left: 20px;
+}
+.wjs_partner .wjs_icon {
+  font-size: 80px;
+}

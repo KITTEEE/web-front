@@ -356,6 +356,40 @@
         > li:last-of-type {
             margin-bottom: 0px;
         }
-        
+        @media screen and (min-width:768px) and (max-width:992px) {
+            > li {
+                margin:20px 30px;
+            }
+        }
+        @media screen and (max-width:768px) {
+            > li {
+                margin:20px 0px;
+                width: 25%;
+            }
+        }
     }
+}
+.wjs_newslist {
+    list-style: none;
+    line-height: 60px;
+}
+.wjs_partner {
+    background-color: #eee;
+    padding: 20px 0;
+    text-align: center;
+    h3{
+        width: 100%;
+        text-align: center;
+    }    
+    ul {
+        list-style: none;
+        > li {
+            display: inline-block;
+            margin-left: 20px;
+        }
+    }
+    .wjs_icon {
+        font-size: 80px;
+    }
+    
 }
