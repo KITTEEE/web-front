@@ -43,5 +43,33 @@
 // -------------------------------------------------
 
 /* 
-    //
+    //reset参数(剩余参数)
+    //会将剩余参数封装到数组中
+    function foo (a,b,...param) { 
+        console.log(a);
+        console.log(b);
+        console.log(param);
+    }
+    foo(1,2,3,4); // 1 2 [3,4]
 */
+
+/* 
+    //扩展运算符 ...
+    //将数组拆分为多个参数 与 reset相反
+    //before
+    function foo (a,b,c,d,e) { 
+        console.log(a + b + c + d + e);
+    }
+    foo(1,2,3,4,5); // 15
+    let arr = [1,2,3,4,5];
+    foo.apply(null,arr); // 15
+    // 应用扩展运算符
+    foo(...arr); // 15
+
+    // 合并数组
+    let arr1 = [1,2,3];
+    let arr2 = [4,5,6];
+    let arr3 = [...arr1,...arr2];
+    console.log(arr3);
+*/
+
