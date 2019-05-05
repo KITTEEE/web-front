@@ -11,5 +11,8 @@
   "license": "ISC",
   "dependencies": {
     "art-template": "^4.13.2"
+  },
+  "devDependencies": {
+    "es-checker": "^1.4.1"
   }
 }
