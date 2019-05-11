@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="jquery.js"></script>
+    <script type="text/javascript">
+    $(function(){
+        $('#btn').click(function(){
+            var obj = {
+                username : $('#username').val(),
+                password : $('#password').val()
+            }
+            $.ajax({
+                type : 'post',
+                url : 'http://localhost:3000/login',
+                contentType : 'application/json',
+                dataType : 'text',
+                // data : $('form:eq(0)').serialize(),
+                data : JSON.stringify(obj),
+                success : function(data){
+                    console.log(data);
+                }
+            });
+        });
+    }); 
+    </script>
+</head>
+<body>
+    <form action="http://localhost:3000/login" method="get">
+        用户名：<input type="text" name="username" id="username"><br>
+        密  码：<input type="password" name="password" id="password"><br>
+        <input type="button" id="btn" value="提交">
+    </form>
+</body>
+</html>
