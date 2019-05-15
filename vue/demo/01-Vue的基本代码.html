@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue实例</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <!-- Vue 实例所控制的元素区域就是 MVVM 中的 V 层 -->
+    <div id="app">
+        <p>{{ msg }}</p>
+    </div>
+
+    <script>
+        // 导入 vue 后，浏览器内存中会多一个 Vue 构造函数
+        // new 出来的 vm 对象是 MVVM 中的 VM 调度者
+        var vm = new Vue({
+            el : '#app', // el 属性表示这个 Vue 实例要控制页面上的哪个元素
+            data :  { // data 属性表示 el 中要用到的数据
+                msg : 'Hello Vue'
+            }
+        })
+    </script>
+</body>
+</html>

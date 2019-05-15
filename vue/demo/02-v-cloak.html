@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>v-cloak</title>
+    <style>
+        /* [v-cloak] {
+            display: none;
+        } */
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- 使用 v-cloak 可以解决插值表达式闪烁问题 -->
+        <p v-cloak>++++++++++ {{ msg }} ---------</p>
+        <!-- v-text 没有闪烁问题 -->
+        <!-- v-text 会覆盖元素中的内容，但是插值表达式只会替换占位符，不会把元素内容清空 -->
+        <h4 v-text="msg">=============</h4>
+        <!-- v-html 会将字符串转换成 html 代码，同时会覆盖元素中的内容-->
+        <div v-html="msg2">00000</div>
+
+        <!-- v-bind 用于属性绑定，可以简写成 : -->
+        <!-- v-bind 中可以写合法的 js 表达式 -->
+        <input type="button" value="按钮" v-bind:title="title + 123">
+        <input type="button" value="按钮" :title="title + 123">
+
+        <!-- v-on 用于事件绑定 可以简写成 @-->
+        <input type="button" value="按钮" v-on:click="show">        
+        <input type="button" value="按钮" @click="show">        
+        <input type="button" value="按钮" v-on='{mouseenter:enter,mouseleave:out}'>        
+
+    </div>
+
+
+    <script src="./lib/vue-2.4.0.js"></script>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg : 'hello vue',
+                msg2 : '<h1>我是一个h1</h1>',
+                title : '这是个title'
+            },
+            methods: { // methods属性中定义了当前Vue实例所有可用的方法
+                show:function(){
+                    alert('hello');
+                },
+                enter:function(){
+                    console.log('enter');
+                },
+                out:function(){
+                    console.log('out')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

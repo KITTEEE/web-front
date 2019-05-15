@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>品牌添加搜索案例</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+    <link rel="stylesheet" href="./lib/bootstrap-3.3.7.css">
+</head>
+
+<body>
+    <div id="app">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">添加品牌</h3>
+            </div>
+            <div class="panel-body form-inline">
+                <label>
+                    Id:
+                    <input type="text" class="form-control" v-model="id">
+                </label>
+
+                <label>
+                    Name:
+                    <input type="text" class="form-control" v-model="name">
+                </label>
+
+                <!-- 在Vue中，使用事件绑定机制，为元素指定处理函数的时候，如果加了小括号，就可以给函数传参了 -->
+                <input type="button" value="添加" class="btn btn-primary" @click="add()">
+
+                <!-- <label>
+                    搜索名称关键字：
+                    <input type="text" class="form-control" v-model="keywords">
+                </label> -->
+            </div>
+        </div>
+
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>品牌名</th>
+                    <th>添加时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 之前， v-for 中的数据，都是直接从 data 上的list中直接渲染过来的 -->
+                <!-- 在 search 方法内部，通过 执行 for 循环， 把所有符合 搜索关键字的数据，保存到 一个新数组中，返回 -->
+                <tr v-for="item in list" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.ctime }}</td>
+                    <!-- 超链接点击会触发刷新页面的默认事件 -->
+                    <td><a href="#" @click.prevent="del(item.id)"> 删除 </a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id: '',
+                name: '',
+                list:[
+                    { id: 1, name: '奔驰', ctime: new Date() },
+                    { id: 2, name: '宝马', ctime: new Date() }
+                ],
+            },
+            methods: {
+                add() {
+                    var code = {id:this.id,name:this.name,ctime:new Date()};
+                    this.list.push(code);
+                    this.id = this.name = '';
+                },
+                del(id) {
+                    /* 
+                        splice(index,howmany,item1,.....,itemX) 方法向/从数组中添加/删除项目，然后返回被删除的项目。
+                        index：要删除元素的索引值；howmany：要删除的元素数量；
+                    */
+                    /* some一直在数组中找符合条件的值，一旦找到，则不会继续迭代下去。 */
+                    this.list.some((item,i) => {
+                        if(item.id == id) {
+                            this.list.splice(i,1);
+                            return true;
+                        }
+                    })
+
+                    /* 
+                        findIndex(callback())会逐个对数组中的元素执行callback回调函数
+                        如果回调函数返回值为true，那么就停止整个函数的执行，并返回当前数组元素的索引值，否则返回-1。
+                    */
+                    // var itemIndex = this.list.findIndex((item)=>{
+                    //     if(item.id == id) {
+                    //         return true;
+                    //     }
+                    // })
+                    // this.list.splice(itemIndex,1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

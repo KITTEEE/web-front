@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>跑马灯效果</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="浪起来" @click="lang">
+        <input type="button" value="低调" @click="stop">
+        <p v-text="msg"></p>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '猥琐发育，别浪~~~！',
+                intervalId : null
+            },
+            methods: { // 要访问 data 中的数据，需要用 this 指向
+                // lang : function() {
+                //     // this 指向问题，原本的this 指向的是 Vue 实例
+                //     var _this = this;
+                //     setInterval(function(){
+                //         var str = _this.msg;
+                //         var start = str.substring(0,1);
+                //         var end = str.substring(1);
+                //         _this.msg = end + start;
+                //     },400)
+                // },
+                lang() {
+                    if(this.intervalId != null) return;
+                    this.intervalId = setInterval(() => {
+                        // 箭头函数可解决 this 指向问题
+                        var str = this.msg;
+                        var start = str.substring(0, 1);
+                        var end = str.substring(1);
+                        this.msg = end + start;
+                    }, 400)
+                },
+                stop() {
+                    clearInterval(this.intervalId);
+                    this.intervalId = null;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

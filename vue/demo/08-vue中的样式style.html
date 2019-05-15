@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 直接在元素上通过 `:style` 的形式，书写样式对象 -->
+        <h1 :style="{'color': 'red','font-weight': 200}">这是一个h1</h1>
+        <!-- 将样式对象，定义到 `data` 中，并直接引用到 `:style` 中 -->
+        <h1 :style="styleObj1">这是一个h1</h1>
+        <!-- 在 :style 中通过数组，引用多个 data 上的样式对象 -->
+        <h1 :style="[styleObj1,styleObj2]">这是一个h1</h1>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                styleObj1: {
+                    'color': 'red',
+                    'font-weight': 200
+                },
+                styleObj2: {
+                    'font-style': 'italic'
+                }
+            },
+            method: {}
+        })
+    </script>
+</body>
+
+</html>
