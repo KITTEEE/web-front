@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父组件传递方法给子组件</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 子组件要调用父组件的方法，需通过事件绑定机制把父组件的方法传递给子组件 -->
+        <son @func1="show1" @func2="show2"></son>
+        <!-- 子组件调用父组件方法且传参 -->
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <h3>这是一个子组件</h3>
+            <input type="button" value="点击这个按钮能够触发父组件的方法" @click="func1">
+            <input type="button" value="点击这个按钮能够触发父组件的方法并传递参数" @click="func2">
+        </div>
+    </template>
+    <script>
+
+        var son = {
+            template:'#tmpl',
+            data(){
+                return {
+                    sondata:{id:1,name:'zs'}
+                }
+            },
+            methods:{
+                func1(){
+                    // 通过this.$emit('函数名',参数1,参数2.....); 来调用父组件的方法
+                    this.$emit('func1');
+                },
+                func2() {
+                    this.$emit('func2','param1')
+                    // 同时可以传递子组件的数据给父组件使用！！
+                    this.$emit('func2',this.sondata)
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                datafromson:null
+            },
+            methods:{
+                show1() {
+                    console.log('调用了父组件的方法');
+                },
+                show2(data){
+                    console.log('调用了父组件的方法且传递了一个' + data)
+                    this.datafromson = data;
+                    console.log(this.datafromson);
+                }
+            },
+            components:{
+                son
+            }
+        })
+    </script>
+</body>
+</html>

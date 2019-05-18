@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>父组件向子组件传值</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <com1 v-bind:parentmsg="msg"></com1>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '父组件里的message'
+            },
+            methods: {},
+            components: {
+                com1: {
+                    data() {
+                        // 子组件中的 data 数据是自身私有的，是可读可写的
+                        // 比如：子组件通过 Ajax，请求回来的数据，都可以放到 data 身上
+                        return {
+                            title: '123',
+                            content: 'zs'
+                        }
+                    },
+                    // 子组件无法访问到父组件中 data 上的数据 和 methods 中的方法
+                    // template:'<h3>这是一个私有组件------{{msg}}</h3>'
+
+                    /* 父组件向子组件传递数据，需先使用属性绑定的形式给父组件绑定需要传递给子组件的数据
+                        然后子组件使用 props 数组接收，这样才能使用数据 */
+                    // 所有 props 中的数据都是通过父组件传递给子组件的
+                    // 另外，props 中的数据都是只读的，虽然能够成功修改但是 Vue不建议这么做，而且会报错
+                    props: ['parentmsg'],
+                    template: '<h3 @click="change">这是一个私有组件------{{parentmsg}}----{{title}}---{{content}}</h3>',
+                    methods:{
+                        change(){
+                            this.parentmsg = '被修改了'
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
