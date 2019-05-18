@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>过滤器的基本使用</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <p> {{ msg | msgFormat('疯狂','123') | test }} </p>
+    </div>
+
+    <!-- 
+        Vue 中过滤器的语法 Vue.filter('过滤器名称',function())
+        过滤器中的 function ，第一个参数，已经被规定死了
+        永远都是 过滤器 管道符前面 传递过来的数据
+        Vue.filter('过滤器的名称', function (data) {
+            return data + '123'
+        })
+     -->
+    <script>
+        Vue.filter('msgFormat', function (msg, arg1,arg2) {
+            // return msg.replace(/单纯/g,'邪恶');
+            return msg.replace(/单纯/g,arg1+arg2);//可传参
+        })
+        //可使用多个过滤器
+        Vue.filter('test',function(msg){
+            return msg + '哈哈哈哈哈';
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '曾经，我也是一个单纯的少年，单纯的我，傻傻的问，谁是世界上最单纯的男人'
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

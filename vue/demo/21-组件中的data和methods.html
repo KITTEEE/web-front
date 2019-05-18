@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件中的data和methods</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <mycom1></mycom1>
+        <mycom2></mycom2>
+        <hr>
+        <mycom2></mycom2>
+        <hr>
+        <mycom2></mycom2>
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <input type="button" value="+1" @click="add">
+            <h3>{{count}}</h3>
+        </div>
+    </template>
+    <script>
+        /* 组件的data需为一个function的原因:
+           如果组件的 data 为多个对象(数据)，则多个相同组件在调用时使用的都是同一组数据
+           这样就没办法使得各个组件之间独立开来
+           下面是一个示例
+        */
+        //    var dataObj = {count:0}; //相当于data是一个对象数据不是function
+        //    Vue.component('mycom2',{
+        //         template:'#tmpl',
+        //         data:function(){
+        //             return dataObj;
+        //         },
+        //         methods:{
+        //             add() {
+        //                 this.count++;
+        //             }
+        //         }
+        //    })
+
+        /* 这样由函数返回一个数据可以做到各组件之间相互独立 */
+        Vue.component('mycom2', {
+            template: '#tmpl',
+            data: function () {
+                return {
+                    count: 0
+                };
+            },
+            methods: {
+                add() {
+                    this.count++;
+                }
+            }
+        })
+
+        // 1. 组件可以有自己的 data 数据
+        // 2. 组件的 data 和 实例的 data 不一样,实例中的 data 可以为一个对象,但组件中的 data 必须是一个方法
+        // 3. 组件中的 data 除了必须为一个方法之外,还必须返回一个对象才行;
+        // 4. 组件中 的data 数据,使用方式,和实例中的 data 使用方式完全一样!!!
+        Vue.component('mycom1', {
+            template: '<h3>这是一个全局组件-----{{msg}}</h3>',
+            data: function () {
+                return {
+                    msg: '这是组件data数据中的msg'
+                }
+            }
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        })
+    </script>
+</body>
+
+</html>

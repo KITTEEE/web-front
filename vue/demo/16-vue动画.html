@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+     <!-- 2. 自定义两组样式，来控制 transition 内部的元素实现动画 -->
+    <style>
+        /* 
+           v-enter ~ v-enter-to ~ v-leave ~ v-leave-to
+           v-enter 表示元素进入之前的一个时间点的状态 v-enter-to 表示元素原本应该的状态
+           v-leave 表示元素开始离开的时候的一个时间点(状态)，此时的状态跟 v-enter-to 一样
+           v-leave-to 表示元素最后离开的时间点的状态
+           v-enter-active 表示元素进入的过程 ， v-leave-active表示元素离开的过程
+         */
+        .v-enter,.v-leave-to {
+            opacity: 0;
+            transform: translateX(200px);
+        }
+        .v-leave-active,.v-enter-active {
+            transition: all 0.8s ease
+        }
+        .my-enter,.my-leave-to {
+            opacity: 0;
+            transform: translateY(100px);
+        }
+        .my-leave-active,.my-enter-active {
+            transition: all 0.8s ease
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="toggle" @click="flag=!flag">
+        <!-- 1. 使用 transition 元素，把 需要被动画控制的元素，包裹起来 -->
+        <!-- transition 元素，是 Vue 官方提供的 -->
+        <transition>
+            <h3 v-if="flag">这是一个H3</h3>
+        </transition>
+        
+        <!-- 自定义动画 通过 transition 的 name 属性来定义
+            css 样式中使用 name-状态 来指定动画-->
+        <transition name="my">
+            <h6 v-if="flag">这是一个h6</h6>
+        </transition>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data:{
+                flag:false
+            },
+            methods:{}
+        })
+    </script>
+</body>
+</html>

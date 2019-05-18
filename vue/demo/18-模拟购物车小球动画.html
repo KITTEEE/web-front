@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>购物车小球动画</title>
+    <style>
+        .ball {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: red;
+        }
+    </style>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="加入购物车" @click="flag=!flag">
+        <transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+            <div v-if="flag" class="ball"></div>
+        </transition>
+    </div>
+
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: false
+            },
+            methods: {
+                // 动画钩子函数的第一个参数：el，表示 要执行动画的那个DOM元素，是个原生的 JS DOM对象
+                // 可以认为 ， el 是通过 document.getElementById('') 方式获取到的原生JS DOM对象
+                beforeEnter: function (el) {
+                    // beforeEnter 表示动画入场之前，此时，动画尚未开始
+                    // 可以 在 beforeEnter 中，设置元素开始动画之前的起始样式
+                    el.style.transform = "translate(0,0)"
+                },
+                enter: function (el, done) {
+                    // enter 表示动画 开始之后的样式，这里，可以设置小球完成动画之后的，结束状态
+                    el.offsetWidth // 这句话，没有实际的作用，但是，如果不写，出不来动画效果,可以认为 el.offsetWidth 会强制动画刷新
+                    el.style.transform = "translate(150px,400px)";
+                    el.style.transition = "all 1s ease";
+                    // 这里的 done 其实就是 afterEnter 这个函数，也就是说：done 是 afterEnter 函数的引用
+                    done();
+                },
+                afterEnter: function () {
+                    // 这句话， 第一个功能，是控制小球的显示与隐藏
+                    // 第二个功能： 直接跳过后半场动画，让 flag 标识符 直接变为 false
+                    // 当第二次再点击 按钮的时候， flag  false  ->    true
+                    this.flag = !this.flag
+
+                    // Vue 把一个完整的动画，使用钩子函数，拆分为了两部分：
+                    // 我们使用 flag 标识符，来表示动画的切换；
+                    // 刚以开始，flag = false  ->   true   ->   false
+                    // false 到 true 相当于前半场动画，true 到 false 相当于后半场动画 
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

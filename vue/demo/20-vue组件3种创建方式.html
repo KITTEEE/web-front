@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>组件的创建方式</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 如果组件名称使用了驼峰命名，在引用组件的时需要把大写的驼峰改为小写的字母
+            同时两个单词之前使用 - 链接； -->
+        <!-- <my-com></my-com> -->
+        <!-- 如果不使用驼峰,则直接拿名称来使用即可; -->
+        <mycom1></mycom1>
+        <mycom2></mycom2>
+        <mycom3></mycom3>
+        <mycom4></mycom4>
+        <!-- 下面这个是私有组件，无法使用 -->
+        <!-- <login1></login1> -->
+    </div>
+    
+
+    <div id="app2">
+        <login1></login1>
+        <login2></login2>
+        <login3></login3>
+    </div>
+
+    <!-- 使用 template 元素定义模板字符串 -->
+    <template id="tmpl">
+        <!-- 在这里也要遵循一个根元素的原则 -->
+        <div>
+            <h1>这是通过 template 元素,在外部定义的组件结构,这个方式,有代码的只能提示和高亮</h1>
+            <h4>好用,不错!</h4>
+        </div>
+    </template>
+
+    <template id="tmpl2">
+        <h3>这是一个私有的login2组件</h3>
+    </template>
+
+    <script>
+        /* 第一种创建方式：使用Vue.extends配合Vue.component创建组件 */
+        var com1 = Vue.extend({
+            template: '<h3>这是第一种组件创建方式</h3>'
+        });
+        // Vue.component('myCom', com1);
+        Vue.component('mycom1', com1);
+
+        /* 第二种创建方式：使用 Vue.component直接创建组件*/
+        Vue.component('mycom2', {
+            template: '<h3>这是一个由component直接创建的组件</h3>'
+        })
+
+        /* 无论是哪种组件，在创建的时候只能有一个根元素*/
+        Vue.component('mycom3', {
+            // template: '<h3>123</h3><span>321</span>' //没有同一个根元素会报错
+            template: '<div><h3>123</h3><span>321</span></div>' //正确，只能有一个根元素
+        })
+
+        /* 第三种创建方式： 将模板字符串定义到 #app 外的 template标签中，再使用 Vue.component来定义组件*/
+        Vue.component('mycom4', {
+            template: '#tmpl'
+        })
+
+        /* Vue实例 */
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {}
+        })
+
+        var login3 = {
+            template:'<h3>这是一个私有的login3组件</h3>'
+        }
+        var vm2 = new Vue({
+            el:"#app2",
+            data:{},
+            methods:{},
+            filters:{},
+            directives:{},
+            /* 定义一个私有的组件 */
+            components:{
+                login1:{
+                    template:'<h3>这是一个私有的login1组件</h3>'
+                },
+                login2:{
+                    template:'#tmpl2'
+                },
+                login3
+            },
+            
+        })
+    </script>
+</body>
+
+</html>
