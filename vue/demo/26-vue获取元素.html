@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue获取dom元素</title>
+    <script src="./lib/vue-2.4.0.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="btn" @click="getElem">
+        <h3 ref="myh3">这是一个h3</h3>
+        <login ref="mylogin"></login>
+    </div>
+
+    <script>
+
+        var login = {
+            template:'<h2>这是一个登录组件</h2>',
+            data(){
+                return {
+                    msg:'访问了组件的msg数据'
+                }
+            },
+            methods:{
+                show(){
+                    console.log('调用了组件的show方法')
+                }
+            }
+        }
+
+        var vm = new Vue({
+            el:'#app',
+            data:{},
+            methods:{
+                getElem(){
+                    /* 通过给元素设定 ref 属性，调用 this.$refs 即可获取该元素 */
+                    // console.log(this.$refs.myh3.innerText)
+                    /* 给组件添加 ref 属性还可以访问这个组件的数据和方法 */
+                    console.log(this.$refs.mylogin.msg)
+                    this.$refs.mylogin.show();
+                }
+            },
+            components: {
+                login
+            }
+        })
+    </script>
+</body>
+</html>

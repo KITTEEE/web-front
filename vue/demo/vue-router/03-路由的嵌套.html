@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>路由中的嵌套</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+    <script src="../lib/vue-router-3.0.1.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/account">Account</router-link>
+        <router-view></router-view>
+    </div>
+
+    <template id="tmpl">
+        <div>
+            <h3>这是一个account组件</h3>
+            <router-link to="/account/login">登录</router-link>
+            <router-link to="/account/register">注册</router-link>
+            <router-view></router-view>
+        </div>
+    </template>
+
+    <script>
+        var account = {
+            template: '#tmpl',
+        }
+
+        var login = {
+            template: '<h3>登录组件</h3>',
+        }
+
+        var register = {
+            template: '<h3>注册组件</h3>',
+        }
+
+        var router = new VueRouter({
+            routes: [{
+                path: '/account',
+                component: account,
+                children: [ // 通过 children 属性来实现路由嵌套
+                // 子路由的 path 前面，不要带 / ，否则永远以根路径开始请求，这样不方便我们用户去理解URL地址
+                    {
+                        path: 'login',
+                        component: login
+                    }, {
+                        path: 'register',
+                        component: register
+                    }
+                ]
+            }, ],
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router: router
+        })
+    </script>
+</body>
+
+</html>

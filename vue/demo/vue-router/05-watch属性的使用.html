@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>watch属性的使用</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+    <script src="../lib/vue-router-3.0.1.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <router-view></router-view>
+
+        <input type="text" v-model="firstname"> +
+        <input type="text" v-model="lastname"> =
+        <input type="text" v-model="fullname">
+    </div>
+    <script>
+        var login = {
+            template: '<h3>登录组件</h3>'
+        }
+
+        var register = {
+            template: '<h3>注册组件</h3>'
+        }
+
+        var router = new VueRouter({
+            routes: [{
+                    path: '/',
+                    redirect: '/login'
+                },
+                {
+                    path: '/login',
+                    component: login
+                }, {
+                    path: '/register',
+                    component: register
+                }
+            ]
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstname:'',
+                lastname:'',
+                fullname:''
+            },
+            methods: {},
+            router: router,
+            watch: {
+                'firstname':function(newVal,oldVal){
+                    this.fullname = newVal + '-' + this.lastname
+                },
+                'lastname':function(newVal,oldVal){
+                    this.fullname =  this.firstname + '-' + newVal 
+                },
+                '$route.path': function (newVal, oldVal) {
+                    // console.log(newVal + '---' + oldVal)
+                    if (newVal == '/login') {
+                        console.log('欢迎来到的登录页面');
+                    } else {
+                        console.log('欢迎来到注册页面');
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

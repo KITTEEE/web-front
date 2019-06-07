@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue中路由的基本使用</title>
+    <script src="../lib/vue-2.4.0.js"></script>
+    <script src="../lib/vue-router-3.0.1.js"></script>
+    <style>
+        /* router-link-active 是默认的路由高亮class .myatv 是通过构造函数的 linkActiveClass 属性自定义的 class */
+        .router-link-active,
+        .myatv {
+            color: white;
+            padding: 5px 5px;
+            font-weight: 800;
+            font-style: italic;
+            font-size: 30px;
+            text-decoration: underline;
+            background-color: lightblue;
+        }
+        .v-enter,.v-leave-to {
+            opacity: 0;
+            transform: translate(150px);
+        }
+        .v-leave-active,.v-enter-active {
+            transition: all 0.8s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- <a href="#/login">登录</a>
+        <a href="#/register">注册</a> -->
+
+        <!-- router-link 默认渲染为一个 a 标签，可通过 tag 属性改变渲染的标签 -->
+        <router-link to="/login" tag="span">登录</router-link>
+        <router-link to="/register">注册</router-link>
+
+        <!-- router-vie是 vue-router 提供的元素，专门用来做组件的占位符 -->
+        <!-- 路由规则匹配到的组件会展示到这个占位符中 -->
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+    </div>
+
+    <script>
+        var login = {
+            template: '<h2>登录组件</h2>'
+        }
+        var register = {
+            template: '<h2>注册组件</h2>'
+        }
+
+        /*
+         创建路由对象，当导入 vue-router 后，windows全局对象中就多了一个VueRouter构造函数 
+         在创建路由对象时可以为其传递一个路由配置对象
+        */
+        var routerObj = new VueRouter({
+            /* 
+                routes表示 路由匹配规则，每个路由规则都是一个对象,有path和component属性
+                path 属性表示监听的路由地址
+                component 表示匹配到的路由的地址后展示的组件
+            */
+            routes: [
+                // 要注意 : component 的属性值必须是一个组件模板的对象，不能是组件的引用名称
+                {
+                    path: '/',
+                    redirect: '/login'
+                }, // 这里的 redirect 和 Node 中的 redirect 完全是两码事
+                {
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register',
+                    component: register
+                }
+            ],
+            linkActiveClass: 'myatv'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {},
+            router: routerObj
+        })
+    </script>
+</body>
+
+</html>
