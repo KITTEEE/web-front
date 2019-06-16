@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // var num1 = 18;
+        // var num2 = Number('18');
+        // var num3 = new Number(18);
+        // console.log(num1,num2,num3);
+        // var bol = new Boolean(false);
+        // console.log(bol);
+
+        // 1. 字符下相关方法
+
+        // charAt()  返回指定索引的字符
+        // var s1 = 'abcdef';
+        // console.log(s1.charAt(0));
+        // for(var i = 0; i < s1.length; i++) {
+        //     console.log(s1.charAt(i));
+        // }
+
+        // charCodeAt() 返回指定索引的字符的 ASCII 编码
+        // var s1 = 'abcdef';
+        // for(var i = 0; i < s1.length; i++ ){
+        //     console.log(s1.charCodeAt(i));
+        // }
+
+        // str[i]  H5 IE8+ 支持，和charAt() 等效
+        // var s1 = 'abcdef';
+        // for(var i = 0; i < s1.length; i++ ){
+        //     console.log(s1[i])
+        // }
+
+        // 截取字符串"我爱中华人民共和国"，中的"中华"
+        // var str1 = '我爱中华人民共和国';
+        // slice()  从 start 位置开始，截取到 end ，end 取不到
+        // str2 = str1.slice(2,4);
+        // console.log(str2)
+        // substring() 同 slice()
+        // substr()  从 start 位置开始，截取 length 个字符
+        // str3 = str1.substr(2,2);
+        // console.log(str3);
+
+
+        // "abcoefoxyozzopp"查找字符串中所有o出现的位置
+        // var str = 'abcoefoxyozzopp';
+        // var index = 0;
+        // while(index !== -1 ) {
+        //     index = str.indexOf('o',index);
+        //     if(index !== -1) {
+        //         console.log(index);
+        //         index++;
+        //     }
+        // }
+
+        // 把字符串中所有的o替换成!
+        // var str = 'abcoefoxyozzopp';
+        // var index = 0;
+        // while (index !== -1) {
+        //     index = str.indexOf('o', index);
+        //     if (index !== -1) {
+        //         str = str.replace('o','!')
+        //         index++;
+        //     }
+        // }
+        // console.log(str)
+
+        // 把字符串中的所有空白去掉'   abc       xyz  a    123   '
+        // var str = '   abc       xyz  a    123   ';
+        //  trim() 只能去除字符串前后的空白
+        // s = str.trim();
+        // console.log(s);
+        // split() 方法以指定方式分割字符串并返回一个数组
+        // arr = str.split(' ');
+        // console.log(arr);
+        // join() 方法以指定方式将数组拼接成字符串
+        // str2 = arr.join('');
+        // console.log(str2);
+
+        // 判断一个字符串中出现次数最多的字符，统计这个次数        
+        // var str = 'abcoefoxyozzopp';
+        // var o = {};
+        // for(var i = 0; i < str.length; i++ ) {
+        //     var item = str[i];
+        //     if(o[item]) {
+        //         o[item]++;
+        //     }else {
+        //         o[item] = 1;
+        //     }
+        // }
+        // console.log(o);
+        // var max = 0;
+        // var char;
+        // for(var key in o) {
+        //     if(o[key] > max) {
+        //         max = o[key];
+        //         char = key;
+        //     }
+        // }
+        // console.log(max);
+        // console.log(char);
+
+        // 获取url中?后面的内容，并转化成对象的形式。例如：http://www.itheima.com/login?name=zs&age=18&a=1&b=2
+        var str = 'http://www.itheima.com/login?name=zs&age=18&a=1&b=2';
+        // 获取要截取字符串的首个索引
+        var index = str.indexOf('?') + 1;
+        // 截取字符串
+        // str1 = str.substr(index);
+        str1 = str.substring(index);
+        console.log(str1);
+        // 以 & 来把字符串分割成数组
+        // var arr = str1.split('&');
+        // console.log(arr);
+        // 创建 url 后的对象内容
+        // var o = {}
+        // for(var i = 0; i < arr.length; i++) {
+        //     var arr2 = arr[i].split('=');
+        //     console.log(arr2);
+        //     var key = arr2[0];
+        //     var value = arr2[1];
+        //     o[key] = value;
+        // }
+        // console.log(o);
+
+
+    </script>
+
+</head>
+
+<body>
+
+</body>
+
+</html>

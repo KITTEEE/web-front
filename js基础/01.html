@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // var arr = [1,2,3,4,5,6]
+        // arr.sort;
+        // console.log(arr);
+        // arr.sort(function(a,b) {
+        //     return a - b;
+        // })
+        // console.log(arr);
+
+        // 模拟sort内部实现
+        // 冒泡排序
+        // function sort(array,fn) {
+        //     // 外层循环控制躺数
+        //     for (var i = 0; i < array.length; i++) {
+        //         // 
+        //         for (var j = 0; j < array.length - 1 - i; j++) {
+        //             if (fn(array[j],array[j+1]) > 0) {
+        //                 var temp = array[j];
+        //                 array[j] = array[j + 1];
+        //                 array[j + 1] = temp;
+        //             }
+        //         }
+        //     }
+        // }
+        // sort(arr,function(a,b) {
+        //     return b - a;
+        // });
+        // console.log(arr);
+
+        // 模拟reverse
+        // function reverse(arr) {
+        //     var len = arr.length;
+        //     for(var i = 0; i < (len / 2) + 1 ;i++) {
+        //         var temp = arr[i];
+        //         arr[i] = arr[len - i - 1];
+        //         arr[len - i - 1] = temp;
+        //     }
+        // }
+        // reverse(arr);
+        // console.log(arr);
+
+        // ["c", "a", "z", "a", "x", "a"]找到数组中每一个a出现的位置
+        // var arr = ["c", "a", "z", "a", "x", "a"];
+        // var index = 0;
+        // while(index !== -1) {
+        //     index = arr.indexOf('a',index);
+        //     if(index!==-1) {
+        //         console.log(index);
+        //         index++;
+        //     }
+        // }
+
+        // 编写一个方法去掉一个数组的重复元素
+        var arr = ["c", "a", "z", "a", "x", "a"];
+        var o = {};
+        function clear(arr) {
+            for (var i = 0; i < arr.length; i++) {
+                var item = arr[i];
+                if (o[item]) {
+                    o[item]++;
+                } else {
+                    o[item] = 1;
+                }
+            }
+            console.log(o);
+            var newArr = [];
+            for (var key in o) {
+                if (o[key] == 1) {
+                    newArr.push(key);
+                } else {
+                    if(newArr.indexOf(key) == -1) {
+                        newArr.push(key);
+                    }
+                }
+            }
+            console.log(newArr)
+        }
+        clear(arr);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
