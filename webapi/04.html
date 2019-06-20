@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>设置文本框的值</title>
+</head>
+
+<body>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input type="text"><br>
+    <input id="btn" type="button" value="获取文本框的值">
+
+    <script>
+        var inputs = document.getElementsByTagName('input');
+        console.log(inputs);
+        for (var i = 0; i < inputs.length; i++) {
+            input = inputs[i]
+            if (input.type === 'text') {
+                input.value = i;
+            }
+        }
+
+        var btn = document.getElementById('btn');
+        btn.onclick = function () {
+            var array = [];
+            for (var i = 0; i < inputs.length; i++) {
+                input = inputs[i];
+                if (input.type === 'text') {
+                    array.push(input.value)
+                }
+            }
+            console.log(array);
+            console.log(array.join('|'));
+        }
+    </script>
+</body>
+
+</html>

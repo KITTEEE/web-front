@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件-切换图片</title>
+</head>
+
+<body>
+    <input type="button" value="点我" id="btn">
+    <br>
+    <img src="images/a.jpg" id="mv" alt="" width="400" height="300">
+
+    <script>
+        var btn = document.getElementById('btn');
+        var img = document.getElementById('mv');
+        var flag = 1;
+        btn.onclick = function () {
+            if (flag === 1) {
+                img.src = 'images/b.jpg';
+                flag = 2;
+            }else {
+                img.src = 'images/a.jpg';
+                flag = 1;
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .gray {
+            color: gray;
+        }
+
+        .black {
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" class="gray" value="请输入搜索关键字" id="txtSearch">
+    <input type="button" value="搜索" id="btnSearch">
+    <script>
+        // 当文本框获得焦点，如果文本框里的内容是  请输入搜索关键字 清空文本框，并且让字体变为黑色
+        var txtSearch = document.getElementById('txtSearch')
+        txtSearch.onfocus = function () {
+            if (this.value == '请输入搜索关键字') {
+                this.value = '';
+                this.className = 'black';
+            }
+        }
+        txtSearch.onblur = function () {
+            if (txtSearch.value == '' || txtSearch.value == '请输入搜索关键字') {
+                this.value = '请输入搜索关键字';
+                this.className = 'gray';
+            }
+        }
+    </script>
+</body>
+
+</html>

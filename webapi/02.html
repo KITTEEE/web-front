@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>属性操作-非表单元素的属性</title>
+    <style>
+        #box {
+            background-color: red;
+            width: 200px;
+            height: 200px;
+        }
+
+        .show {
+            display: block;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <a id="link" href="http://www.baidu.com" title="我是百度">百度</a>
+    <img id="mv" src="images/a.jpg" alt="美女"> -->
+
+    <input type="button" id="btn" value="隐藏">
+    <br>
+    <div id="box">
+
+    </div>
+
+    <script>
+        // var link = document.getElementById('link');
+        // var mv = document.getElementById('mv');
+
+        // // 获取DOM对象的属性值
+        // console.log(link.id) // link
+        // console.log(link.href) // http://www.baidu.com
+        // console.log(link.title) // 我是百度
+
+        // console.log(mv.id); // mv
+        // console.log(mv.src); // file:///D:/webfront/webapi/images/a.jpg
+
+        // // 设置 DOM 对象的属性
+        // link.href = "http://www.google.com"
+        // link.title = "我是谷歌"
+        // console.log(link.href) // http://www.google.com
+        // console.log(link.title) // 我是谷歌
+
+        // 点击按钮隐藏显示 div 
+        var btn = document.getElementById('btn');
+        var box = document.getElementById('box');
+        console.dir(box);
+        var isShow = true;
+        btn.onclick = function() {
+            if(isShow) {
+                box.className = 'hidden';
+                this.value = '显示';
+                isShow = false;
+            }else {
+                box.className = 'show';
+                this.value = '隐藏'
+                isShow = true;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
