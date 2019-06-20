@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        // JS 实现继承的第一种方式：原型继承——缺点是无法设置构造函数参数
+        // 父类型：
+        // function Person() {
+        //     this.name = 'zs';
+        //     this.age = 14;
+        //     this.sex = '男';
+        // }
+        // 子类型：
+        // function Student() {
+        //     this.score = 100;
+        // }
+        // Student.prototype = new Person();
+        // Student.prototype.constructor = Student;
+        // var s1 = new Student();
+        // console.log(s1);
+        // console.dir(s1);
+
+        // call 方法和 bind 方法  
+        // function fn(x,y) {
+        //     console.log(this);
+        //     console.log(x + y);
+        // }
+        // fn(1,2); // Window  3
+        // var o = {
+        //     name : 'zs'
+        // }
+        // bind() 方法改变 this 的指向，并返回一个函数 
+        // var f = fn.bind(o,2,3);
+        // f(); // {name:'zs'}  5
+
+        // call() 改变 this 指向并立即执行函数
+        // fn.call(o,3,4); // {name:'zs'} 7
+
+
+        // JS 实现继承的第二种方式：借用构造函数 —— 缺点： 无法继承父类原型对象里的方法
+        // function Person(name, age, sex) {
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sex = sex;
+            // this.sayHi = function () {
+            //     console.log(this.name + ', hi');
+            // }
+        // }
+        // Person.prototype.sayHi = function () {
+        //     console.log(this.name + ', hi');
+        // }
+
+        // function Student(name, age, sex, score) {
+        //     // 利用 call 改变函数 this 指向，把当前 student 对象传入到 Person 中实现继承
+        //     Person.call(this, name, age, sex);
+        //     this.score = score;
+        // }
+
+        // var s1 = new Student('zhangsan', 14, '男', 90);
+        // console.log(s1);
+        // console.dir(s1);
+
+        // JS 中实现继承的第三种方法：通过上述两种方式的组合继承
+        function Person (name,age,sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
+        Person.prototype.sayHi = function () {
+            console.log(this.name + ', hi');
+        }
+        function Student(name,age,sex,score) {
+            Person.call(this,name,age,sex);
+            this.score = score;
+        }
+        // 这种方式只是把 Person.prototype 对象的引用赋给了 Student.prototype对象，实际上引用的是同一块内存地址
+        // 因此在 Student.prototype 对象里添加共享属性的时候相当于也在 Person.prototype 里添加
+        // Student.prototype = Person.prototype
+
+        // 应该通过这种方式来继承父类型原型对象中的方法
+        // 通过 new Person() 将原本 Student的原型对象(Student.prototype) 改变成 Person 的实例对象
+        // 而 Person 的实例对象又会有 __proto__ 指向 Person 的原型对象(Person.prototype)
+        // 这样就可以实现继承到 Person 原型对象中的方法
+        Student.prototype = new Person(); 
+        Student.prototype.constructor = Student;
+        Student.prototype.exam = function() {
+            console.log(this.score);
+        }
+        var s1 = new Student('zhangsan',14,'男',400);
+        var p1 = new Person('lisi',14,'女');
+        console.dir(s1);
+        console.dir(p1);
+
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
