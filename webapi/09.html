@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>自定义属性示例</title>
+</head>
+
+<body>
+    <div id="box" age="18" personId="1">张三</div>
+    <script>
+        var box = document.getElementById('box');
+        // 以下只能获得 box 的内置属性，获取不到我们自定义的属性
+        console.log(box.age); // undefined
+        console.log(box.personId); // undefined 
+        // 获取自定属性需要使用 getAttribute()
+        console.log(box.getAttribute('personId')) // 1
+        console.log(box.getAttribute('age')); // 18
+
+        // 设置/改变属性值 setAttribute()
+        box.setAttribute('age','20');
+        box.setAttribute('class','aaa')
+        console.log(box.getAttribute('age')); // 20 
+        console.log(box.className); // aaa
+
+        //  移除属性值 removeAttribute()
+        box.removeAttribute('class');
+        box.removeAttribute('age');
+        console.log(box.className); // ""
+        console.log(box.getAttribute('age')); // null
+    </script>
+</body>
+
+</html>

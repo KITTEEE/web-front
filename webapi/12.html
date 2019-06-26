@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>样式操作-显示隐藏二维码</title>
+    <style>
+        .nodeSmall {
+            width: 50px;
+            height: 50px;
+            background: url(images/bgs.png) no-repeat -159px -51px;
+            position: fixed;
+            right: 10px;
+            top: 40%;
+        }
+
+        .erweima {
+            position: absolute;
+            top: 0;
+            left: -150px;
+        }
+
+        .nodeSmall a {
+            display: block;
+            width: 50px;
+            height: 50px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="nodeSmall" id="node_small">
+        <div class="erweima hide" id="er">
+            <img src="images/456.png" alt="" />
+        </div>
+    </div>
+
+    <script src="common.js"></script>
+    <script>
+        // 当鼠标移入  onmouseover
+        // 当鼠标移出  onmouseout
+        
+        my$('node_small').onmouseover = function() {
+            my$('er').className = my$('er').className.replace('hide','show')
+        }
+        my$('node_small').onmouseout = function() {
+            my$('er').className = my$('er').className.replace('show','hide')
+        }
+                
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 动态创建元素 -->
+    <h1>标题</h1>
+    <img src="" alt="">
+    <!-- <input type="button" value="按钮" id="btn"> -->
+    <input type="button" value="按钮" id="btn">
+    <div id="box"></div>
+    <script src="common.js"></script>
+    <script>
+        // 动态创建元素 1 : document.write()
+        // 使用 document.write() 创建的元素会覆盖掉之前的整个页面
+        // var btn = document.getElementById('btn');
+        // btn.onclick = function () { 
+        //     document.write('Hello <p>World</p>')
+        //  }
+
+        // 动态创建元素 2 ： innerHTML 属性
+        // 点击按钮 生成列表，鼠标放上高亮显示的效果
+        // var datas = ['西施', '貂蝉', '凤姐', '芙蓉姐姐'];
+        // var btn = document.getElementById('btn');
+
+        // btn.onclick = function () {
+        //     var box = document.getElementById('box');
+        //     box.innerHTML = '<ul>';  // 每次调用都会重新生成 dom 树 （页面重绘）
+        //     for ( var i = 0; i < datas.length; i++ ) {
+        //         var data = datas[i];
+        //         box.innerHTML +=  '<li>' + data + '</li>'; // 每次调用都会重新生成 dom 树 （页面重绘
+        //     }
+        //     box.innerHTML += '</ul>'; // 每次调用都会重新生成 dom 树 （页面重绘
+        // }
+
+        // 优化 1
+        // var str = '<ul>';
+        // btn.onclick = function () { 
+        //     var box = document.getElementById('box');
+        //     for( var i = 0; i < datas.length; i++ ) {
+        //         var data = datas[i];
+        //         str += '<li>' + data + '</li>';  // 字符串不可变性：每次调用会开辟一个新的内存空间，耗费性能
+        //     }
+        //     str += '</ul>'; // 字符串不可变性：每次调用会开辟一个新的内存空间
+        //     box.innerHTML = str;
+        // }
+
+        // 优化 2 
+        // var array = ['<ul>'];
+        // var box = document.getElementById('box');
+        // btn.onclick = function () {
+        //     for (var i = 0; i < datas.length; i++) {
+        //         var data = datas[i];
+        //         array.push('<li>' + data + '</li>');
+        //     }
+        //     array.push('</ul>');
+        //     box.innerHTML = array.join("");
+        //     var lis = document.getElementsByTagName('li');
+        //     for (var i = 0; i < lis.length; i++) {
+        //         var li = lis[i];
+        //         li.onmouseover = function () {
+        //             this.style.backgroundColor = 'red';
+        //         }
+        //         li.onmouseleave = function () {
+        //             this.style.backgroundColor = '';
+        //         }
+        //     }
+        // }
+
+        // 动态创建元素 3  - document.createElement();
+        var datas = ['西施', '貂蝉', '凤姐', '芙蓉姐姐'];
+        my$('btn').onclick = function () {
+            var ul = document.createElement('ul');
+            my$('box').appendChild(ul);
+            for (var i = 0; i < datas.length; i++) {
+                var data = datas[i];
+                var li = document.createElement('li');
+                setInnerText(li, data)
+                ul.appendChild(li);
+                li.onmouseover = omo;
+                li.onmouseleave = oml;
+            }
+        }
+
+        function omo() {
+            this.style.backgroundColor = 'red';
+        }
+
+        function oml() {
+            this.style.backgroundColor = '';
+        }
+
+        function setInnerText(ele, content) {
+            if (typeof ele.innerText === 'string') {
+                ele.innerText = content;
+            } else {
+                ele.textContent = content;
+            }
+        }
+    </script>
+</body>
+
+</html>

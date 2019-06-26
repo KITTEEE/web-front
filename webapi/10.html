@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>样式操作-开关灯</title>
+</head>
+
+<body>
+    <input type="button" value="关灯" id="btn">
+
+    <script src="common.js"></script>
+    <script>
+        var isOpen = true
+        my$('btn').onclick = function() {
+            if(isOpen == true) {
+                document.body.style.backgroundColor = 'black';
+                this.value = '开灯';
+                isOpen = false;
+            }else {
+                document.body.style.backgroundColor = 'white';
+                this.value = '关灯';
+                isOpen = true;
+            }
+        }
+    </script>
+</body>
+
+</html>

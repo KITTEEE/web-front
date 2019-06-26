@@ -107,6 +107,182 @@
 ### 自定义属性操作
 
 - getAttribute() 获取标签行内属性
+
 - setAttribute() 设置标签行内属性(内置属性和自定义属性皆可设置)
+
 - removeAttribute() 移除标签行内属性
+
 - 与element.属性的区别: 上述三个方法用于获取任意的行内属性。
+
+  ```javascript
+  var box = document.getElementById('box');
+  
+  // 以下只能获得 box 的内置属性，获取不到我们自定义的属性
+  console.log(box.age); // undefined
+  console.log(box.personId); // undefined 
+  
+  // 获取自定属性需要使用 getAttribute()
+  console.log(box.getAttribute('personId')) // 1
+  console.log(box.getAttribute('age')); // 18
+  
+  // 设置/改变属性值 setAttribute()
+  box.setAttribute('age','20');
+  box.setAttribute('class','aaa')
+  console.log(box.getAttribute('age')); // 20 
+  console.log(box.className); // aaa
+  
+  //  移除属性值 removeAttribute()
+  box.removeAttribute('class');
+  box.removeAttribute('age');
+  console.log(box.className); // ""
+  console.log(box.getAttribute('age')); // null
+  ```
+
+
+
+
+### 样式操作
+
+- 使用style方式设置的样式显示在标签行内
+
+```javascript
+var box = document.getElementById('box');
+box.style.width = '100px';
+box.style.height = '100px';
+box.style.backgroundColor = 'red';
+```
+
+- 注意
+
+  通过样式属性设置宽高、位置的属性类型是字符串，需要加上px
+
+### 类名操作
+
+- 修改标签的className属性相当于直接修改标签的类名
+
+```javascript
+var box = document.getElementById('box');
+box.className = 'show';
+```
+
+
+
+## Node 节点
+
+### 节点属性
+
+- nodeType  节点的类型
+  - 1 元素节点
+  - 2 属性节点
+  - 3 文本节点
+- nodeName  节点的名称(标签名称)
+- nodeValue  节点值
+  - 元素节点的nodeValue始终是null
+
+```javascript
+function Node(option) {
+  this.id = option.id || '';
+  this.nodeName = option.nodeName || '';
+  this.nodeValue = option.nodeValue || '';
+  this.nodeType = 1;
+  this.children = option.children || [];
+}
+
+var doc = new Node({
+  nodeName: 'html'
+});
+var head = new Node({
+  nodeName: 'head'
+});
+var body = new Node({
+  nodeName: 'body'
+})
+doc.children.push(head);
+doc.children.push(body);
+
+var div = new Node({
+  nodeName: 'div',
+  nodeValue: 'haha',
+});
+
+var p = new Node({
+  nodeName: 'p',
+  nodeValue: '段落'
+})
+body.children.push(div);
+body.children.push(p);
+
+function getChildren(ele) {
+  for(var i = 0; i < ele.children.length; i++) {
+    var child = ele.children[i];
+    console.log(child.nodeName);
+    getChildren(child);
+  }
+}
+getChildren(doc);
+```
+
+
+
+### 节点层级
+
+重点讲父子属性，兄弟属性画图讲解 
+
+```javascript
+var box = document.getElementById('box');
+console.log(box.parentNode);
+console.log(box.childNodes);
+console.log(box.children);
+console.log(box.nextSibling);
+console.log(box.previousSibling);
+console.log(box.firstChild);
+console.log(box.lastChild);
+```
+
+- 注意
+
+  childNodes和children的区别，childNodes获取的是子节点，children获取的是子元素
+
+  nextSibling和previousSibling获取的是节点，获取元素对应的属性是nextElementSibling和previousElementSibling获取的是元素
+
+  nextElementSibling和previousElementSibling有兼容性问题，IE9以后才支持
+
+
+
+### 动态创建元素
+
+* document.write()
+
+  使用 document.write() 创建的元素会覆盖掉之前的整个页面
+
+* document.createElement()
+
+  ```javascript
+  var p = document.createElement('p');
+  p.innerText = 'hello';
+  p.style.color = 'red';
+  var box = document.getElementById('box');
+  box.appendChild(p);
+  ```
+
+* innerHTML属性
+
+  通过元素的 innerHTML 属性给其传入一个字符串来动态创建元素，由于创建的是字符串，所以会有性能问题，需要避免在循环中重复使用，可以借助字符串或数组的方式来进行替换，再设置给 innerHTML 来进行优化，优化后的性能跟createElement相近。
+
+  ```javascript
+  // 每次使用 innerHTML 时，都会使得页面重绘(重新生成 dom 树)
+  // innerHTML 优化
+  var array = ['<ul>'];
+  var box = document.getElementById('box');
+  btn.onclick = function () {
+  	for (var i = 0; i < datas.length; i++) {
+      	var data = datas[i];
+          array.push('<li>' + data + '</li>');
+  	}
+      array.push('</ul>');
+      box.innerHTML = array.join("");
+  }
+  ```
+
+  
+

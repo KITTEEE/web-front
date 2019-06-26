@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态生成表格</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+    <script src="common.js"></script>
+    <script>
+    // 模拟数据
+    var datas = [
+        {name: 'zs', subject: '语文', score: 90},
+        {name: 'ls', subject: '数学', score: 80},
+        {name: 'ww', subject: '英语', score: 99},
+        {name: 'zl', subject: '英语', score: 100},
+        {name: 'xs', subject: '英语', score: 60},
+        {name: 'dc', subject: '英语', score: 70}
+    ]; 
+    // 表头数据
+    var ths = ['姓名','科目','成绩','操作']
+    // 1. 创建表格元素
+    var table = document.createElement('table');
+    my$('box').appendChild(table);
+    table.border = '1px';
+    table.width = '400px';
+
+    // 2. 创建表头元素
+    var thead = document.createElement('thead');
+    table.appendChild(thead);
+
+    var tr = document.createElement('tr');
+    thead.appendChild(tr);
+    tr.style.height = '40px';
+    tr.style.backgroundColor = 'lightgray';
+
+    // 3. 添加表头
+    for(var i = 0; i < ths.length; i++) {
+        var bt = ths[i];
+        var th = document.createElement('th');
+        setInnerText(th,bt);
+        tr.appendChild(th);
+    }
+
+    var tbody = document.createElement('tbody');
+    table.appendChild(tbody);
+    // 创建数据行
+    for( var i = 0; i < datas.length; i++) {
+        var data = datas[i];
+        tr = document.createElement('tr');
+        tbody.appendChild(tr);
+        // 遍历对象，添加 td 
+        for(var key in data) {
+            var td = document.createElement('td');
+            setInnerText(td,data[key]);
+            tr.appendChild(td);
+        }
+        // 创建删除的超链接
+        td = document.createElement('td');
+        tr.appendChild(td);
+        var link = document.createElement('a');
+        setInnerText(link,'删除')
+        link.href = "javascript:void 0";
+        link.onclick = deleteData;
+        td.appendChild(link);
+    }
+
+    function deleteData() {
+        var tr = this.parentNode.parentNode;
+        tbody.removeChild(tr);
+        return false;
+    }
+
+    </script>
+</body>
+
+</html>
