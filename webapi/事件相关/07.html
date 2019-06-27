@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>取消默认行为的执行</title>
+
+</head>
+
+<body>
+    <a id="link" href="http://www.baidu.com">baidu</a>
+    <input id="txt" type="text">
+    <script>
+        // 取消链接默认的自动跳转行为
+        var link = document.getElementById('link');
+        link.onclick = function (e) {
+            alert('hello');
+            // 取消默认行为执行
+            // return false;
+
+            // 标准方式
+            e.preventDefault()
+
+            // IE 老版本中，非标准行为
+            // e.returnValue = true;
+        }
+
+        // 使得文本框只能输入数字
+        // 键盘事件
+        // keydown 键盘按下的时候
+        // keyup   键盘弹起的时候
+        // keydown 和 keyup的区别  keydown的时候我们所按的键还没有落入文本框
+        // keyup键盘弹起的时候按的键已经落入文本框
+        var input = document.getElementById('txt');
+        txt.onkeydown = function (e) {
+            e = e || window.event;
+            // console.log(e.keyCode);
+            if ((e.keyCode < 48 || e.keyCode > 57) && e.keyCode !== 8) {
+                return false;
+                e.preventDefault();
+            }
+        }
+    </script>
+</body>
+
+</html>

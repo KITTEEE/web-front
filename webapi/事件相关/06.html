@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title></title>
+    <style>
+        body {
+            margin: 0;
+        }
+
+        #ts {
+            position: absolute;
+        }
+
+        #box {
+            width: 300px;
+            height: 300px;
+            border: 1px solid red;
+            margin: 100px 10px 10px 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/tianshi.gif" id="ts" alt="">
+    <div id="box"></div>
+
+    <script src="common.js"></script>
+    <script>
+        // var ts = document.getElementById('ts');
+        // console.log(ts);
+        // document.onmousemove = function (e) {
+        //     e = e || window.event;
+        //     // console.log(ts.style.left);
+        //     ts.style.left = getPageScroll(e).pageX - 10 + 'px';
+        //     ts.style.top = getPageScroll(e).pageY - 10 + 'px';
+        // }
+
+        // 获取元素在页面上的位置： offsetLeft offsetTop
+        var box = document.getElementById('box');
+        console.log(box.offsetLeft)
+        console.log(box.offsetTop)
+        // 点击的时候，获取鼠标在盒子中的位置
+        box.onclick = function (e) {
+            var x = getPageScroll(e).pageX - this.offsetLeft;
+            var y = getPageScroll(e).pageY - this.offsetTop;
+            console.log(x);
+            console.log(y);
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件注册的三种方式</title>
+</head>
+
+<body>
+    <input type="button" value="按钮" id="btn">
+
+    <!-- 代码从上往下执行，由于 btn.onclick 用的 = 
+    因此代码执行到 user2.js时会覆盖掉 user1.js 中处理的事件 -->
+    <!-- <script src="user1.js"></script>
+    <script src="user2.js"></script> -->
+    <script>
+        /* 注册事件的三种方式 */
+        var btn = document.getElementById('btn');
+
+        // 注册事件的第一种方式 ： 无法给对象的同一个事件注册多个事件处理函数
+        // 这里点击按钮输出的是 hello itheima 
+        // btn.onclick = function() {
+        //     console.log('hello world')
+        // }
+        // btn.onclick = function() {
+        //     console.log('hello itheima');
+        // }
+        
+        // 注册事件的第二种方式 ： addEventListener(‘事件名称’，事件处理函数，options) 有浏览器兼容性问题
+        // addEventListener 中注意事件名称没有 on ; 第三个参数默认为 false
+        // 可以给同一个目标的同一个事件注册多个事件处理函数
+        // btn.addEventListener('click',function() {
+        //     alert('hello world')
+        // }) 
+        // btn.addEventListener('click',function() {
+        //     alert('hello itheima')
+        // }) 
+
+        // 注册事件的第三种方式 ： attachEvent() IE 老版本特有的方法(IE 6-10) 因此有浏览器兼容问题
+        // 第一个参数名称前要加 on
+        // btn.attachEvent('onclick',function() {
+        //     alert('hello world')
+        // })
+        // btn.attachEvent('onclick',function() {
+        //     alert('hello itheima')
+        // })
+
+        // 处理注册事件的兼容性问题 
+        function btnClick() {
+            console.log('hello world');
+        }
+        function addEventListener(element,eventName,fn) {
+            if(element.addEventListener) {
+                element.addEventListener(eventName,fn);
+            }else if (element.attachEvent) {
+                element.attachEvent('on' + eventName,fn);
+            }else {
+                element['on' + eventName] = fn;
+            }
+        }
+        addEventListener(btn,'click',btnClick);
+
+    </script>
+
+    
+
+</body>
+
+</html>

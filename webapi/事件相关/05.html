@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            height: 1000px;
+        }
+
+        #box {
+            margin: 100px;
+            margin-top: 500px;
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box">
+    </div>
+    <script>
+        // 获取鼠标在可视区域内到的坐标 e.clientX e.clientY
+        // 获取鼠标在当前页面中的坐标 e.pageX e.pageY
+        var box = document.getElementById('box');
+        box.onclick = function (e) {
+            e = e || window.event;
+            // 获取鼠标在当前可视区域内的坐标
+            // console.log(e.clientX)
+            // console.log(e.clientY)
+            // 获取鼠标当前页面中的坐标
+            console.log(getPageScroll(e).pageX)
+            console.log(getPageScroll(e).pageY)
+        }
+
+        // pageX 和 pageY 有兼容性问题，IE 9 之后才支持
+        // pageX pageY 的兼容性处理： 
+        // pageX = clientX + 页面横向滚动的距离 
+        // pageY = clientY + 页面纵向的距离 
+
+        /* 
+            pageX 和 pageY 有兼容性问题，IE 9 之后才支持
+            pageX pageY 的兼容性处理： 
+            pageX = clientX + 页面横向滚动的距离 ; pageY = clientY + 页面纵向的距离 
+            如何获取页面滚动的距离？
+            一些浏览器使用 document.body.scrollLeft，一些浏览器使用 document.documentElement.scrollLeft
+        */
+        // pageX,pageY 兼容性处理
+        // 获取页面滚动的距离：
+        function getScroll() {
+            var scrollX = document.body.scrollLeft || document.documentElement.scrollLeft;
+            var scrollY = document.body.scrollTop || document.documentElement.scrollTop;
+            return {
+                scrollX: scrollX,
+                scrollY: scrollY
+            }
+        }
+
+        function getPageScroll(e) {
+            e = e || window.event;
+            var pageX = e.pageX || e.clientX + getScroll().scrollX + 'px';
+            var pageY = e.pageY || e.clientY + getScroll().scrollY + 'px';
+            return {
+                pageX: pageX,
+                pageY: pageY
+            };
+        }
+    </script>
+</body>
+
+</html>

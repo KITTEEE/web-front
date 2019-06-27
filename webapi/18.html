@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>选择水果</title>
+    <style>
+        select {
+            width: 200px;
+            height: 200px;
+            background-color: #33cccc;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="all" multiple="multiple">
+        <option>苹果</option>
+        <option>橘子</option>
+        <option>梨</option>
+        <option>西瓜</option>
+        <option>水蜜桃</option>
+    </select>
+
+    <input type="button" value=">>" id="btn1">
+    <input type="button" value="<<" id="btn2">
+    <input type="button" value=">" id="btn3">
+    <input type="button" value="<" id="btn4">
+
+    <select id="select" multiple="multiple">
+
+    </select>
+
+    <script src="common.js"></script>
+    <script>
+        var all = my$('all');
+
+        all.children[0].onclick = function () {
+            alert('hello');
+        }
+        
+        var select = my$('select')
+        my$('btn1').onclick = function () {
+            var len = all.children.length;
+            for (var i = 0; i < len; i++) {
+                var op = all.children[0];
+                // console.log(op);
+                select.appendChild(op); // 这一步执行后，select 里的 option 的索引会重新从 0 开始排序
+            }
+
+            // 使用这种方式移动子元素的话，如果子元素有事件，移动之后元素的事件丢失
+            // select.innerHTML = all.innerHTML;
+            // 当我们是用innerHTML 清空子元素的时候
+            // 如果子元素有事件，此时会发生内存泄漏
+            // all.innerHTML = '';  // 清空标签之间的内容
+        }
+
+        my$('btn2').onclick = function () {
+            var len = select.children.length;
+            for (var i = 0; i < len; i++) {
+                var op = select.children[0];
+                // console.log(op);
+                all.appendChild(op);
+            }
+        }
+
+        my$('btn3').onclick = function () {
+            var arr = [];
+            for (var i = 0; i < all.children.length; i++) {
+                if (all.children[i].selected == true) {
+                    arr.push(all.children[i])
+                    all.children[i].selected = false
+                }
+            }
+            for (var i = 0; i < arr.length; i++) {
+                select.appendChild(arr[i]);
+            }
+        }
+
+        my$('btn4').onclick = function () {
+            var arr = [];
+            for (var i = 0; i < select.children.length; i++) {
+                if (select.children[i].selected == true) {
+                    arr.push(select.children[i])
+                    select.children[i].selected = false
+                }
+            }
+            for (var i = 0; i < arr.length; i++) {
+                all.appendChild(arr[i]);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

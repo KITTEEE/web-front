@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件移除</title>
+</head>
+
+<body>
+    <input type="button" value="按钮" id="btn">
+    <script>
+        // 事件移除第一种方式 ： 事件 = null
+        var btn = document.getElementById('btn');
+        // btn.onclick = function() {
+        //     console.log('hello world');
+        //     btn.onclick = null; // 移除事件
+        // }
+
+        // 事件移除第二种方式 : removeEventListener（对应 addEventListener）
+        // 使用 addEventListener 注册事件之后想要移除事件，事件处理函数就不能为匿名函数
+        // function btnClick() {
+        //     console.log('hello world');
+        //     this.removeEventListener('click',btnClick);
+        // }
+        // btn.addEventListener('click',btnClick)
+
+        // 事件移除第三种方式 ：detachEvent ( 对应 attachEvent)
+        // detachEvent 兼容性跟 attachEvent 一样(chrome 中不支持 attachEvent)
+        // function btnClick() {
+        //     console.log('hello world');
+        //     this.detachEvent('click',btnClick)
+        // }
+        // btn.attachEvent('click',btnClick)
+
+        // 事件移除的兼容性处理：
+        function removeEventListener(element, eventName, fn) {
+            if (element.removeEventListener) {
+                element.removeEventListener(eventName, fn);
+            } else if(element.detachEvent) {
+                element.detachEvent('on' + eventName, fn);
+            } else {
+                element['on' + eventName] = null;
+            }
+        }
+
+        function btnClick() {
+            console.log('hello world');
+            removeEventListener(this,'click',btnClick);
+        }
+        btn.addEventListener('click', btnClick)
+
+    </script>
+</body>
+
+</html>

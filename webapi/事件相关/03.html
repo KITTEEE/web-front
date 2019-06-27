@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>事件冒泡</title>
+    <style>
+        #box1 {
+            width: 300px;
+            height: 300px;
+            background-color: red;
+        }
+
+        #box2 {
+            width: 200px;
+            height: 200px;
+            background-color: green;
+        }
+
+        #box3 {
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="box1">
+        <div id="box2">
+            <div id="box3">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 事件的三个阶段：
+        // 第一个阶段： 捕获阶段：事件由页面元素接收，逐级向下，到具体的元素
+        // 第二个阶段： 执行当前点击的元素(目标) : 具体的元素本身
+        // 第三个阶段： 冒泡阶段：跟捕获相反，具体元素本身，逐级向上，到页面元素
+
+        var box1 = document.getElementById('box1');
+        var box2 = document.getElementById('box2');
+        var box3 = document.getElementById('box3');
+        var array = [box1, box2, box3];
+
+        // addEventListener 的第三个参数的作用
+        // 第三个参数为 true 事件捕获
+        // 第三个参数为 false 事件冒泡
+        function boxClick() {
+            console.log(this.id)
+        }
+        // 事件捕获
+        // for (var i = 0; i < array.length; i++) {
+        //     var box = array[i];
+        //     box.addEventListener('click', boxClick, true) // box1 box2 box3
+        // }
+
+        // 事件冒泡
+        for(var i = 0; i < array.length; i++) {
+            var box = array[i];
+            box.addEventListener('click',boxClick,false) // box3 box2 box1
+        }
+
+        /* 注意 attachEvent 只有事件冒泡，没有事件捕获 */
+
+    </script>
+</body>
+
+</html>

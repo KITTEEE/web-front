@@ -172,9 +172,9 @@ box.className = 'show';
 ### 节点属性
 
 - nodeType  节点的类型
-  - 1 元素节点
-  - 2 属性节点
-  - 3 文本节点
+  - 1 元素节点  （如 p 标签）
+  - 2 属性节点  
+  - 3 文本节点 （text  包括空格）
 - nodeName  节点的名称(标签名称)
 - nodeValue  节点值
   - 元素节点的nodeValue始终是null
@@ -241,11 +241,11 @@ console.log(box.lastChild);
 
 - 注意
 
-  childNodes和children的区别，childNodes获取的是子节点，children获取的是子元素
+  childNodes和children的区别，**childNodes获取的是子节点，children获取的是子元素**
 
-  nextSibling和previousSibling获取的是节点，获取元素对应的属性是nextElementSibling和previousElementSibling获取的是元素
+  **nextSibling和previousSibling获取的是节点，获取元素对应的属性是 nextElementSibling 和 previousElementSibling 获取的是元素**
 
-  nextElementSibling和previousElementSibling有兼容性问题，IE9以后才支持
+  **nextElementSibling和previousElementSibling有兼容性问题，IE9以后才支持**
 
 
 
@@ -286,3 +286,215 @@ console.log(box.lastChild);
 
   
 
+### 元素操作的方法
+
+* createElement()
+* appendChild()
+* removeChild()
+* insertBefore()  把元素插入到页面的指定位置
+* replaceChild()  把当前元素的标签进行替换
+
+```javascript
+// insertBefore() 演示
+var li = document.createElement('li');
+li.innerText = 'abc';
+// 把 li 插入到 ul 中的第二个子元素之前
+ul.insertBefore(li,ul.children[1]);
+// 把 ul 中的第一个子元素替换为 div
+var div = document.createElement('div');
+ul.replaceChild(div,ul.children[0])
+```
+
+
+
+## 事件操作
+
+### 事件注册
+
+事件注册的三种方式
+
+* 通过给事件名赋予事件处理函数
+
+  这种方法无法给对象的同一个事件注册多个事件处理函数
+
+```javascript
+// 示例
+btn.onclick = function() {
+    console.log('hello world');
+}
+```
+
+* addEventListener
+
+  第一个参数为事件名称(没有 on )，第二个参数为事件处理函数，第三个参数决定事件阶段为捕获还是冒泡，true 为捕获，false 为冒泡，默认为 false
+
+  可以给同一个目标的同一个事件注册多个事件处理函数
+
+```javascript
+btn.addEventListener('click',function(){
+    alert('hello world')
+})
+```
+
+* attachEvent
+
+  IE 老版本特有的方法 ( IE 6-10 )。第一个参数为事件名称，要加上 on
+
+```javascript
+btn.attachEvent('onclick',function() {
+    console.log('hello world')
+})
+```
+
+处理注册事件的兼容性问题
+
+```javascript
+function addEventListener(element,eventName,fn) {
+    if(element.addEventListener) {
+        element.addEventListener(eventName,fn);
+    }else if(element.attachEvent) {
+        element.attachEvent('on' + eventName,fn);
+    }else {
+        element['on' + eventName] = fn;
+    }
+}
+```
+
+
+
+### 事件移除
+
+事件移除的三种方式
+
+* 事件 = null
+
+```javascript
+btn.onclick = function() {
+    console.log('hello world');
+    btn.onclick = null // 移除事件
+}
+```
+
+* removeEventListener( ' 事件名称 '，事件处理函数)
+
+  使用 addEventListener 后想要移除事件，事件处理函数就不能为匿名函数
+
+```javascript
+function btnClick(){
+    console.log('hello world');
+    this.removeEventListener('click',btnClick);
+}
+btn.addEventListner('click',btnClick)
+```
+
+* detachEvent()
+
+  detachEvent 兼容性同 attachEvent 一样在老版本 IE 支持
+
+```javascript
+function btnClick() {
+    console.log('hello world');
+    this.detachEvent('onclick',btnClick)
+}
+btn.attachEvent('onclick',btnClick);
+```
+
+事件移除的兼容性处理
+
+```javascript
+function removeEventListener(element,eventName,fn) {
+    if(element.removeEventListener) {
+        element.removeEventListener(eventName,fn)
+    }else if( element.detachEvent ) {
+        element.detachEvent('on' + eventName,fn)
+    } else {
+        element['on' + eventName] = null;
+    }
+}
+```
+
+
+
+### 事件的三个阶段
+
+* **第一个阶段： 事件捕获阶段：事件由页面元素接收，逐级向下，到具体的元素**
+
+* 第二个阶段： 执行当前点击的元素(目标) : 具体的元素本身
+
+* **第三个阶段： 事件冒泡阶段：跟捕获相反，具体元素本身，逐级向上，到页面元素**
+
+注意：attachEvent 只有事件冒泡，没有事件捕获。e.eventPhase 属性可以查看事件触发时所处的阶段
+
+
+
+### 事件委托
+
+**事件委托，又称为事件代理，即把原本需要绑定在子元素的响应事件（click、keydown......）委托给父元素，让父元素担当事件监听的职务。其原理是事件冒泡机制。**
+
+事件委托有个优点，就是新添加的元素还会有之前的事件。
+
+
+
+### 事件对象
+
+在注册事件的时候可以通过传入事件参数 ( e ) ，可以获取到事件发生的时候和事件相关的一些数据。
+
+* e 是事件对象，在老版本的 IE 中，事件对象是 window.event，处理事件对象的浏览器兼容性问题可以使用 e = e || window.event 来解决
+* e.eventPhase 是表示事件的阶段 **1-事件捕获  2-目标  3-事件冒泡**
+* e.target 表示真正触发事件的对象，在老版本 IE 中使用 e.srcElement。处理 e.target 的浏览器兼容性问题可以使用 var target = e.target || e.srcElement
+* e.currentTarget 表示事件所属的对象，同 this
+* e.type 事件的名称
+
+```javascript
+// 假设有一个 ul,给当前点击的 ul 中的 li 高亮显示
+// 可以通过事件委托机制，将 li 的事件处理委托到 ul 中
+ul.onclick = function(e) {
+    // 获取到当前点击的 li
+    // e.target 是真正触发事件的对象
+	e.target.style.backgroundColor = 'red'
+}
+```
+
+* e. clientX、e.clientY 获取鼠标在可视区域内的坐标
+
+* e.pageX、e.pageY 获取鼠标在当前页面中的坐标（ IE 9 之后才支持，有兼容性问题）
+
+  处理兼容性问题：pageX = clientX  + 页面横向滚动的距离
+
+```javascript
+// 如何获取页面滚动距离
+// 一些浏览器使用 document.body.scrollLeft
+// 一些浏览器使用 document.documentElement.scrollLeft
+function getScroll() { // 获取页面滚动距离
+	var scrollX = document.body.scrollLeft || document.documentElement.scrollLeft;
+    var scrollY = document.body.scrollTop || document.documentElement.scrollTop;
+    return {
+    	scrollX: scrollX,
+        scrollY: scrollY
+	}
+}
+function getPageScroll(e) {
+    e = e || window.event;
+    var pageX = e.clientX + getScroll(e).scrollX;
+    var pageY = e.clientY + getScroll(e).scrollY;
+    return {
+        pageX : pageX,
+        pageY : pageY
+    }
+}
+```
+
+
+
+### 取消事件默认行为
+
+* 在事件处理函数中 return false 
+* 使用 **e.preventDefault()** ，标准方式
+* IE 老版本中使用 **e.returnValue = true**
+
+
+
+### 阻止事件冒泡
+
+* **e.stopPropagation()**，标准方式
+* IE 老版本中使用 **e.cancelBubble = true**，标准中已废弃
