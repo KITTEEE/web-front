@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在 jq 中 操作类样式</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .cls {
+            background-color: green;
+        }
+
+        .cls2 {
+            border: 3px solid yellow;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        // addClass() 给元素添加一个类样式
+        // removeClass() 移除元素的某个类样式，若括号中什么都不写，则移除元素的所有类样式
+        // hasClass() 判断元素是否应用了某个类样式，方法返回一个 boolean 值
+        // toggleClass() 切换类样式，判断元素是否应用了某个类样式，如果有则移除该类样式，没有则应用该类样式
+        $(function () {
+            $("#btn").click(function () {
+                // 给元素添加 .cls 样式
+                $("#dv").addClass("cls") // 不需要加 .
+                // 判断是否应用了 .cls 样式
+                var result = $("#dv").hasClass("cls"); // 判断是否有 .cls 样式
+                console.log(result);
+            })
+            $("#btn2").click(function () {
+                $("#dv").removeClass("cls") // 移除 cls 样式
+            })
+            $("#btn3").click(function() {
+                $("#dv").toggleClass("cls");
+            })
+
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn" />
+    <input type="button" value="移除类样式" id="btn2" />
+    <input type="button" value="切换类样式" id="btn3" />
+    <div id="dv"></div>
+</body>
+
+</html>

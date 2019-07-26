@@ -19,7 +19,7 @@
                 xhr.open('get','./demo1check.php?username=' + username + '&password=' + password,true);
                 // 3、执行发送动作
                 xhr.send(null);
-                // 4、指定回掉函数 
+                // 4、指定回调函数 
                 xhr.onreadystatechange = function(){
                     if(xhr.readyState == 4){
                         if(xhr.status == 200){

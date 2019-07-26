@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中获取兄弟元素的方法</title>
+    <style>
+        ul {
+            list-style-type: none;
+            width: 200px;
+            position: absolute;
+            left: 500px;
+        }
+
+        ul li {
+            margin-top: 10px;
+            cursor: pointer;
+            text-align: center;
+            font-size: 20px;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            // $("#uu>li").mouseover(function () {
+            // .next() 获取当前元素的下一个兄弟元素
+            // $(this).next().css("backgroundColor","red");
+
+            // .nextAll() 获取当前元素后的所有兄弟元素
+            // $(this).nextAll().css("backgroundColor","red");
+
+            // .prev() 获取当前元素的前一个兄弟元素
+            // $(this).prev().css("backgroundColor","red");
+
+            // .prevAll() 获取当前元素前面的所有兄弟元素
+            // $(this).prevAll().css("backgroundColor","red");
+
+            // .siblings() 获取当前元素的所有兄弟元素(自己除外)
+            // $(this).siblings().css("backgroundColor","red");
+            // })
+
+            // .first() 获取元素列表中的第一个元素
+            // .last() 获取元素列表中的最后一个元素
+
+            // 案例
+            //获取ul中所有的li,有鼠标进入事件,鼠标离开事件,点击事件
+            $("ul>li").mouseenter(function () {
+                $(this).css("backgroundColor", "red").siblings("li").css("backgroundColor", "");
+            }).mouseout(function () {
+                $(this).css("backgroundColor", "")
+            }).click(function (){
+                //当前元素前面的所有兄弟元素背景颜色为黄色
+                // $(this).prevAll().css("backgroundColor","yellow");
+                //当前元素后面的所有兄弟元素背景颜色为蓝色
+                // $(this).nextAll().css("backgroundColor","blue");
+
+                // 使用链式编程
+                // var obj = $(this).prevAll().css("backgroundColor","yellow");
+                // 发生了断链：对象调用方法返回的不是当前对象
+                // console.log(obj)
+                // 解决断链：使用 .end() 方法恢复到断链之前的对象
+                $(this).prevAll().css("backgroundColor","yellow").end().nextAll().css("backgroundColor","blue")
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <!-- <ul id="uu">
+        <li>红烧土豆</li>
+        <li>清蒸豆腐</li>
+        <li>油炸菠菜</li>
+        <li>凉拌土豆丝</li>
+        <li>凉拌助教</li>
+        <li>凉拌导师</li>
+    </ul> -->
+    <ul>
+        <li>青岛啤酒（TsingTao）</li>
+        <li>瓦伦丁（Wurenbacher）</li>
+        <li>雪花（SNOW）</li>
+        <li>奥丁格教士（Franziskaner）</li>
+        <li>科罗娜喜力柏龙（Paulaner）</li>
+        <li>嘉士伯Kaiserdom</li>
+        <li>罗斯福（Rochefort）</li>
+        <li>粉象（Delirium）</li>
+        <li>爱士堡（Eichbaum）</li>
+        <li>哈尔滨牌蓝带</li>
+    </ul>
+</body>
+
+</html>

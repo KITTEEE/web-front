@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中的动画 animate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        div {
+            width: 200px;
+            height: 100px;
+            background-color: green;
+            position: absolute;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        $(function() {
+            // 动画方法 animate()
+            /* 
+                参数：
+                1. 键值对对象，一般为要设置的动画的样式
+                2. 动画持续时间的毫秒值
+                3. 动画完成之后的回调函数
+             */
+            // 停止动画效果 .stop()
+            $("#btn").click(function(){
+                $("#dv").animate({"width":"300px","height":"300px","left":"300px"},1000,function(){
+                    $("#dv").animate({"width":"200px","height":"100px","left":"0px"},1000)
+                })
+            })
+        })
+    </script>
+
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn" />
+    <div id="dv"></div>
+</body>
+
+</html>

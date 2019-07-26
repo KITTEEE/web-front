@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中 jquery 对象和 DOM 对象的相互转换</title>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        // DOM 对象转为 jQuery 对象：只需要把 dom 对象放进 $()
+        // $(function() { 
+        //     var btnObj = document.getElementById('btn'); // btnObj 为 DOM 对象
+        //     var btn = $("#btn"); // jQery 对象
+        //     console.log(btn); 
+        // })
+
+        // jQuery 对象转 DOM 对象有两种方法
+        // 1. $(dom对象).get(0)
+        // 2. $(dom对象)[0]
+        // $(function() {
+        //     var btn1 = $("#btn").get(0)
+        //     console.log(btn1);
+        //     var btn2 = $("#btn")[0]
+        //     console.log(btn2)
+        // })            
+
+        $(function() {
+            // jQuery 对象
+            // $("#btn").click(function() {
+            //     $(this).css({"backgroundColor":"red"})
+            // })
+
+            // DOM 对象
+            $("#btn").get(0).onclick = function() {
+                this.style.backgroundColor = "red";
+            }
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn" />
+</body>
+
+</html>

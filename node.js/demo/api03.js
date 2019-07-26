@@ -17,7 +17,7 @@ const path = require('path');
 // console.log(path.extname('index.html')); // .html
 
 // 路径的格式化处理
-// path.fornat()  obj -> string
+// path.format()  obj -> string
 // path.parse()  string -> obj
 // let obj = path.parse(__filename);
 // console.log(obj);
@@ -32,6 +32,7 @@ const path = require('path');
 // console.log(strpath); // D:\webfront\node.js\demo\api03.js
 
 // path.isAbsolute() 判断是否为绝对路径
+// console.log(path.isAbsolute('./foo/bar')); // false
 // console.log(path.isAbsolute('/foo/bar')); // true
 // console.log(path.isAbsolute('C:/foo/..')); // true
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中的链式编程</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+            background-color: green;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        //链式编程:对象.方法().方法().方法();....
+        // 案例 1
+        //页面中有一个按钮,还有一个div,点击按钮的时候,让div中添加一个p标签,并显示内容,点击按钮的同时修改div的背景颜色
+        $(function () {
+            $("#btn").click(function () {
+                // $("#dv").css("backgroundColor","blue").html("<p>hello</p>");
+                // var obj = $("#dv").css("backgroundColor","blue").html("<p>hello</p>");
+                // console.log(obj) // 对象
+                // $("#dv").html("<p>hello</p>").css("backgroundColor","blue");
+                // var obj = $("#dv").html("<p>hello</p>").css("backgroundColor","blue");
+                // console.log(obj)  // 对象          
+
+                // 下面由于 .html() 为获取值，返回的是获取到的字符串，不是对象，因此会报错(也叫断链)
+                // var obj = $("#dv").html().css("backgroundColor","blue");
+                // console.log(obj) // 报错          
+            })
+        })
+
+        // 案例 2
+        //获取列表中每个li,当鼠标进入后,当前的li有高亮显示,点击的时候可以让当前被点击的li的字体变大,字体的颜色改变,改变字体
+        $(function () {
+            $("#uu>li").mouseover(function () {
+                $(this).css("backgroundColor", "red").siblings("li").css("backgroundColor", "")
+            }).click(function () {
+                $(this).css("fontSize", "40px").css("color", "green")
+            })
+        })
+
+        // 案例 3
+        //点击按钮,改变按钮的value值,鼠标进入到按钮中,按钮的宽改变,高改变,鼠标离开的时候,按钮的背景颜色为绿色
+        $(function () {
+            $("#btn2").click(function () {
+                $(this).val("改变按钮值");
+            }).mouseover(function () {
+                $(this).css({
+                    "width": "100px",
+                    "height": "100px"
+                })
+            }).mouseout(function () {
+                $(this).css("backgroundColor", "blue")
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn" />
+    <div id="dv">
+        <p>这是一个p</p>
+    </div>
+
+    <ul id="uu">
+        <li>第一个</li>
+        <li>第二个</li>
+        <li>第三个</li>
+        <li>第四个</li>
+        <li>第五个</li>
+    </ul>
+    
+    <input type="button" value="显示效果" id="btn2" />
+</body>
+
+</html>

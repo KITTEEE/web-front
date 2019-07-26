@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 元素操作方法</title>
+    <style>
+        div {
+            width: 300px;
+            height: 200px;
+            background-color: red;
+            margin-top: 20px;
+        }
+    </style>
+    <script src="../jquery-1.12.2.js"></script>
+    <script>
+        // 元素常见的操作方法
+        // .html("") 清空元素中的内容
+        // .empty() 清空元素中的内容
+        // .remove() 移除元素自身
+        // .clone() 克隆,复制元素
+        $(function() {
+            $("#btn").click(function() {
+                // $("#dv").html("")
+                $("#dv").empty()
+                // $("#dv").remove() // 整个元素移除
+            })
+            $("#btn2").click(function() {
+                var span = $("#dv>span").clone();
+                console.log(span);
+                span.css("fontSize","30px")
+                $("#dv2").append(span)
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn" />
+    <div id="dv">
+        <span>今天天气真好啊,助教来到桃花岛看见导师在洗澡....</span>
+    </div>
+    <input type="button" value="显示效果" id="btn2" />
+    <div id="dv2"></div>
+</body>
+
+</html>

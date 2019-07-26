@@ -34,6 +34,4 @@ function ajax(type,url,param,dataType,callback){
             }
         }
     }
-
-
 }

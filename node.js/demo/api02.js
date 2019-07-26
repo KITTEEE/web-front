@@ -9,11 +9,12 @@
 // let buf2 = Buffer.alloc(10);//<Buffer 00 00 00 00 00 00 00 00 00 00>
 // console.log(buf2);
 
-//第三种实例化方法：Buffer.from,返回一个新的 Buffer，其中包含提供的八位字节数组的副本。
+// 第三种实例化方法：Buffer.from,返回一个新的 Buffer，其中包含提供的八位字节数组的副本。
 // let buf3 = Buffer.from('buffer');
-// console.log(buf3);
+// console.log(buf3); // <Buffer 62 75 66 66 65 72>
 // let buf4 = Buffer.from([0x62,0x75,0x66,0x66,0x65,0x72]);
-// console.log(buf4.toString());
+// console.log(buf4.toString()); //buffer
+
 
 
 /* 
@@ -49,12 +50,12 @@
 // write() 方法   向 Buffer 对象中写入内容
 let buf7 = Buffer.alloc(5);
 buf7.write('hello',2,2); //第一个参数表示从 Buffer数组第二位开始写入，第二个参数表示写入两个字符 
-console.log(buf7);
+console.log(buf7); // <Buffer 00 00 68 65 00>
 
 // slice() 方法 截取新的 Buffer 对象，和 js 的 slice 方法相似
 let buf8 = Buffer.from('hello');
 let buf9 = buf8.slice(2,4);
-console.log(buf9.toString());
+console.log(buf9.toString()); // ll
 
 // toJSON() 方法，不需要显式调用，当调用 JSON.stringify 时会自动调用 toJSON 方法
 const buf10 = Buffer.from('hello');

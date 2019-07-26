@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>闭包</title>
+
+</head>
+
+<body>
+    <ul id="heroes">
+        <li>安琪拉</li>
+        <li>李白</li>
+        <li>诸葛亮</li>
+        <li>狄仁杰</li>
+    </ul>
+    我是字体的演示
+
+    <div id="box">
+        <button size="12">按钮1</button>
+        <button size="14">按钮2</button>
+        <button size="16">按钮3</button>
+    </div>
+
+    <script>
+        function changeSize(size) {
+            return function () {
+                document.body.style.fontSize = size + 'px'
+            }
+        }
+        var box = document.getElementById('box');
+        var btns = box.children;
+        for( var i = 0; i < btns.length; i++ ){
+            var btn = btns[i];
+            var size = btn.getAttribute('size');
+            btn.onclick = changeSize(size);
+        }
+        
+        // var arr = [10, 20, 30]
+        // for (var i = 0; i < arr.length; i++) {
+        //     (function (i) {
+        //         arr[i] = function () {
+        //             console.log(i);
+        //         }
+        //     })(i)
+        // }
+        // arr[0]();
+        // arr[1]();
+        // arr[2]();
+        // 给每个 li 添加 onclick 事件
+        // 方式 1：
+        // var heroes = document.getElementById('heroes');
+        // var list = heroes.children;
+        // for(var i = 0; i < list.length; i++) {
+        //     // var li = list[i];
+        //     // console.log(list[i]);
+        //     // console.log(li);
+        //     list[i].index = i;
+        //     list[i].onclick = function() {
+        //         console.log(this.index);
+        //     }
+        // }
+
+        // 方式 2： 使用闭包
+        // var heroes = document.getElementById('heroes');
+        // var list = heroes.children;
+        // for(var i = 0; i < list.length; i++) {
+        //     var li = list[i];
+        //     (function (i){
+        //         li.onclick = function() {
+        //             console.log(i);
+        //         }
+        //     })(i)
+        // }
+
+        // var n = 20;
+        // function fn() {
+        //     var n = 10;
+        //     return function() {
+        //         return n;
+        //     }
+        // }
+        // var f = fn();
+        // console.log(f());
+
+        // 闭包示例 1 ：
+        // function getRandom(){
+        //     var random = parseInt(Math.random() * 10) + 1;
+        //     return function() {
+        //         return random
+        //     }
+        // }
+        // var f = getRandom();
+        // console.log(f());
+
+        // 闭包示例 2 :
+        // function naddm(n){
+        //     return function(m) {
+        //         return n + m;
+        //     }
+        // }
+        // var fun1 = naddm(100);
+        // var fun2 = naddm(1000);
+        // console.log(fun1(2));
+        // console.log(fun2(3));
+    </script>
+</body>
+
+</html>

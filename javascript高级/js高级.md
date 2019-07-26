@@ -1,3 +1,12 @@
+## this 的指向情况
+
+1. 普通函数中的 this  >  window
+2. 构造函数中的 this  >  当前构造函数创建的对象
+3. 方法中的 this  >  方法所属的对象
+4. 事件处理中的 this >  事件源，谁调用该事件 this 就指向谁
+
+
+
 ## 面向对象与原型
 
 ### 创建对象的方式
@@ -599,5 +608,203 @@ console.log(isArray([])) // true
 console.log(isObject({})) // true
 
 // 生成随机整数
+```
+
+
+
+## 函数闭包
+
+### 闭包的概念
+
+在 JS 中，只有函数内部的子函数才能读取局部变量，而闭包就是能够读取其他函数内部变量的函数(作用域)，可以理解为定义在一个函数内部的函数。
+
+在一个作用域中可以访问另一个作用域的变量。
+
+本质上，闭包是将函数内部和外部连接起来的桥梁。
+
+闭包使得函数(作用域)执行完毕后不会立即被清除，而依旧存在于内存中。
+
+
+
+### 闭包的作用
+
+**用处：**
+
+1. 可以读取函数内部的变量
+
+2. 让这些变量的值始终保存在内存中，不会在外层函数调用后被自动清除
+
+**优点：**
+
+1. 变量长期驻扎在内存中；
+
+2. 避免全局变量的污染；
+
+**缺点：**
+
+​	常驻内存，会增大内存的使用量，使用不当会造成内存泄露
+
+
+
+### 闭包示例
+
+```javascript
+// 简单示例
+function fun() {
+    var n = 10;
+    return function(){
+        return n;
+    }
+}
+var f = fun();
+console.log(f());
+
+// 给 li 添加点击事件 输出对应索引
+var heroes = document.getElementById('heroes');
+var list = heroes.children;
+for(var i = 0; i < list.length; i++) {
+    (function(i){
+        list[i].onclick = function(){
+            console.log(i);
+        }
+    })(i)
+}
+
+// 定时器中的使用
+console.log('start')
+for(var i = 0; i < 3; i++) {
+    (function(i) {
+        setTimeout(function(){
+            console.log(i)
+        },0)
+    })(i)
+}
+console.log('end');
+```
+
+```javascript
+<div id="box">
+	<button size="12">按钮1</button>
+    <button size="14">按钮2</button>
+    <button size="16">按钮3</button>
+</div>
+<script>
+	function changeSize(size) {
+    	return function () {
+        	document.body.style.fontSize = size + 'px'
+		}
+	}
+    var box = document.getElementById('box');
+    var btns = box.children;
+    for( var i = 0; i < btns.length; i++ ){
+    	var btn = btns[i];
+        var size = btn.getAttribute('size');
+        btn.onclick = changeSize(size);
+	}
+</script>
+```
+
+
+
+### 闭包思考题
+
+思考题 1：
+
+```javascript
+var name = "The Window";
+var object = {
+  name: "My Object",
+  getNameFunc: function () {
+    return function () {
+      return this.name;
+    };
+  }
+};
+
+console.log(object.getNameFunc()())
+```
+
+思考题 2：
+
+```javascript
+var name = "The Window";　　
+var object = {　　　　
+  name: "My Object",
+  getNameFunc: function () {
+    var that = this;
+    return function () {
+      return that.name;
+    };
+  }
+};
+console.log(object.getNameFunc()())
+```
+
+
+
+## 对象的拷贝
+
+### 浅拷贝
+
+拷贝对象时，浅拷贝只是复制了对象 (数组) 的引用地址，两个对象指向同一个内存地址，所以修改其中任意的值，另一个值都会随之变化，这就是浅拷贝。
+
+```javascript
+// 浅拷贝示例
+var obj1 = {
+    name: 'zs',
+	age: 14,
+    sex: '男',
+    dog: {
+    	name: '金毛',
+        age: 2,
+        yellow: '黄色'
+	}
+}
+var obj2 = {};
+for(var key in obj1){
+    obj2[key] = obj1[key]
+}
+console.dir(obj2); 
+obj1.dog.name = 'xxx'
+console.dir(obj2); // dog.name 属性被改变
+```
+
+
+
+### 深拷贝
+
+深拷贝是将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变，这就是深拷贝。
+
+```javascript
+// 应用递归方法实现深拷贝
+var obj1 = {
+	name: 'zs',
+	age: 14,
+    sex: '男',
+    dog: {
+    	name: '金毛',
+        age: 2,
+        yellow: '黄色'
+	}
+}
+var obj2 = {}
+function deepCopy(o1,o2){
+	for(var key in o1) {
+		var item = o1[key];
+		if(item instanceof Object){
+			o2[key] = {};
+			deepCopy(item,o2[key]);
+		}else if(item instanceof Array){
+			o2[key] = [];
+			deepCopy(item,o2[key]);
+		}else {
+			o2[key] = item
+		}
+	}
+}
+deepCopy(obj1, obj2);
+console.log(obj2);
+obj1.dog.name = 'xxx';
+console.log(obj2);
 ```
 

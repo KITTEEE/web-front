@@ -2,7 +2,7 @@
     引入模块
 */
 var module = require('./03.js');
-
+console.log(module);
 //exports导出后引入使用
 // var ret = module.sum(12,13);
 // console.log(ret);

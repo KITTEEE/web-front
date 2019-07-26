@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中的页面加载方式</title>
+    <script>
+        // js 中的 onload 只能加载一次，加载的为最后一个 onload
+        // window.onload = function() {
+        //     console.log("1");
+        // }
+        // window.onload = function() {
+        //     console.log("2");
+        // }
+    </script>
+
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        // jQuery 中的页面加载可以加载多次
+        // jQuery 中的页面加载分为两种，一种为页面中所有的内容加载完毕后才触发，另一种为页面中的基本的标签加载完毕后加载
+        
+        // 一、 页面中所有的内容加载完毕后才触发，和 DOM 中的 window.onload 相同
+        $(window).load(function() {
+            console.log("window 1");
+        })
+        $(window).load(function() {
+            console.log("window 2");
+        })
+
+        // 二、 页面中的基本标签加载完毕后加载
+        // 1. $(document).ready()
+        $(document).ready(function() {
+            console.log("document 1");
+        })
+        $(document).ready(function() {
+            console.log("document 2");
+        })
+        // 2. jQuery()
+        jQuery(function(){
+            console.log("jquery 1");
+        })
+        jQuery(function(){
+            console.log("jquery 2");
+        })
+        // 3. $() 最常用
+        $(function() {
+            console.log("常用1");
+        })
+        $(function() {
+            console.log("常用2");
+        })
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

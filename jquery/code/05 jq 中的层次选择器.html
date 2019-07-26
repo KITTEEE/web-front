@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中的层次选择器</title>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        $(function () {
+            $("#btn1").click(function () {
+                // 获取 div 中所有层级的 p 元素
+                // $("#dv p").css("backgroundColor","red");
+                // 获取 div 中的直接子元素(第一层级)
+                // $("#dv>p").css("backgroundColor","red");
+                // 获取 div 后的第一个 p 元素
+                // $("#dv+p").css("backgroundColor","red");
+                // 获取跟 div 相同层级的 p 元素
+                // $("#dv~p").css("backgroundColor","red");
+            })
+        })
+        $(function () {
+            $("#uu>li").mouseover(function () { // 获取第一层级的所有 li ，并给他们添加事件
+                $(this).css("backgroundColor", "red")
+            })
+            $("#uu>li").mouseout(function () { // 获取第一层级的所有 li ，并给他们添加事件
+                $(this).css("backgroundColor", "white")
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="显示效果" id="btn1" />
+    <div id="dv2">
+        <p>这是div中的第一个p标签</p>
+        <ul>
+            <li>这是第一个li标签</li>
+            <li>
+                <p>这是第二个li中的一个p标签</p>
+            </li>
+            <li>这是第三个li标签</li>
+        </ul>
+        <p>这是div中的第二个p标签</p>
+    </div>
+    <p>这是div后面的第一个p标签</p>
+    <p>这是div后面的第二个p标签</p>
+    <p>这是div后面的第三个p标签</p>
+
+    <h1> 小案例 </h1>
+    <input type="button" value="显示效果" id="btn" />
+    <div id="dv2">
+        <p>这是一个p</p>
+        <span>这是一个span</span>
+    </div>
+    <ul id="uu">
+        <li>火箭</li>
+        <li>马刺</li>
+        <li>公牛</li>
+        <li>小牛</li>
+        <li>湖人</li>
+        <li>老牛</li>
+        <li>母牛</li>
+    </ul>
+</body>
+
+</html>

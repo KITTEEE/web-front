@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jq 中的动画</title>
+    <style>
+        #dv {
+            width: 200px;
+            height: 100px;
+            background-color: green;
+        }
+        #dv2{
+            width: 200px;
+            height: 100px;
+            background-color: red;
+        }
+        #dv3{
+            width: 200px;
+            height: 100px;
+            background-color: blue;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        // 常见的动画方法
+        $(function () {
+            // hide() 使元素隐藏
+            // show() 使元素显示
+            // hide 和 show 中都可以写参数，参数类型有'数字'和'字符串'两种
+            // 1. 数字：动画持续时间的毫秒值、2. 字符串：有slow、normal、fast ,表示动画的速度
+            // hide 和 show 中的第二个参数可设置动画执行完成后的回调函数 06 案例
+            $("#btnHide").click(function () {
+                // $("#dv").hide(1000)
+                // $("#dv").hide("slow")
+                // $("#dv").hide("normal")
+                $("#dv").hide("fast")
+            })
+            $("#btnShow").click(function () {
+                // $("#dv").show(1000);
+                // $("#dv").show("slow");
+                // $("#dv").show("normal");
+                $("#dv").show("fast");
+            })
+
+            // slideUp() 滑入动画
+            // slideDown() 滑出动画
+            // slideToggle() 滑入滑出切换
+            // slide 的参数跟 hide 和 show 一样
+            $("#btn1").click(function() {
+                // 滑入
+                $("#dv2").slideDown("normal");
+            })
+            $("#btn2").click(function(){
+                // 滑出
+                $("#dv2").slideUp("normal")
+            })
+            $("#btn3").click(function(){
+                $("#dv2").slideToggle("normal")
+            })
+
+            // fadeIn() 淡入
+            // fadeOut() 淡出
+            // fadeToggle() 淡入淡出切换
+            // 参数类型同上
+            // fadeTo() 参数第一个为毫秒值，第二个为透明度值 
+            $("#btnIn").click(function() {
+                $("#dv3").fadeIn();
+            })
+            $("#btnOut").click(function() {
+                $("#dv3").fadeOut();
+            })
+            $("#btnToggle").click(function() {
+                $("#dv3").fadeToggle()
+            })
+            $("#btnTo").click(function() {
+                // 半秒钟透明度变为 0.3
+                $("#dv3").fadeTo(500,0.3)
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="隐藏" id="btnHide" />
+    <input type="button" value="显示" id="btnShow" />
+    <div id="dv">隐藏显示演示</div>
+
+    <input type="button" value="滑入" id="btn1" />
+    <input type="button" value="滑出" id="btn2" />
+    <input type="button" value="滑入滑出切换" id="btn3" />
+    <div id="dv2">滑入滑出演示</div>
+
+    <input type="button" value="淡入" id="btnIn" />
+    <input type="button" value="淡出" id="btnOut" />
+    <input type="button" value="淡入淡出切换" id="btnToggle" />
+    <input type="button" value="透明度变化" id="btnTo"/>
+    <div id="dv3">淡入淡出演示</div>
+</body>
+
+</html>

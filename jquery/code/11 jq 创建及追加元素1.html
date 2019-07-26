@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 100px;
+            background-color: yellow;
+        }
+    </style>
+    <script src="../code/jquery-1.12.2.js"></script>
+    <script>
+        /* 
+            jq 中创建元素的方式
+            1. $("标签的代码")
+            2. 对象.html("标签的代码") // 会清空原有的内容
+
+            追加元素的方法：
+            append() 在元素的末尾追加元素(最后一个子节点) 父节点调用
+            appendTo() 被动追加，子节点调用
+            prepend() 在元素的开始添加元素(第一个子节点)
+            after() 在元素之后添加元素(兄弟元素)
+            before() 在元素之前添加元素(兄弟元素)
+
+            append() 使用时需注意：将一个已有的元素添加到另一个元素中时
+                    会发生类似剪切的效果，而不是复制一个相同的元素到领域给元素中
+         */
+        $(function () {
+            var i = 0;
+            $("#btn").click(function () {
+                i++;
+                var aObj = $("<a href='www.baidu.com'>百度" + i + "</a>")
+                // $("#dv").html("<a href='www.baidu.com'>百度" + i + "</a>")
+
+                $("#dv").append(aObj); // 1 2 3 4
+                // $("#dv").prepend(aObj); // 4 3 2 1
+                // $("#dv").after(aObj) // 兄弟元素 4 3 2 1 
+                // $("#dv").before(aObj) // 兄弟元素 1 2 3 4
+            })
+
+            $("#btn2").click(function () {
+                $("#dv1>p").appendTo($("#dv2"))
+            })
+        })
+    </script>
+</head>
+
+<body>
+    <input type="button" value="创建元素" id="btn" />
+    <div id="dv"></div>
+
+    <!-- appendTo 注意问题 -->
+    <input type="button" value="显示效果" id="btn2" />
+    <div id="dv1" style="margin-bottom:10px">
+        <p>这是一个p</p>
+    </div>
+    <div id="dv2"></div>
+</body>
+
+</html>
