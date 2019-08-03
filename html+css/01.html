@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        h3#test {
+            color: red;
+        }
+
+        /* 获取到 拥有 type 属性的元素 */
+        li[type] {
+            border: 1px solid gray;
+        }
+
+        /* 获取 属性等于某个值的 元素 属性值 可以使用 引号进行包裹 */
+        li[type="vegetable"] {
+            background-color: green;
+        }
+
+        /* 使用空格分隔的 多个属性 其中有某个属性即可获取 */
+        li[type~="hot"] {
+            font-size: 40px;
+        }
+
+        /* 获取以某个属性开头的语法  */
+        li[color^='green'] {
+            background-color: orange;
+        }
+
+        /* 获取以某个值 结尾的属性 */
+        li[type$='t'] {
+            color: hotpink;
+            font-weight: 900;
+        }
+
+        /* 获取 属性中 拥有某个值的 元素 */
+        li[type*=ea] {
+            font-size: 100px;
+        }
+
+        /*  如果属性的值 只有very 也能够获取  用来获取 多个属性 并且 使用-连接 */
+        li[price|='very'] {
+            background-color: darkred;
+        }
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li type='fruit' color='green'>西瓜</li>
+        <li type='vegetable' color='greenyellow'>西兰花</li>
+        <li type='meat'>牛肉</li>
+        <li type='meat hot'>猪肉</li>
+        <li type='drink hot'>可乐</li>
+        <li type='drink hot'>雪碧</li>
+        <li price='very-cheap'>红酒</li>
+        <li price='very'>白酒</li>
+    </ul>
+    <h3>hello</h3>
+    <h3 id="test">hello</h3>
+</body>
+
+</html>
