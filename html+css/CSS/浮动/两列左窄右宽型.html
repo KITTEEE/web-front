@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>两列左窄右宽型</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .top,
+        .banner,
+        .main,
+        .footer {
+            background-color: #eee;
+            margin: 0 auto;
+            width: 960px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px dashed #ccc;
+        }
+
+        .top {
+            height: 80px;
+        }
+
+        .banner {
+            height: 122px;
+        }
+
+        .main {
+            height: 500px;
+        }
+        .left {
+            height: 500px;
+            width: 360px;
+            background-color:pink;
+            float: left;
+        }
+        .right {
+            width: 590px;
+            height: 500px;
+            background-color: purple;
+            float: right;
+        }
+        .footer {
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="top">top</div>
+    <div class="banner">banner</div>
+    <div class="main">
+        <div class="left">left</div>
+        <div class="right">right</div>
+    </div>
+    <div class="footer">footer</div>
+</body>
+
+</html>

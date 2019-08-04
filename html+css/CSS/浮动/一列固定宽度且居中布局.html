@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>一列固定宽度且居中布局</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .top,
+        .banner,
+        .main,
+        .footer {
+            margin: 0 auto;
+            width: 960px;
+            text-align: center;
+            margin-bottom: 15px;
+            border: 1px dashed #ccc;
+        }
+        .top {
+            background-color: pink;
+            height: 80px;
+        }
+        .banner {
+            height: 122px;
+            background-color: purple;
+        }
+        .main {
+            height: 500px;
+            background-color: hotpink;
+        }
+        .footer {
+            height: 150px;
+            background-color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="top">top</div>
+    <div class="banner">banner</div>
+    <div class="main">main</div>
+    <div class="footer">footer</div>
+</body>
+</html>
