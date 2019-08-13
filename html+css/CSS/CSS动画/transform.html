@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>transform</title>
+    <style>
+        .box1 {
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+            transition: all ease 1s;
+            /* position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%,-50%) */
+        }
+        .box1:hover {
+            /* transform: translate(30px,50px) */
+            /* transform: translateX(50px) */
+            transform: translateY(50px)
+        }
+        .box2 {
+            width: 632px;
+            height: 340px;
+            margin: 0 auto;
+            overflow: hidden;
+            border: 2px solid rgb(68, 42, 42);
+            
+        }
+        .box2 img {
+            transition: all ease 1s;
+        }
+        .box2 img:hover {
+            /* transform: scale(0.8,1) */
+            /* transform: scaleX(0.8); */
+            transform: scale(1.2);
+        }
+        .box3 {
+            width: 200px;
+            height: 200px;
+            background-color: blue;
+            transition: all ease 1s;
+            transform-origin: 50px 50px;/* 设置旋转中心 */
+        }
+        .box3:hover {
+            transform: rotate(360deg)
+        }
+        .box4 {
+            margin: 100px auto;
+            width: 200px;
+            height: 130px;
+            border: 1px solid red;
+            position: relative;
+        }
+        .box4 img{
+            width: 200px;
+            height: 130px;
+            position: absolute;
+            top:0;
+            left: 0;
+            transition: all ease 0.8s;
+            transform-origin: right top;
+        }
+        .box4:hover img:nth-child(1) {
+            transform: rotate(60deg)
+        }
+        .box4:hover img:nth-child(2) {
+            transform: rotate(120deg)
+        }
+        .box4:hover img:nth-child(3) {
+            transform: rotate(180deg)
+        }
+        .box4:hover img:nth-child(4) {
+            transform: rotate(240deg)
+        }
+        .box4:hover img:nth-child(5) {
+            transform: rotate(300deg)
+        }
+        .box4:hover img:nth-child(6) {
+            transform: rotate(360deg)
+        }
+        .box5 {
+            width: 200px;
+            height: 200px;
+            background-color: yellow;
+            transition: all ease 1s;
+        }
+        .box5:hover {
+            transform: skew(30deg,0)
+        }
+        </style>
+</head>
+<body>
+    <div class="box1"></div>
+    <div class="box2">
+        <img src="./images/mi.jpg" alt="">
+    </div>
+    <div class="box3"></div>
+
+    <div class="box4">
+        <img src="images/6.jpg" alt="">
+        <img src="images/5.jpg" alt="">
+        <img src="images/4.jpg" alt="">
+        <img src="images/3.jpg" alt="">
+        <img src="images/2.jpg" alt="">
+        <img src="images/1.jpg" alt="">
+    </div>
+    <div class="box5"></div>
+</body>
+</html>

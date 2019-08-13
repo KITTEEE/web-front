@@ -371,11 +371,11 @@ padding 不影响盒子大小的情况：当没有给块级元素指定宽度时
 
 2. **嵌套块元素垂直外边距的合并**
 
-   在两个嵌套的块元素中，如果父元素没有上内边距及边框，则父元素的上外边距会与子元素的上外边距发生合并，合并后的值为两者中的较大者。即视父元素的上外边距为 0 也会发生合并。
+   在两个嵌套的块元素中，如果父元素没有上内边距及边框，则父元素的上外边距会与子元素的上外边距发生合并，合并后的值为两者中的较大者。即使父元素的上外边距为 0 也会发生合并。
 
    解决方法：
 
-   * 为父元素定义亿像素的上边框或上内边距
+   * 为父元素定义 1 像素的上边框或上内边距
 
    * 为父元素添加 overflow：hidden
 
@@ -452,7 +452,573 @@ box-shadow: 水平阴影 垂直阴影 模糊距离 阴影尺寸 阴影颜色 内
 
 
 
-### 清除浮动
+### 清除浮动*
+
+为什么需要清除浮动 ?
+
+**清除浮动主要是为了解决子元素浮动导致父元素内部高度为 0 的问题。**
+
+**清除浮动，便是把浮动的元素圈在父元素里，不让子元素出来影响其他元素。**
+
+
+
+**清除浮动的方法**
+
+* **额外标签法**
+
+  在浮动元素的末尾添加一个空标签，并添加 clear:both 属性。如下：
+
+  ```html
+  // 假设 .son1 .son2 都有宽高且浮动
+  <div class="father">
+  	<div class="son1"></div>
+      <div class="son2"></div>
+      <div class="clear"></div>
+  </div>
+  <style>
+      .clear { clear:both }
+  </style>
+  ```
+
+  **clear 属性用于清除浮动，有三个属性值 left / right / both ，left / right 是清除左 / 右浮动的影响，both 意思是同时清除左右两侧浮动的影响。**
+
+  ```
+  优点：通俗易懂，书写方便
+  缺点：增加了许多无意义的标签，结构化较差
+  ```
+
+
+
+* **使用 :after 伪元素(常用)**
+
+  额外标签法的升级，通过给父元素添加伪元素实现
+
+  ```html
+  <div class="father .clearfix">
+  	<div class="son1"></div>
+      <div class="son2"></div>
+  </div>
+  <style>
+      .clearfix:after {
+          content:'.'; /* 内容为空的话在低版本浏览器会有出现间隙 */
+          display:block; /* 使元素显示为块级元素 */
+          height:0; /* 元素高度为 0 */
+          visibility:hidden; /* 隐藏元素 */
+          clear:both /* 清除浮动 */
+      }
+      .clearfix {
+          *zoom:1; /* 兼容 ie6/7，zoom 是ie6/7清除浮动的方法 */
+      }
+  </style>
+  ```
+
+
+
+* **使用 :before、:after 双伪元素(常用)**
+
+  ```css
+  .clearfix:before,.clearfix:after {
+      content:"";
+      display:table /* 或 block ,触发 BFC ，防止外边距合并 */ 
+  }
+  .clearfix:after {
+      clear:both;
+  }
+  .clearfix {
+      *zoom:1;
+  }
+  ```
+
+  
+
+* **给父元素添加 overflow 属性**
+
+  通过给父元素添加 overflow 属性，触发 BFC 来清除浮动造成的影响。
+
+  overflow 属性为 hidden | auto | scroll 都可以清除浮动。
+
+  ```
+  优点：简洁
+  缺点：容易造成不会自动换行的元素内容被隐藏，无法显示出需要溢出的元素
+  ```
+
+
+
+## CSS 定位(position)
+
+position 用于定义元素的定位模式，有四种定位模式。
+
+* static ：静态定位，所有元素默认都是静态定位
+* relative： 相对定位，相对其原来的位置进行定位
+* absolute： 绝对定位，相对上一个具有定位属性的父元素进行定位。
+* fixed ：固定定位，相对于浏览器窗口进行定位。
+
+
+
+### 相对定位 relative 
+
+特点：
+
+1. 相对元素原来的位置进行定位
+2. 不会脱离标准文档流，元素还会占有原来在文档流中的位置。
+
+
+
+### 绝对定位 absolute
+
+**特点：**
+
+	1. 相对于离它最近的具有 position 属性的父元素进行定位
+ 	2. 绝对定位会使元素脱离标准文档流，元素原来的位置不会占有。
+
+绝对定位后的位置有两种情况，分别是父元素具备或不具备定位属性的时候。
+
+* **父元素有定位属性：** 父元素有定位属性时，子元素绝对定位的位置是相对于具有定位属性的最近父元素来说的。
+* **父元素没有定位属性：**父元素没有定位属性时，子元素绝对定位的位置相对于浏览器 (document文档) 对齐。
+
+**绝对定位元素不设置边偏移的情况**
+
+如果给元素绝对定位但不设置边偏移，则该盒子虽然会脱离标准文档流，但是会以标准文档流来排序。
+
+```html
+// 比如下面这种情况，假设每个元素都有宽高
+// 这时 .son2 会与 .son1 的底部对齐，而不是覆盖在 .son1 上
+// 而且 由于 .son2 脱标，.son3 会占有 .son2 的位置。
+<div class="father">
+		<div class="son1"></div>
+		<div class="son2"></div>
+		<div class="son3"></div>
+</div>
+<style>
+    .father { position:relative }
+    .son2 { position:absolute }
+</style>
+```
+
+
+
+### 子绝父相
+
+子级是绝对定位的话， 父级要用相对定位。
+
+
+
+### 绝对定位元素居中方法
+
+加了绝对定位元素的盒子，使用 margin 左右 auto 使其居中的方法是无效的，下面是使绝对定位元素水平和垂直居中的方法。
+
+```css
+.son {
+    height:100px;
+    width:40px;
+    position:absolute;
+    /* 水平居中 */
+    left:50%; /* 父元素宽度的一半 */
+    margin-left:-20px /* 自身宽度一半的负值 */
+	/* 垂直居中 */
+    top:50%; /* 父元素高度的一般 */
+    margin-top:-50px /* 自身高度一般的负值 */
+}
+```
+
+
+
+### 固定定位 fixed 
+
+特点：
+
+1. 固定定位相对于浏览器视口来进行定位，与父元素没有任何关系
+2. 固定定位是脱离标准文档流的，不占有位置，不随滚动条滚动。
+
+
+
+### 定位后模式转换
+
+**和浮动一样，元素添加了绝对定位和固定定位后，元素会变为行内块元素。**
+
+因此添加了定位的元素可以不用转换 display，直接给宽高。
+
+
+
+### z-index 属性
+
+当多个元素之间设置了 position 属性时，元素间便会重叠。
+
+**z-index 用来设置定位元素的堆叠顺序**，其取值可为正 / 负整数或 0.
+
+需要注意：
+
+1. **只有元素为相对定位，绝对定位，固定定位时有 z-index 属性。**
+2. z-index 默认值为 0，取值越大越在上层。若取值相同，则按照书写顺序，后来居上。
+
+
+
+## CSS 中元素的显示与隐藏
+
+CSS 中有三个控制元素显示与隐藏的属性：display | visibility | overflows
+
+### display 显示模式
+
+display 设置元素是否显示以及如何显示
+
+**display 属性值为 none 时，元素隐藏，并且隐藏后不会保留位置。**
+
+
+
+### visibility 可见性
+
+visibility 设置元素是否可见，有一下两个属性值
+
+visible : 元素可见
+
+**hidden : 元素不可见，但是会保留其原有的位置**
+
+
+
+### overflow 溢出
+
+overflow 设置当元素内容超出其制定宽度或高度时如何管理内容。
+
+visible : 不剪切内容，且不显示滚动条
+
+auto : 超出自动显示滚动条，不超出不显示滚动条
+
+scroll : 不管超出与否都显示滚动条
+
+**hidden : 隐藏超出的部分**
+
+
+
+## BFC
+
+BFC 即块级格式化上下文，是页面上的一个隔离的独立容器，只有块级盒子参与，并规定内部的块级盒子如何布局，而且这个区域与外部毫不相干，即内部布局不会影响到外部的元素。
+
+### 什么情况会使元素产生 BFC
+
+1. float 的属性不为 none
+2. position 的属性为 absolute 或 fixed
+3. display 属性为：block，table-cell，table-caption，flex，inline-flex
+4. overflow 属性不为 visible
+
+### BFC 元素具有的特性
+
+1. BFC 中，盒子从顶端开始垂直地一个接一个地排列
+2. 盒子垂直方向的距离由 margin 决定，属于同一个 BFC 的两个相邻盒子margin 会发生重叠
+3. BFC元素中，每一个盒子的 margin-left 会触碰到BFC元素的 border left
+   * BFC 区域不会与浮动盒子产生交集，而是紧贴浮动边缘
+   * 计算 BFC 高度时，自然也会检测浮动或者定位的盒子的高度
+
+### BFC 主要用途
+
+* **清除浮动**
+
+  一般如果给高度为 0 的父元素的子元素设定了浮动属性，原本被撑开的父元素的高度就会变为 0 ，这时可以通过设定 overflow ：hidden 属性将父元素变为 BFC ，便可以清除浮动造成的高度为 0 的情况，因为 BFC元素在计算高度时也会检测应用了定位或者浮动属性的盒子的高度
+
+  
+
+* **解决外边距合并问题**
+
+  属于同一个 BFC 的上下相邻的子盒子，margin 会发生重叠，这时可以给使其中某个子盒子创建一个BFC，这样就可以避免外边距重叠问题。
+
+  ```html
+  <div class="father">
+      <!-- 使 over 成为 BFC 将两个子盒子隔开>
+      <div class="over">
+          <div class="son1"></div>
+      </div>
+      <div class="son2"></div>
+  </div>
+  <style>
+      .over { overflow:hidden }
+  </style>
+  ```
+
+
+
+* **制作使得右侧盒子自适应**
+
+  利用 BFC 元素不会与浮动元素产生交集，只会与紧贴浮动边缘的特性，可以使得 BFC 元素自适应
+
+  ```html
+  <!-- 假设 father 和 .son1 有宽高，并浮动 .son1 -->
+  <div class="father">
+  	<div class="son1"></div>
+      <div class="son2">sdfasfasd</div>
+  </div>
+  <style>
+      .son1 { float:left }
+      .son2 {overflow:hidden}
+  </style>
+  ```
+
+
+
+## CSS高级技巧
+
+### 溢出文字隐藏
+
+**word-break 自动换行**
+
+word-break 三个属性值，这个属性主要来处理英文
+
+```
+normal 使用浏览器默认的换行规则
+break-all 允许拆开单词换行
+keep-all 不允许拆开单词换行，只能在半角空格或连字符换行
+```
+
+**white-space** 
+
+设置元素内文本的显示方式，通常使用他来强制一行显示中文标题
+
+```
+normal 默认换行方式
+nowrap 不允许换行
+```
+
+**text-overflow 文字溢出** * 
+
+设置文字溢出时的显示方式
+
+使用时必须先设置 white-space：nowrap 使文字强制一行显示，再添加 overflow : hidden ，否则不会有效果
+
+```
+clip 溢出的文字隐藏
+ellipsis 溢出的文字以省略号显示
+```
+
+
+
+### vertical-align 垂直对齐属性
+
+**vertical-align 对块级元素不起作用，它只针对行内元素或行内块元素。**
+
+```
+vertical-align : baseline(基线) | middle(垂直居中) | top(顶部对齐)
+```
+
+vertical-align 一般用来做下面的事情：
+
+1. **图片和文字对齐**
+
+   img 默认和文字是基线对齐的，添加 vertical-align 为 middle 可以使图片和文字垂直居中对齐
+
+2. **去除图片底侧的空白间隙**
+
+   **一个元素若没有基线 (像图片或表单等行内块元素) ，则它的底线会和父级盒子的基线对齐。** 因此有时会造成图片底侧有空白间隙
+
+   解决方法：
+
+   ① 元素的 vertical-align：middle | top，让其不与父盒子的基线对齐
+
+   ② 元素的 display : block，块级元素就不会出现这个问题。
+
+
+
+### CSS 精灵图
+
+**出现背景**
+
+用户访问一个网站时，网页上的每张图片都需要经过一次请求才能展现给用户，而一个网站往往有多张图片，这就导致了服务器频繁的接收和发送请求，降低了页面的加载速度。
+
+**精灵图本质**
+
+精灵图实际上是把一个页面中零星的背景图像都放到一张大图中去，使得用户访问网页时只需想服务器发送一次请求。
+
+使用方法为，将需要使用图片的元素设置 background-image 引入精灵图，并通过 background-position 来精确定位需要的那张图片，同时 background-repeat 属性设为 no-repeat
+
+**精灵图制作**
+
+```
+1. 精灵图放的都是小的装饰性图片，如 icon，大的背景图(如 banner)不能网上放
+2. 精灵图的宽度取决与最宽的图片的宽度
+3. 可横向摆放也可以纵向摆放，但每个图片之间至少隔开偶数像素合适
+```
+
+
+
+### CSS 压缩
+
+```
+w3c css压缩  ：http://tool.chinaz.com/Tools/CssFormat.aspx
+站长之家：http://tool.chinaz.com/Tools/CssFormat.aspx  
+```
+
+
+
+### CSS W3C 验证工具
+
+```
+CssStats : http://www.cssstats.com/
+W3C统一验证工具 : http://validator.w3.org/unicorn/
+```
+
+
+
+### 字体图标
+
+
+
+
+
+## CSS3 动画
+
+### transition 过渡 (CSS3)
+
+```css
+/* 简写形式 */
+transition: 要过渡的属性  花费的时间 过渡效果 何时开始
+/* 可单独设定属性 */
+transition-property  要过渡的属性，如宽高 display 等
+transition-duration 过渡的时间，默认为 0
+transition-timing-function 过渡的效果，有 ease、ease-in、ease-out、ease-in-out、linear
+transition-delay 设置过渡效果延迟的时间，默认是 0
+
+transition:all ease; 所有属性过渡效果为 ease
+```
+
+
+
+### transform 2D变形(CSS3)
+
+**translate 移动**
+
+使用 transform : translate(x px,y px) 将元素在水平和垂直方向上分别移动 x 和 y 像素。
+
+```css
+transform:translate(x,y) x 和 y 轴同时移动
+transform:translateX(x) 仅移动 x
+transform:translateY(y) 仅移动 y
+
+/* 垂直居中的正确写法 */
+div {
+    width:500px;
+    height:400px;
+   	position:absolute;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%) /* 自己宽高的一半 */
+}
+```
+
+**scale 缩放**
+
+使用 transform:scale(x，y) 使元素在水平和垂直方向同时缩放，x 和 y 的取值大于 0
+
+```css
+transform:scale(x,y) | scale(x) 取一个值表示等比例缩放
+transform:scale(x) 仅 x 方向缩放
+transform:scale(y) 仅 y 方向缩放
+```
+
+**rotate 旋转**
+
+使用 **transform : rotate(x deg)** 使元素按指定角度旋转，取值为正顺时针，取值为负逆时针
+
+**注意：当元素旋转后，坐标轴也发生了改变，所以设置 transform 时一般会把 rotate 放在最后。**
+
+**transform-origin** 设置旋转原点：
+
+```css
+/* 如果旋转原点为四个角，可以用 left top 等，如果想要精确的位置可以使用 px */
+div {
+    /* 沿左上角旋转 45deg */
+    transform-origin:left top;
+    transform:rotate(45deg);
+}
+div {
+    /* 沿坐标为 10px 10px 旋转 45 deg */
+    transform-origin:10px 10px;
+    transform:rotate(45deg);
+}
+```
+
+**skew 倾斜**
+
+使用 transform : skew(x deg , y deg) 使元素按一定角度倾斜
+
+```css
+/* 参数可为负，第二个参数不写默认为 0 */
+/* 水平方向倾斜 30度，竖直方向不变
+transform:skew(30deg,0)
+```
+
+
+
+### transform 3D变形(CSS3)
+
+**perspective 透视**
+
+通过 perspective 属性可以将 2D 平面呈现 3D 透视效果。
+
+**perspective 一般设置给父元素，并作用于所有 3D 转换的子元素。**
+
+perspective 的属性值为像素值
+
+
+
+**rotateX()  |  rotateY()  |  rotateZ() **
+
+
+
+**translateX(x)  |  translateY(y)  |  translateZ(z)  |  translate3d(x,y,z)**
+
+需要注意的是
+
+1.  translateZ 沿着 Z 轴(垂直于屏幕的轴) 移动，近大远小，类似于缩放。
+
+2. **translateZ 的远近必须要有参照物，因此必须给父元素设置 perspective 属性才有效果。**
+
+3. translate3d 中 x 和 y 可以是长度值也可以是百分比，但 z 只能是长度值
+
+
+
+**transform-style ？**
+
+
+
+### backface-visibility 
+
+定义当前元素不面向屏幕时是否隐藏
+
+```css
+backface-visibility : hidden /* 不面向屏幕时隐藏 */
+backface-visibility : visible /* 不面向屏幕时显示 */
+```
+
+
+
+### animation(CSS3)
+
+**animation 语法格式**
+
+```css
+animation : 动画名称  动画持续时间  运动曲线  何时开始播放  播放次数  是否反向
+animation-name: 动画名称，规定 @keyframes 动画的名称。
+animation-duration: 动画持续时间
+animation-timing-function: 运动曲线，如 ease linear 等
+animation-delay: 动画延迟多少时间后播放
+animation-iteration-count: 动画的播放次数，默认是 1，infinite 为循环播放
+animation-direction: 规定动画是否反向地播放，默认为 normal ，alternate 为确认反向播放
+其他：
+animation-play-state: 规定动画是否正在运动或暂停，默认为 running , 设置为 paused 可以暂停动画
+
+@keyframes 用来定义动画的过程，可以用 from to 定义，也可以用百分比定义
+@keyframes 动画名称 {
+    from { 开始位置 }
+    to { 结束位置}
+}
+@keyframes 动画名称 {
+    0% { 开始位置 }
+    20% { 20%的时候到哪个位置 }
+    50% {}
+    100% {}
+}
+```
+
+
+
+## flex 伸缩布局(CSS3)
 
 
 
@@ -642,8 +1208,6 @@ scroll ：背景图像随着内容滚动
 
 fixed : 背景图像固定
 
-
-
 ### background 属性简写
 
 background 属性简写的书写顺序并没有强制的标准，建议写法如下：
@@ -652,8 +1216,6 @@ background 属性简写的书写顺序并没有强制的标准，建议写法如
 background: color url() repeat attachment position
 ```
 
-
-
 ### background-size 背景缩放（CSS3）
 
 background-size 用来设置图片的尺寸，像设置 img 的尺寸一样，可设置的参数有：
@@ -661,8 +1223,6 @@ background-size 用来设置图片的尺寸，像设置 img 的尺寸一样，�
 * 长度单位或百分比，设置百分比时参照盒子的宽高
 * cover  自动调整缩放比例，保证图片铺满背景。若有溢出则隐藏。
 * contain 自动调整缩放比例，保证图片完整显示在背景中。
-
-
 
 ### 多背景(CSS3)
 
@@ -675,3 +1235,18 @@ background:url(test1.jpg) no-repeat scroll 10px 20px/50px 60px,
 ```
 
 如果设置的多张背景图片间存在着重叠关系，则前面的背景图会覆盖在后面的背景图之上。所以为了避免背景色盖住背景图，通常将背景色定义在最后一组上。
+
+### 背景渐变(CSS3)
+
+背景渐变兼容性问题比较严重
+
+语法格式： 
+
+```css
+background:-webkit-linear-gradient(渐变的起始位置， 起始颜色， 结束颜色)；
+```
+
+```css
+background:-webkit-linear-gradient(渐变的起始位置， 颜色 位置， 颜色位置....)；
+```
+

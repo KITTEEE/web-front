@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>rotateX,rotateY</title>
+    <style>
+        .container {
+            perspective: 600px;
+            width: 500px;
+            height: 2000px;
+            margin: 0 auto;
+        }
+        .rx,.ry,.rz,.psptv,.trz  {
+            transition: all linear 3s
+        }
+        .rx:hover {
+            transform: rotateX(360deg)
+        }
+        .ry,.rz,.psptv {
+            width: 200px;
+            height: 200px;
+        }
+        .ry:hover {
+            transform: rotateY(360deg)
+        }
+        .rz:hover {
+            transform: rotateZ(360deg)
+        }
+        body {
+            
+        }
+        .psptv:hover {
+            transform: rotateY(360deg)
+        }
+        .trz {
+            margin: 100px auto;
+            width: 200px;
+            height: 200px;
+            background-color: pink;
+        }
+        .trz:hover {
+            transform: translateZ(300px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h3>rotateX</h3>
+        <img src="./images/x.jpg" alt="" class="rx">
+        <h3>rotateY</h3>
+        <img src="./images/1498446043198.png" alt="" class="ry">
+        <h3>rotateZ</h3>
+        <img src="./images/1498446043198.png" alt="" class="rz">
+        <h3>perspective</h3>
+        <img src="./images/1498446043198.png" alt="" class="psptv">
+        <h3>translateZ</h3>
+        <div class="trz"></div>
+    </div>
+</body>
+
+</html>

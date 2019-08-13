@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单伪元素清除浮动</title>
+    <style>
+        .f1 {
+            width: 600px;
+			background-color: red;
+        }
+        .son1 {
+            width: 300px;
+			height: 100px;
+			background-color: hotpink;
+            float: left;
+        }
+        .son2 {
+            width: 150px;
+			height: 100px;
+			background-color: skyblue;
+            float: left;
+        }
+        .f2 {
+            width: 600px;
+			height: 240px;
+			background-color: purple;
+        }
+        /* 单伪元素清除浮动 */
+        .clearfix::after {
+            content:".";
+            display: block;
+            height: 0;
+            visibility: hidden;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div class="f1 clearfix">
+        <div class="son1"></div>
+        <div class="son2"></div>
+    </div>
+    <div class="f2"></div>
+</body>
+</html>

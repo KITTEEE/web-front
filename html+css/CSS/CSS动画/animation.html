@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS3动画</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box1 {
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+            /* animation: 动画名称 动画时间 运动曲线 何时开始 播放次数 是否反向 */
+            animation: go 2s ease 1s infinite alternate;
+        }
+
+        @keyframes go {
+            from {
+                transform: translateX(0px);
+            }
+
+            to {
+                transform: translateX(300px)
+            }
+        }
+
+        .car {
+            width: 100px;
+            animation: car 2s linear infinite;
+        }
+
+        @keyframes car {
+            0% {
+                /* transform: translate3d(0,0,0) */
+                transform: translateX(0px)
+            }
+
+            50% {
+                /* transform: translate3d(1000px,0,0); */
+                transform: translateX(1000px)
+            }
+
+            51% {
+                /* transform: translate3d(1000px, 0, 0) rotateY(180deg); */
+                transform: translateX(1000px) rotateY(180deg);
+            }
+
+            99% {
+                /* transform: translate3d(0,0,0) rotateY(180deg) */
+                transform: translateX(0) rotateY(180deg)
+            }
+        }
+
+        nav {
+            width: 882px;
+            height: 86px;
+            margin: 0 auto;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+
+        nav ul {
+            width: 200%;
+            animation: moving 5s linear infinite;
+        }
+
+        nav li {
+            float: left;
+        }
+
+        /* nav li {
+            animation: moving 5s linear infinite;
+        } */
+        @keyframes moving {
+            from {
+                transform: translateX(0px);
+            }
+
+            to {
+                transform: translateX(-890px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h3>体会动画</h3>
+    <div class="box1"></div>
+    <h3>小汽车动画</h3>
+    <img class="car" src="./images/car.jpg" alt="">
+    <h3>无缝滚动</h3>
+    <nav>
+        <ul>
+            <li><img src="./images/nav1.jpg" alt=""></li>
+            <li><img src="./images/nav2.jpg" alt=""></li>
+            <li><img src="./images/nav3.jpg" alt=""></li>
+            <li><img src="./images/nav4.jpg" alt=""></li>
+            <li><img src="./images/nav5.jpg" alt=""></li>
+            <li><img src="./images/nav6.jpg" alt=""></li>
+            <li><img src="./images/nav7.jpg" alt=""></li>
+            <li><img src="images/nav1.jpg" alt="" /></li>
+            <li><img src="images/nav2.jpg" alt="" /></li>
+            <li><img src="images/nav3.jpg" alt="" /></li>
+            <li><img src="images/nav4.jpg" alt="" /></li>
+            <li><img src="images/nav5.jpg" alt="" /></li>
+            <li><img src="images/nav6.jpg" alt="" /></li>
+            <li><img src="images/nav7.jpg" alt="" /></li>
+        </ul>
+    </nav>
+</body>
+
+</html>

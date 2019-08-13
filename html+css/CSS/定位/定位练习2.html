@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定位练习2</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        .container {
+            margin: 50px auto;
+            width: 520px;
+            height: 280px;
+            position: relative;
+        }
+        .dot {
+            display: inline-block;
+            height: 13px;
+            width: 65px;
+            list-style: none;
+            background-color: red;
+            position: absolute;
+            left: 50%;
+            margin-left:-32px;
+            bottom: 15px; 
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.3)
+        }
+        .dot > li {
+            width: 9px;
+            height: 9px;
+            float:left;
+            background-color: blue;
+            border-radius: 50%;
+            margin: 2px;
+            background-color: #B7B7B7;
+        }
+        .dot .current {
+            background-color: #FF4400;
+        }
+        .left {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            margin-top: -18px;
+        }
+        .right {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -18px;            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="images/left.png" alt="">
+        </div>
+        <img src="images/taobao.jpg" alt="">
+        <ul class="dot">
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="right">
+            <img src="images/right.png" alt="">
+        </div>
+    </div>
+</body>
+</html>
