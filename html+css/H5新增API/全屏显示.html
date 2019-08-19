@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>全屏显示</title>
+    <style>
+        div:-webkit-full-screen {
+        /* 注意兼容性问题  全屏显示伪类选择器 */
+        background-color: pink;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <img src="pic1.png" height="300" alt="">
+        <button id="full">全屏显示</button>
+        <button id="cancelFull">取消全屏</button>
+        <button id="isFull">是否全屏</button>
+    </div>
+    <script>
+        var box = document.querySelector('div');
+        var full = document.querySelector("#full");
+        full.onclick = function() {
+            if(box.requestFullScreen) {
+                box.requestFullScreen();
+            } else {
+                box.webkitRequestFullScreen()
+            }
+        }
+        var cancelFull = document.querySelector("#cancelFull");
+        // 取消全屏跟元素没有关系，跟 document
+        cancelFull.onclick = function() {
+            document.webkitCancelFullScreen();
+        }
+        var isFull = document.querySelector("#isFull");
+        isFull.onclick = function() {
+            console.log(document.webkitIsFullScreen)
+        }
+    </script>
+</body>
+
+</html>

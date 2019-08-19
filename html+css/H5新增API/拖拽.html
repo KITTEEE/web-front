@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>拖拽API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+            float: left;
+            margin: 10px;
+        }
+
+        div:nth-child(2) {
+            border: 1px solid green;
+        }
+
+        div:last-child {
+            border: 1px solid blue;
+        }
+
+        p {
+            height: 25px;
+            background-color: pink;
+            line-height: 25px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="div1">
+        <p id="p1" draggable="true">拖拽内容</p>
+        <p id="p2" draggable="true">拖拽内容2</p>
+		<p id="p3" draggable="true">拖拽内容3</p>
+		<p id="p4" draggable="true">拖拽内容4</p>
+    </div>
+    <div id="div2"></div>
+    <div id="div3"></div>
+</body>
+<script>
+    // var p = document.getElementById("p1");
+    // var obj = null; // 存放事件对象
+    document.ondragstart = function(event) {
+        // e = e || window.event;
+        // console.log("对象开始被拖动");
+        // obj = e.target;
+        // console.log(obj)
+        console.log(event.target.id)
+        event.dataTransfer.setData = ("text/html",event.target.id)
+        console.log(event.dataTransfer)
+    }
+    document.ondrag = function () { // 不断执行
+        // console.log("对象正在被拖动")
+    }
+    document.ondragend = function() {
+        console.log("对象结束了拖动")
+    }
+    // var target = document.getElementById("div2")
+    document.ondragenter = function (event) {
+        console.log("对象进入了目标")
+        console.log(event.target)
+
+    }
+    document.ondragover = function(event) {
+        // console.log("对象在目标上方")
+        // 若想触发 ondrop 事件，必须取消 ondragover 的默认行为
+        event.preventDefault();
+        // return false;
+    }
+    document.ondragleave = function() {
+        console.log("对象离开了目标")
+    }
+    document.ondrop = function (event) { 
+        // console.log("对象在目标上释放了");
+        // 源对象在目标对象上释放就可以把源对象放入目标对象里面
+        var id = event.dataTransfer.getData("text/html");
+        // console.log(e.target)
+        console.log(id)
+        event.target.appendChild(document.getElementById(id));
+     }
+</script>
+
+</html>

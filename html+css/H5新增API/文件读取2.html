@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件读取2</title>
+</head>
+<body>
+    <input type="file" name="" id="file">
+    <div></div>
+</body>
+<script>
+    var file = document.getElementById("file")
+    var div = document.querySelector("div");
+    file.onchange = function () {
+        var reader = new FileReader();
+        // readAsText 读取文件里的文本内容
+        reader.readAsText(this.files[0]);
+        reader.onload = function () { 
+            div.innerText = this.result;
+        }
+    }
+</script>
+</html>

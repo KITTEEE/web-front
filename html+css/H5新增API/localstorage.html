@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localStorage</title>
+</head>
+
+<body>
+    <input type="text" id="username"> <br /><br />
+    <button id="setData">设置数据</button>
+    <button id="getData">获取数据</button>
+    <button id="delData">删除数据</button>
+</body>
+<script>
+    window.localStorage.setItem("age", 18)
+    window.localStorage.setItem('local', "beijing")
+    var un = document.querySelector("#username");
+    document.querySelector("#setData").onclick = function () {
+        var val = username.value;
+        window.localStorage.setItem("username", val);
+    }
+    document.querySelector("#getData").onclick = function () {
+        var val = window.localStorage.getItem("username");
+        alert(val);
+    }
+    document.querySelector("#delData").onclick = function () {
+        window.localStorage.clear();
+    }
+</script>
+
+</html>

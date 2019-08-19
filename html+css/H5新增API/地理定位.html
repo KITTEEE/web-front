@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>地理定位</title>
+</head>
+
+<body>
+    <p id="txt">点击这个按钮获取坐标</p>
+    <input type="button" value="试一下" onclick="getLocation()">
+</body>
+<script>
+    var txt = document.getElementById("txt");
+
+    function getLocation() {
+        // 判断是否支持地理定位
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            alert("该设备暂时不支持地理定位")
+        }
+    }
+    // 地理定位调用成功的回调函数
+    function showPosition(position) {
+        console.log(latitude)
+        var latitude = position.coords.latitude;
+        var longitude = position.coords.longitude;
+        txt.innerText = "经度:" + latitude + ",纬度：" + longitude
+
+    }
+    // 地理定位调用失败的回调函数
+    function showError(error) {
+        console.log(error)
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                txt.innerHTML = "User denied the request for Geolocation."
+                // 用户无法定位的要求
+                break;
+            case error.POSITION_UNAVAILABLE:
+                txt.innerHTML = "Location information is unavailable."
+                // 位置信息不可用
+                break;
+            case error.TIMEOUT:
+                txt.innerHTML = "The request to get user location timed out."
+                // 获取用户位置的请求超时。
+                break;
+            case error.UNKNOWN_ERROR:
+                txt.innerHTML = "An unknown error occurred."
+                // 发生了一个不明错误
+                break;
+        }
+    }
+</script>
+
+</html>

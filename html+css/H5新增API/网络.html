@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>网络状态</title>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            background-color: #F7F7F7;
+        }
+
+        p {
+            width: 200px;
+            height: 40px;
+            text-align: center;
+            line-height: 40px;
+            margin: 100px auto;
+            color: #FFF;
+            font-size: 24px;
+            background-color: #000;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <p class="tips"></p>
+    <script src="./jquery-1.12.2.min.js"></script>
+    <script>
+        window.addEventListener('online',function() {
+            $('.tips').text("网络已连接").fadeIn(500).delay(1000).fadeOut();
+        })
+        window.addEventListener('offline',function() {
+            $(".tips").text("网络已断开").fadeIn(500).delay(1000).fadeOut();
+        })
+
+    </script>
+</body>
+
+</html>

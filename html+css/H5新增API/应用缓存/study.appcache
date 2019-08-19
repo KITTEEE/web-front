@@ -1,0 +1,18 @@
+CACHE MANIFEST
+
+#CACHE里写需要缓存的资源
+CACHE:
+./images/img1.jpg
+./images/img2.jpg
+./images/img3.jpg
+./images/img4.jpg
+./images/img5.jpg
+
+#NETWORK里写需要有网络才能访问的资源，无网络则不访问
+NETWORK: 
+./images/img1.jpg
+./images/img2.jpg
+
+#FALLBACK里写当某些资源访问不到的时候，用这些资源替换
+FALLBACK:
+./images/img4.jpg ./images/img5.jpg

@@ -230,3 +230,218 @@ HTML5 ：<!DOCTYPE html>
 
   属性：同 audio ，另外有 width 和 height 属性控制视频播放窗口的宽度和高度
 
+
+
+## H5 新增 API
+
+### 网络状态
+
+window.navigator.onLine 和 window.navigator.offLine 事件可以通过 window 来监听当前的网络状态并返回一个布尔值
+
+
+
+### 全屏显示
+
+全屏显示可以是任何元素
+
+存在兼容性问题，即使高版本浏览器也有兼容性问题
+
+* requestFullScreen() 开启全屏显示
+* cancelFullScreen() 关闭全屏显示，**取消全屏跟元素没有关系，直接 document.cancelFullScreen**
+* document.fullScreen 属性检测当前是否处于全屏状态，**它不是一个方法**
+* 全屏伪类选择器  : full-screen / : webkit-full-screen{}  / :moz-full-screen {}
+
+不同浏览器需添加前缀 : 
+
+webkitRequestFullScreen / mozRequestFullScreen / **msRequestFullscreen**
+
+webkitCancelFullScreen / mozCancelFullScreen / **msCancelFullscreen**
+
+webkitIsFullScreen  /  mozIsFullScreen
+
+
+
+### 文件读取
+
+* **Files 对象**
+
+  H5 通过 type 为 file 的 input 表单上传文件后，能够得到一个 File 对象，File 对象中有一个 files 属性，里面存放的是上传文件列表。
+
+* **FileReader 对象**
+
+  FileReader 对象用来读取 File 对象中 files 里的文件内容，使用方法：
+
+  ```javascript
+  var reader = new FileReader();
+  // FileReader 的实例方法
+  // readAsDataURL() 以 DataURL 的形式读取文件
+  // readAsText() 读取文件里的文本内容
+  // 事件监听 onload ，当文件读取完成时调用
+  // 属性  result  ，文件读取完成后会将读取结果放到 result 属性中
+  reader.onload = function() {
+      console.log(this.result)
+  }
+  ```
+
+
+
+### 地理定位
+
+* navigator.geolocation.getCurrentPosition(successCallback,errorCallback)
+
+  获取当前地理位置信息
+
+  成功获取地理信息后会调用自定义的 successCallback 函数，并返回一个包含位置信息的对象 position
+
+  ```javascript
+  position.coords.latitude 纬度
+  position.coords.longtitude 经度
+  position.coords.accuracy 精度
+  position.coords.altitude 海拔高度
+  ```
+
+  获取地理信息失败会调用自定义的 errorCallback 函数并返回错误信息对象 error，可通过 error.code 查看具体的错误 
+
+* navigator.geolocation.watchPosition(successCallback,errorCallback)
+
+  监听当前地理位置信息
+
+http://www.w3school.com.cn/html5/html_5_geolocation.asp
+
+
+
+* 百度地图 API
+
+  http://lbsyun.baidu.com/
+
+
+
+### 拖拽 API
+
+将需要拖拽的元素设置属性 draggable = true 即可让元素可拖拽，链接和图片默认是可以拖拽的，不需要设置这个属性
+
+* 被拖动对象的触发事件
+
+  **ondragstart** : 对象开始被拖动
+
+  **ondrag** : 对象正在拖动的过程中
+
+  **ondragend** : 对象拖动结束
+
+* 目标对象触发的事件
+
+  **ondragenter** : 被拖动对象进入目标对象
+
+  **ondragover** : 被拖动对象停在目标对象上方
+
+  **ondragleave** : 被拖动对象离开了目标对象
+
+  **ondrop** ：被拖动对象在目标对象上释放
+
+**注意：若想触发 ondrop 事件，就必须在 ondragover 事件中取消其默认行为**
+
+* **event.dataTransfer**
+
+  event.dataTransfer 对象用来保存被拖动的数据
+
+  event.dataTransfer.setData("key",value) 一般在 ondragstart 时设置
+
+  event.dataTransfer.getData("key") 一般在 ondrop 时获取
+
+
+
+### Web 存储
+
+**特性：**
+
+1. 容量大，sessionStorage 约为 5M，loacalStorage 约为 20M
+2. 只能存储字符串，可以将对象使用 JSON.stringify() 后存储
+3. 设置和读取方便，页面刷新而不丢失数据
+
+**window.sessionStorage**
+
+生命周期为关闭浏览器窗口
+
+在同一个窗口(页面)下的数据可以共享
+
+**window.localStorage**
+
+除非手动删除，否则永久生效，关闭页面也会存在
+
+可以多窗口页面共享（同一浏览器共享）
+
+**方法**
+
+* setItem(key,value) 设置存储内容
+* getItem(key,value) 读取存储内容
+* removeItem(key) 删除键值为 key 的存储内容
+* clear()  清除所有存储内容
+
+
+
+**WebSQL，indexDB**
+
+
+
+### 应用缓存
+
+H5 可以通过创建一个 cache manifest 的文件来构建一个离线应用
+
+* **优势**
+
+  1. 可配置需要缓存的资源
+  2. 网络无连接应用仍然可用
+  3. 本地读取缓存，提升访问速度
+  4. 减少请求，缓解服务器负担
+
+* **用法**
+
+  1. **创建缓存清单 xxx.appcache**
+
+     缓存清单由三部分组成：**1. 顶行的 CACHE MANIFEST、2. CACHE 、3. NETWORK、4. FALLBACK**
+
+  ```
+  CACHE MANIFEST
+  
+  #CACHE里写需要缓存的资源
+  CACHE:
+  ./images/img1.jpg
+  ./images/img2.jpg
+  
+  #NETWORK里写需要有网络才能访问的资源，无网络则不访问
+  NETWORK: 
+  ./images/img1.jpg
+  ./images/img2.jpg
+  
+  #FALLBACK里写当某些资源访问不到的时候，用这些资源替换
+  FALLBACK:
+  ./images/img4.jpg ./images/img5.jpg
+  ```
+
+  	2. **在 html 标签中引入缓存清单**
+
+  ```html
+  <html lang="en" manifest="xxx.appcache"></html>
+  ```
+
+  注意
+
+  ```javascript
+  1. 可以指定多个 CACHE / NETWORK / FALLBACK，且没有顺序限制
+  2. #表示注释
+  3.chrome 可以通过 chrome://appcache-internals/工具和离线（offline）模式来调试管理应用缓存
+  ```
+
+  
+
+### 多媒体组件方法
+
+方法：load()、play()、pause()
+
+属性：currentSrc、currentTime、duration
+
+事件：oncanplay，  ontimeupdate，onended 等
+
+[**参考文档**](http://www.w3school.com.cn/tags/html_ref_audio_video_dom.asp)
+
+http://www.w3school.com.cn/tags/html_ref_audio_video_dom.asp

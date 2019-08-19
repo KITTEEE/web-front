@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>文件读取</title>
+</head>
+<body>
+    <input type="file" name="" id="file" multiple>
+    <img src="" width="100px" alt="" id="image">
+    <script>
+        var file = document.getElementById("file")
+        var img = document.getElementById("image")
+        file.onchange = function() { // onchange 发生改变的时候
+            // 文件上传后可以得到一个 File 对象
+            //  File 对象里有一个 files 属性，里面存放着选择的多个文件
+            console.log(this.files)
+            // for(var k in file) {
+            //     console.log(k + "----" + file[k])
+            // }
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[1])
+            reader.onload = function() {
+            //    console.log(reader.result)
+                img.src = reader.result
+           }
+        }
+    </script>
+</body>
+</html>
