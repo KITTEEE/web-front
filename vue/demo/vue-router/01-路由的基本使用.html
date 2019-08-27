@@ -39,7 +39,7 @@
         <router-link to="/login" tag="span">登录</router-link>
         <router-link to="/register">注册</router-link>
 
-        <!-- router-vie是 vue-router 提供的元素，专门用来做组件的占位符 -->
+        <!-- router-view是 vue-router 提供的元素，专门用来做组件的占位符 -->
         <!-- 路由规则匹配到的组件会展示到这个占位符中 -->
         <transition mode="out-in">
             <router-view></router-view>
@@ -60,7 +60,7 @@
         */
         var routerObj = new VueRouter({
             /* 
-                routes表示 路由匹配规则，每个路由规则都是一个对象,有path和component属性
+                routes表示 路由匹配规则，每个路由规则都是一个对象,有 path 和 component 属性
                 path 属性表示监听的路由地址
                 component 表示匹配到的路由的地址后展示的组件
             */

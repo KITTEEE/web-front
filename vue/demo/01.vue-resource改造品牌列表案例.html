@@ -56,7 +56,7 @@
 
   <script>
     // 如果我们通过全局配置了，请求的数据接口 根域名，则 ，在每次单独发起 http 请求的时候，请求的 url 路径，应该以相对路径开头，前面不能带 /  ，否则 不会启用根路径做拼接；
-    Vue.http.options.root = 'http://vue.studyit.io/';
+    Vue.http.options.root = 'https://www.easy-mock.com/mock/5d6298681fc89667465ec0e5/vuestudy/';
     // 全局启用 emulateJSON 选项
     Vue.http.options.emulateJSON = true;
 
@@ -65,8 +65,7 @@
       el: '#app',
       data: {
         name: '',
-        list: [ // 存放所有品牌列表的数组
-        ]
+        list: null // 存放所有品牌列表的数组
       },
       created() { // 当 vm 实例 的 data 和 methods 初始化完毕后，vm实例会自动执行created 这个生命周期函数
         this.getAllList()
@@ -80,12 +79,13 @@
           // 4. 当通过 then 指定回调函数之后，在回调函数中，可以拿到数据服务器返回的 result
           // 5. 先判断 result.status 是否等于0，如果等于0，就成功了，可以 把 result.message 赋值给 this.list ; 如果不等于0，可以弹框提醒，获取数据失败！
 
-          this.$http.get('api/getprodlist').then(result => {
+          this.$http.get('getnewslist').then(result => {
             // 注意： 通过 $http 获取到的数据，都在 result.body 中放着
             var result = result.body
+            console.log(result)
             if (result.status === 0) {
               // 成功了
-              this.list = result.message
+              this.list = result.data
             } else {
               // 失败了
               alert('获取数据失败！')
