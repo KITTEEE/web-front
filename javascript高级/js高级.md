@@ -338,7 +338,7 @@ Student.prototype.exam = function () {
 // 通过 new Person() 将原本 Student的原型对象(Student.prototype) 改变成 Person 的实例对象
 // 而 Person 的实例对象又会有 __proto__ 指向 Person 的原型对象(Person.prototype)
 // 这样就可以实现继承到 Person 原型对象中的方法
-Student.prototype = new Person(); // 原型继承 通过原型让子类型继承付类型中的方法
+Student.prototype = new Person(); // 原型继承 通过原型让子类型继承父类型中的方法
 // 要记住设置回原来的 constructor 属性
 Student.prototype.constructor = Student;
 function Teacher(name,age,sex,salary) {
