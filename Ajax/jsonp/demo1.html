@@ -8,14 +8,14 @@
     <title>Ajax跨域-静态</title>
     <!-- 
         同源指的是请求URL地址中的协议、域名和端口都相同，只要其中之一不相同就是跨域 如 http/https
-        同源策略下，浏览器不允许ajax跨域向服务器请求数据
+        同源策略下，浏览器不允许 ajax 跨域向服务器请求数据
         jsonp是常用的跨域解决方案
      -->
     <!-- Ajax跨域主要分为两个部分
         静态 script 的 src 属性进行跨域请求
-        动态地添加script src属性进行跨域请求
+        动态地添加 script src属性进行跨域请求
     -->
-    <script type="text/javascript" src="http://tom.com?phpflag=1"></script>
+    <script type="text/javascript" src="http://tom.com?data.phpflag=1"></script>
     <!-- var data ={"username":"zhangsan","password":"123456"} -->
     <script>
     //     静态跨域 发送的是同步请求
