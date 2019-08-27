@@ -1,3 +1,66 @@
+## BOM
+
+### window 对象
+
+window 是浏览器的顶级对象，当调用 window下的属性和方法时，可以省略window
+
+代码中定义的全局变量都属于 window ，是 window 的属性
+
+
+
+### 页面加载事件
+
+**onload ( )**
+
+onload 事件在页面加载完成(页面所有元素创建完毕，且引用的外部资源加载完毕)后执行
+
+```javascript
+onload = function() { ... }
+window.onload = function() { ... }
+```
+
+**onunload ( )**
+
+onunload 事件在页面卸载或重载的时候执行(F5刷新页面)，需要注意的是：**在 onunload 的时候，window 对象是被冻结的，无法使用 window 对象中的属性和方法。**
+
+
+
+### setTimeout/setInterval
+
+clearTimeout /clearInterval
+
+
+
+### location 对象
+
+localtion 对象是 window 对象的一个属性，一般用来获取和设置浏览器的 url 地址
+
+* **location.href **一般用来获取浏览器地址栏的地址，也可以通过设置 href 属性来实现页面跳转
+
+* **assign ( )：**委派，即页面跳转
+
+* **replace ( )：**和 assign 作用基本相同，不过 replace 方法跳转不会记录到历史中，无法后退到之前的页面
+
+* **reload ( )：**重新加载页面，参数为 true 或 false ，true 时强制从服务器获取页面，false 时从浏览器缓存获取页面。
+
+```javascript
+location.href = "www.baidu.com";
+location.assign("www.baidu.com");
+location.replace("www.baidu.com")
+location.reload(true);
+
+```
+
+
+
+### history 对象
+
+* back ( ) 返回上一个页面
+* forward ( ) 前进到上一个页面
+* go ( ) 可前进可后退，1 时前进，-1 时后退
+
+
+
 ## 获取页面元素
 
 1. 根据 id 获取元素（常用） : document.getElementById('idname')
@@ -29,18 +92,6 @@
 
 
 
-## 事件
-
-### 事件三要素
-
-1. 事件源：触发(被)事件的元素
-
-2. 事件名称：如 click 点击事件
-
-3. 事件处理：事件触发后要执行的代码(函数形式)
-
-
-
 ## 属性操作
 
 ### 非表单元素属性
@@ -54,7 +105,7 @@
 1. innerHTML 获取内容时，如果内容中有标签，会把标签也获取到。
 2. innerText 获取内容时，如果内容中有标签，会把标签过滤掉，而且会把前后的换行和空白也去掉。 
 3. innerHTML 设置内容时，如果内容带有标签，会以HTML的方式来解析
-4. innerText 设置内容时，如果内容中带有表i按，会在网页上把标签显示出来 ( html 中的转义符 )
+4. innerText 设置内容时，如果内容中带有标签，会在网页上把标签显示出来 ( html 中的转义符 )
 
 - **innerText、textContent兼容性处理**
 
@@ -112,7 +163,7 @@
 
 - removeAttribute() 移除标签行内属性
 
-- 与element.属性的区别: 上述三个方法用于获取任意的行内属性。
+- 与 element. 属性的区别: 上述三个方法用于获取任意的行内属性。
 
   ```javascript
   var box = document.getElementById('box');
@@ -172,10 +223,10 @@ box.className = 'show';
 ### 节点属性
 
 - nodeType  节点的类型
-  - 1 元素节点  （如 p 标签）
-  - 2 属性节点  
-  - 3 文本节点 （text  包括空格）
-- nodeName  节点的名称(标签名称)
+  - 1 --- 元素节点  （ 如 p 标签）
+  - 2 --- 属性节点   ( 如 id )
+  - 3 --- 文本节点 （ text  包括空格 ）
+- nodeName  节点的名称( 标签名称 ) 
 - nodeValue  节点值
   - 元素节点的nodeValue始终是null
 
@@ -226,26 +277,74 @@ getChildren(doc);
 
 ### 节点层级
 
-重点讲父子属性，兄弟属性画图讲解 
+**parentNode** 父节点
 
-```javascript
+**childNodes** 子节点  **children** 子元素
+
+**firstChild** 获取第一个子节点  **lastChild** 获取最后一个子节点
+
+**firstElementChild** 获取第一个子元素  **lastElementChild** 获取最后一个子元素  有兼容性问题
+
+**previousSibling** 上一个子节点 ，**nextSibling** 下一个子节点
+
+**previousElementSibling** 上一个子元素 **nextElementSibling** 下一个子元素  有兼容性问题
+
+**hasChildNodes()** 是否有子节点
+
+```html
+<div id="box">
+    <div>这是一个广告图片</div>
+    <ul>
+      <li>这是一个列表</li>
+    </ul>
+    <span>说明性文字</span>
+</div>
+```
+
+```js
 var box = document.getElementById('box');
-console.log(box.parentNode);
-console.log(box.childNodes);
-console.log(box.children);
-console.log(box.nextSibling);
-console.log(box.previousSibling);
-console.log(box.firstChild);
-console.log(box.lastChild);
+console.log(box.parentNode);// <body>...</body>
+console.log(box.childNodes);// NodeList(7) [text, div, text, ul, text, span, text]
+console.log(box.children); // HTMLCollection(3)[div,ul,span]
+console.log(box.nextSibling);// #text
+console.log(box.children[0].nextElementSibling);// <ul>...</ul>
+console.log(box.previousSibling); // # text
+console.log(box.children[1].previousElementSibling); // <div>这是一个广告图片</div>
+console.log(box.firstChild); // #text
+console.log(box.lastChild); // #text
 ```
 
 - 注意
 
-  childNodes和children的区别，**childNodes获取的是子节点，children获取的是子元素**
+  **childNodes获取的是子节点，children获取的是子元素**
 
-  **nextSibling和previousSibling获取的是节点，获取元素对应的属性是 nextElementSibling 和 previousElementSibling 获取的是元素**
+  **nextSibling 和 previousSibling 获取的是节点，获取元素对应的属性是 nextElementSibling 和 previousElementSibling 获取的是元素**
 
-  **nextElementSibling和previousElementSibling有兼容性问题，IE9以后才支持**
+  **nextElementSibling 和 previousElementSibling 有兼容性问题，IE9以后才支持**
+
+```javascript
+// firstElementChirld 兼容性处理
+function getFirstElementChild(element) {
+    var node;
+    var nodes = element.childNodes;
+    while(node = nodes[i++]){
+        if(node.nodeTyle == 1) {
+            return node;
+        }
+    }
+    return null;
+}
+// nextElementSibling 兼容性处理
+function getNextElement(element) {
+    var ele = element;
+    while(ele = element) {
+    	if(ele.nodeType == 1) {
+        	return ele;
+    	}      
+	}
+	return null;
+}
+```
 
 
 
@@ -284,7 +383,14 @@ console.log(box.lastChild);
   }
   ```
 
+  innerHTML的缺点：
   
+  * 内容随处可见
+  * 不能像“追加到innerHTML”一样使用；
+  * 即使你使用+ = like“innerHTML = innerHTML +'html'”旧的内容仍然会被html替换；整个innerHTML内容被重新解析并构建成元素，因此它的速度要慢得多；
+  * innerHTML不提供验证，因此我们可能会在文档中插入有效的和破坏性的HTML并将其中断。
+
+
 
 ### 元素操作的方法
 
@@ -308,6 +414,14 @@ ul.replaceChild(div,ul.children[0])
 
 
 ## 事件操作
+
+### 事件三要素
+
+1. 事件源：触发(被)事件的元素
+2. 事件名称：如 click 点击事件
+3. 事件处理：事件触发后要执行的代码(函数形式)
+
+
 
 ### 事件注册
 
@@ -440,10 +554,10 @@ function removeEventListener(element,eventName,fn) {
 在注册事件的时候可以通过传入事件参数 ( e ) ，可以获取到事件发生的时候和事件相关的一些数据。
 
 * e 是事件对象，在老版本的 IE 中，事件对象是 window.event，处理事件对象的浏览器兼容性问题可以使用 e = e || window.event 来解决
-* e.eventPhase 是表示事件的阶段 **1-事件捕获  2-目标  3-事件冒泡**
-* e.target 表示真正触发事件的对象，在老版本 IE 中使用 e.srcElement。处理 e.target 的浏览器兼容性问题可以使用 var target = e.target || e.srcElement
-* e.currentTarget 表示事件所属的对象，同 this
-* e.type 事件的名称
+* **e.eventPhase 是表示事件的阶段** **1-事件捕获  2-目标  3-事件冒泡**
+* **e.target 表示真正触发事件的对象**，在老版本 IE 中使用 e.srcElement。处理 e.target 的浏览器兼容性问题可以使用 var target = e.target || e.srcElement
+* **e.currentTarget 表示事件所属的对象，同 this**
+* **e.type 事件的名称**
 
 ```javascript
 // 假设有一个 ul,给当前点击的 ul 中的 li 高亮显示
@@ -455,9 +569,9 @@ ul.onclick = function(e) {
 }
 ```
 
-* e. clientX、e.clientY 获取鼠标在可视区域内的坐标
+* **e. clientX、e.clientY 获取鼠标在可视区域内的坐标**
 
-* e.pageX、e.pageY 获取鼠标在当前页面中的坐标（ IE 9 之后才支持，有兼容性问题）
+* **e.pageX、e.pageY 获取鼠标在当前页面中的坐标**（ IE 9 之后才支持，有兼容性问题）
 
   处理兼容性问题：pageX = clientX  + 页面横向滚动的距离
 
@@ -486,6 +600,14 @@ function getPageScroll(e) {
 
 
 
+### onmouseover 和 onmouseenter 的区别
+
+onmouseover 会触发事件冒泡，而 onmouseenter 不会
+
+* onmouseover 对应 onmouseleave ，onmouseenter 对应 onmouseout
+
+
+
 ### 取消事件默认行为
 
 * 在事件处理函数中 return false 
@@ -498,3 +620,48 @@ function getPageScroll(e) {
 
 * **e.stopPropagation()**，标准方式
 * IE 老版本中使用 **e.cancelBubble = true**，标准中已废弃
+
+
+
+## offset、client、scroll 三大家
+
+### offset 偏移量
+
+* **offsetParent** 
+
+  获取距离当前元素最近的定位父元素，如果没有则为 body
+
+* **offsetLeft，offsetTop**
+
+  距离 offsetParent 的偏移量
+
+* **offsetWidth，offsetHeight**
+
+  获取元素的大小，包括边框和 padding
+
+
+
+### scroll 滚动
+
+* **scrollLeft，scrollTop**
+
+  获取某个元素或页面滚动出去的距离
+
+* **scrollWidth，scrollHeight**
+
+  获取滚动内容的大小，大小包括 padding 和未显示的内容，不包括滚动条
+
+
+
+
+
+### client 客户区大小
+
+* **clientLeft，clientTop**
+
+  clientLeft 和 clientTop 即为元素 border 的宽度
+
+* **clientWidth，clientHeight**
+
+  clientWidth 和 clientHeight 可以获取元素的 content + padding 的宽度和高度，不包括边框
+

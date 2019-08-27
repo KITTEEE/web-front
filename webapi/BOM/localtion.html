@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>locaiton对象</title>
+</head>
+<body>
+    <input type="button" id="btn" value="跳转">
+    <script>
+        var btn = document.getElementById("btn");
+        btn.onclick = function () {
+
+            // location.href = "http://www.itheima.com"
+            // assign() 委派，和 href 属性一样
+            // location.assign("http://www.itheima.com")
+            // replace 替换浏览器地址，且不记录到历史中
+            // location.replace("http://www.itheima.com")
+            // reload 重新加载页面，参数为 true 时强制从服务端请求页面，false 时从浏览器缓存获取
+            // location.reload(true)
+            console.log(location.href)
+        }
+    </script>
+</body>
+</html>

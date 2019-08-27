@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>setTimeout</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        #tip {
+            width: 150px;
+            height: 30px;
+            background-color: lightgray;
+            opacity: 0.5;
+            margin: 200px auto;
+            padding-top: 5px;
+            text-align: center;
+            color: red;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="button" id="btn" value="删除">
+    <div id="tip">删除成功</div>
+</body>
+<script>
+    var btn = document.getElementById("btn");
+    var tip = document.getElementById("tip");
+    var timer
+    btn.onclick = function () {
+        tip.style.display = "block";
+        timer = setTimeout(function() {
+            tip.style.display = "none";
+        },1000)
+    }
+    clearTimeout(timer);
+    
+    
+</script>
+</html>

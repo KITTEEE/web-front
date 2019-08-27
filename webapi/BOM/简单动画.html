@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单动画</title>
+    <style>
+        #box {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background-color:red;
+        }
+    </style>
+</head>
+<body>
+    <input id="btn" type="button" value="开始" >
+    <div id="box"></div>
+    <script>
+        var btn = document.getElementById("btn");
+        var box = document.getElementById("box")
+        var target = 600;
+        // box.style.left = "100px";
+        console.log(box.offsetLeft)
+        var step = 10;
+        var timer;
+        btn.onclick = function() {
+            timer = setInterval(function() {
+                if(box.offsetLeft > target){
+                    clearInterval(timer);
+                    box.style.left = target + 'px';
+                }
+                box.style.left = box.offsetLeft + 10 + 'px';
+                console.log(box.style.left)
+            },30)
+        }
+    </script>
+</body>
+</html>

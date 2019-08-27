@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>setInterval</title>
+    <style type="text/css">
+        .time-item {
+            width: 430px;
+            height: 45px;
+            margin: 0 auto;
+        }
+
+        .time-item strong {
+            background: orange;
+            color: #fff;
+            line-height: 49px;
+            font-size: 36px;
+            font-family: Arial;
+            padding: 0 10px;
+            margin-right: 10px;
+            border-radius: 5px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .time-item>span {
+            float: left;
+            line-height: 49px;
+            color: orange;
+            font-size: 32px;
+            margin: 0 10px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .title {
+            width: 260px;
+            height: 50px;
+            margin: 200px auto 50px auto;
+        }
+    </style>
+    <script>
+
+    </script>
+</head>
+
+<body>
+    <h1 class="title">距离光棍节，还有</h1>
+    <div class="time-item">
+        <span><span id="day">00</span>天</span>
+        <strong><span id="hour">00</span>时</strong>
+        <strong><span id="minute">00</span>分</strong>
+        <strong><span id="second">00</span>秒</strong>
+    </div>
+</body>
+<script src="../common.js"></script>
+<script>
+    var targetDate = new Date('2019-11-11 0:0:0')
+    var day = document.getElementById("day")
+    var hours = document.getElementById("hour")
+    var mins = document.getElementById("minute")
+    var seconds = document.getElementById("second")
+    count();
+    setInterval(count, 1000);
+    // 计算时间差
+    function count() {
+        var startDate = new Date();
+        var interval = getInterval(startDate, targetDate);
+        setInerText(day, interval.day);
+        setInerText(hours, interval.hours);
+        setInerText(mins, interval.mins);
+        setInerText(seconds, interval.seconds);
+    }
+
+</script>
+
+</html>

@@ -17,28 +17,27 @@
         <option value="4">郑州</option>
         <option value="5">武汉</option>
     </select>
-
-    <script>
-        var btn = document.getElementById('btnSet');
-        var selCities = document.getElementById('selCities');
-        var options = selCities.getElementsByTagName('option');
-        // Math.random  [0,1)
-        // Math.random() * 5 + 1
-        btn.onclick = function() {
-            var randomNumber = parseInt((Math.random() * options.length) + 1);
-            console.log(randomNumber)
-            var options = selCities.getElementsByTagName('option');
-​            option = options[randomNumber];
-​            option.selected = true;
-            // for(var i = 0; i < options.length; i++) {
-            //     var option = options[i];
-            //     console.log(option.value)
-            //     if(option.value == randomNumber) {
-            //         option.selected = true;
-            //     }
-            // }
-        }    
-    </script>
 </body>
+<script>
+    var btn = document.getElementById('btnSet');
+    var selCities = document.getElementById('selCities');
+    var options = selCities.getElementsByTagName('option');
+    // console.log(options)
+    // Math.random  [0,1)
+    // Math.random() * 5 + 1
+    btn.onclick = function () {
+        var randomNumber = parseInt((Math.random() * options.length) + 1);
+        // console.log(randomNumber);
+        var option = options[randomNumber];
+        option.selected = true;
+        // for(var i = 0; i < options.length; i++) {
+        //     var option = options[i];
+        //     console.log(option.value)
+        //     if(option.value == randomNumber) {
+        //         option.selected = true;
+        //     }
+        // }
+    }
+</script>
 
 </html>
