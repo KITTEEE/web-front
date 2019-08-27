@@ -3,8 +3,8 @@
 **函数返回值**
 
 ```javascript
-如果函数没有显示的使用 return语句 ，那么函数有默认的返回值：undefined
-如果函数使用 return语句，那么跟再return后面的值，就成了函数的返回值
+如果函数没有显示的使用 return 语句 ，那么函数有默认的返回值：undefined
+如果函数使用 return语句，那么跟再 return 后面的值，就成了函数的返回值
 如果函数使用 return语句，但是return后面没有任何值，那么函数的返回值也是：undefined
 函数使用return语句后，这个函数会在执行完 return 语句之后停止并立即退出，也就是说return后面的所有其他代码都不会再执行。
 
@@ -360,7 +360,7 @@ console.log(obj.name); // undefined
 
 ### 内置对象
 
-JavaScript中的对象分为3种：内置对象、浏览器对象、自定义对象
+JavaScript 中的对象分为3种：内置对象、浏览器对象、自定义对象
 
 JavaScript 提供多个内置对象：Math/Array/Number/String/Boolean...等
 
@@ -411,7 +411,7 @@ var mymath = {
     min:function (){
     		var min = arguments[0];
     		for( var i = 1; i < arguments.length; i++) {
-        		if(min < arguments[i]) {
+        		if(min > arguments[i]) {
             		min = arguments[i];
         		}
     		}
@@ -563,7 +563,6 @@ var arr = new Array();
 arr instanceof Array // true
 Array.isArray(arr); // true
 
-
 var arr = new Array('zs',14,'abc')
 // toString() 方法，把数组转换成字符串，用逗号分隔每一项
 arr.toString();
@@ -597,8 +596,8 @@ sort(); 	//即使是数组sort也是根据字符ASCII编码，从小到大排序
 
 // 4 操作方法
 concat()  	//用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。
-slice() 	//从当前数组中截取一个新的数组，不影响原来的数组，参数start从0开始,end从1开始
-splice()	//删除或替换当前数组的某些项目，参数start, deleteCount, options(要替换的项目)
+slice() 	//从当前数组中截取一个新的数组，不影响原来的数组，参数 start 从 0 开始, end 从 1 开始
+splice()	//删除或替换当前数组的某些项目，参数 start, deleteCount, options(要替换的项目)
 // 5 位置方法
 indexOf()、lastIndexOf()   //如果没找到返回-1
 // 6 迭代方法 不会修改原数组(可选)  html5
