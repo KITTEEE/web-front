@@ -48,7 +48,6 @@ location.href = "www.baidu.com";
 location.assign("www.baidu.com");
 location.replace("www.baidu.com")
 location.reload(true);
-
 ```
 
 
@@ -77,8 +76,10 @@ location.reload(true);
 
    document.querySelector（）只返回获取到的第一个元素 
 
-   document.querySelectorAll（）能获取全部元素
+   参数可以为选择器，如：document.querySelector("li.top");
 
+   document.querySelectorAll（）能获取全部元素
+   
    ```javascript
    // 
    var text = document.querySelecotr('#text');
@@ -163,7 +164,7 @@ location.reload(true);
 
 - removeAttribute() 移除标签行内属性
 
-- 与 element. 属性的区别: 上述三个方法用于获取任意的行内属性。
+- 与 element. 属性的区别 : 上述三个方法用于获取任意的行内属性。
 
   ```javascript
   var box = document.getElementById('box');
@@ -209,7 +210,7 @@ box.style.backgroundColor = 'red';
 
 ### 类名操作
 
-- 修改标签的className属性相当于直接修改标签的类名
+- 修改标签的 className 属性相当于直接修改标签的类名
 
 ```javascript
 var box = document.getElementById('box');

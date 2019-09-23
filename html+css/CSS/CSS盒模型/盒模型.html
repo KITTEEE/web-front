@@ -7,18 +7,28 @@
     <title>CSS 盒模型</title>
     <style>
         div {
+            margin: 0 auto
+        }
+        .contentbox {
             background-color: brown;
             width: 200px;
             height: 200px;
-            padding: 40px;
-            border: 30px solid blue;
+            /* padding: 50px; */
+            border: 20px solid blue;
+            /* box-sizing: border-box; */
+        }
+        .borderbox {
+            background-color: brown;
+            width: 200px;
+            height: 200px;
+            /* padding: 50px; */
+            border: 20px solid blue;
             box-sizing: border-box;
         }
     </style>
 </head>
 <body>
-    <div>
-
-    </div>
+    <div class="contentbox"></div>
+    <div class="borderbox"></div>
 </body>
 </html>

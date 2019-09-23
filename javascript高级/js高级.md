@@ -776,7 +776,6 @@ console.dir(obj2); // dog.name 属性被改变
 深拷贝是将对象及值复制过来，两个对象修改其中任意的值另一个值不会改变，这就是深拷贝。
 
 ```javascript
-// 应用递归方法实现深拷贝
 var obj1 = {
 	name: 'zs',
 	age: 14,
@@ -788,19 +787,22 @@ var obj1 = {
 	}
 }
 var obj2 = {}
-function deepCopy(o1,o2){
+// 1. 应用递归方法实现深拷贝
+function deepCopy1(o1,o2){
 	for(var key in o1) {
 		var item = o1[key];
 		if(item instanceof Object){
-			o2[key] = {};
-			deepCopy(item,o2[key]);
-		}else if(item instanceof Array){
-			o2[key] = [];
+			o2[key] = (item instanceof Array) ? [] : {};
 			deepCopy(item,o2[key]);
 		}else {
 			o2[key] = item
 		}
 	}
+}
+// 2. 应用 json 方法实现深拷贝
+function deepCopy2(o1,o2) {
+	o2 = JSON.parse(JSON.stringify(o1))
+    return o2;
 }
 deepCopy(obj1, obj2);
 console.log(obj2);

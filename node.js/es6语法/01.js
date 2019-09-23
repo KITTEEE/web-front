@@ -43,6 +43,7 @@ console.log(i); // var:3,  let: i is not defined
 // 使用 const 声明常量
 // const 声明的常量不允许重新赋值
 // const 必须初始化
+
 /* 
 const n = 1;
 n = 2;  
