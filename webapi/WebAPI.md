@@ -227,7 +227,7 @@ box.className = 'show';
   - 1 --- 元素节点  （ 如 p 标签）
   - 2 --- 属性节点   ( 如 id )
   - 3 --- 文本节点 （ text  包括空格 ）
-- nodeName  节点的名称( 标签名称 ) 
+- nodeName  节点的名称 ( 标签名称 ) 
 - nodeValue  节点值
   - 元素节点的nodeValue始终是null
 
