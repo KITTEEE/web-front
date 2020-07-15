@@ -15,11 +15,11 @@ AaAAAA
 样例输出
 8
 */
-var num = 0;
-var obj = new String("0");
-var str = "0";
-var b = false;
-console.log(num===obj);
-console.log(0=="0");
-console.log(obj === str);
-console.log(obj)
+// var num = 0;
+// var obj = new String("0");
+// var str = "0";
+// var b = false;
+// console.log(num===obj);
+// console.log(0=="0");
+// console.log(obj === str);
+// console.log(obj)
