@@ -194,7 +194,7 @@ console.log(p2 instanceof Person) // true
 
 **__proto\_\_ 指针**
 
-通过构造函数得到的实例对象中有一个指向构造函数的 prototype 对象的指针 __proto\_\_ 指针，\_\_proto\_\_ 是一个非标准属性
+通过构造函数得到的实例对象中有一个指向构造函数的 prototype 对象的 __proto\_\_ 指针，\_\_proto\_\_ 是一个非标准属性
 
 ```javascript
 function Person() {}
@@ -206,7 +206,7 @@ console.log(p1.__proto__ === Person.prototype) // true
 
 ### 原型链
 
-**每个构造函数的实例都有一个 __proto\_\_ 属性，这个属性指向这个实例的原型对象 prototype，然后原型对象中也有__proto\_\_ 属性指向它的原型对象，就在这样的不断指向中最终指向 null  ，形成一条原型链**
+**每个构造函数的实例都有一个 __proto\_\_ 属性，这个属性指向这个实例的原型对象 prototype，然后原型对象中也有\_\_proto\_\_ 属性指向它的原型对象，就在这样的不断指向中最终指向 null  ，形成一条原型链**
 
 **当代码读取某个对象实例的某个属性时，都会在原型链上执行一次搜索：先从对象实例开始搜索这个属性，若找到了该属性，则返回该属性的值；若找不到，则来到 __proto\_\_ 指向的原型对象中查找，如果在原型对象中找到了该属性，则返回该属性值；若找不到，则继续沿原型链向上找，如果一直到末端还没有找到，则返回 undefined 。**
 
@@ -330,7 +330,7 @@ Person.prototype.sayHi = function() {
 function Student(name,age,sex,score) {
     // 利用 call 改变函数 this 指向，把当前 student 对象传入到 Person 中实现继承
     Person.call(this,name,age,sex); // 借用构造函数继承
-	this.score = 100;
+		this.score = 100;
 }
 Student.prototype.exam = function () {
     console.log(this.score);
